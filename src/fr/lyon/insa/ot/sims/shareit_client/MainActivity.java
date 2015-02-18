@@ -29,20 +29,20 @@ public class MainActivity extends Activity {
 			// TODO : home
 			return true;
 		case R.id.menu_profile:
-			// TODO : profile
+			openOtherActivity((View) findViewById(R.layout.activity_main), ProfileActivity.class);
 			return true;
 		case R.id.menu_borrow:
-			// TODO : borrow
+			openOtherActivity((View) findViewById(R.layout.activity_main), BorrowActivity.class);
 			return true;
 		case R.id.menu_email:
-			// TODO : email
+			openOtherActivity((View) findViewById(R.layout.activity_main), EmailActivity.class);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	public void openSecondActivity(View view, Class<?> cls) {
+	public void openOtherActivity(View view, Class<?> cls) {
 		Intent intent = new Intent(this, cls);
 		startActivity(intent);
 	}
