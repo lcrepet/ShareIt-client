@@ -1536,15 +1536,14 @@ containing a value of this type.
  Default text size for action bar title.
          */
         public static final int abc_text_size_title_material_toolbar=0x7f070012;
-        /**  Default screen margins, per the Android Design guidelines. 
-
+        /** 
          Example customization of dimensions originally defined in res/values/dimens.xml
          (such as screen margins) for screens with more than 820dp of available width. This
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f07002b;
-        public static final int activity_vertical_margin=0x7f07002c;
+        public static final int activity_horizontal_margin=0x7f07002e;
+        public static final int activity_vertical_margin=0x7f07002f;
         /**  The platform's desired fixed height for a dialog along the major axis
          (the screen is in portrait). This may be either a fraction or a dimension.
  The platform's desired fixed height for a dialog along the major axis
@@ -1579,6 +1578,9 @@ containing a value of this type.
         public static final int dialog_fixed_width_minor=0x7f07000d;
         public static final int disabled_alpha_material_dark=0x7f070001;
         public static final int disabled_alpha_material_light=0x7f070000;
+        public static final int padding_large=0x7f07002d;
+        public static final int padding_medium=0x7f07002c;
+        public static final int padding_small=0x7f07002b;
     }
     public static final class drawable {
         public static final int abc_ab_share_pack_holo_dark=0x7f020000;
@@ -1632,7 +1634,12 @@ containing a value of this type.
         public static final int abc_textfield_search_activated_mtrl_alpha=0x7f020030;
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
-        public static final int ic_launcher=0x7f020033;
+        public static final int ic_action_cloud=0x7f020033;
+        public static final int ic_action_email=0x7f020034;
+        public static final int ic_action_person=0x7f020035;
+        public static final int ic_action_search=0x7f020036;
+        public static final int ic_action_share=0x7f020037;
+        public static final int ic_launcher=0x7f020038;
     }
     public static final class id {
         public static final int action_bar=0x7f090031;
@@ -1648,7 +1655,6 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f09002e;
         public static final int action_mode_bar_stub=0x7f09002d;
         public static final int action_mode_close_button=0x7f090020;
-        public static final int action_settings=0x7f09003f;
         public static final int activity_chooser_view_content=0x7f090021;
         public static final int always=0x7f090014;
         public static final int beginning=0x7f09001b;
@@ -1670,6 +1676,10 @@ containing a value of this type.
         public static final int image=0x7f090023;
         public static final int listMode=0x7f09000a;
         public static final int list_item=0x7f090025;
+        public static final int menu_borrow=0x7f090041;
+        public static final int menu_email=0x7f090042;
+        public static final int menu_home=0x7f09003f;
+        public static final int menu_profile=0x7f090040;
         public static final int middle=0x7f09001d;
         public static final int never=0x7f090017;
         public static final int none=0x7f09000f;
@@ -1753,7 +1763,7 @@ containing a value of this type.
         public static final int support_simple_spinner_dropdown_item=0x7f030018;
     }
     public static final class menu {
-        public static final int main=0x7f0c0000;
+        public static final int activity_main=0x7f0c0000;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1812,37 +1822,26 @@ containing a value of this type.
         /**  Content description for the Toolbar icon used to collapse an expanded action mode. [CHAR LIMIT=NONE] 
          */
         public static final int abc_toolbar_collapse_description=0x7f0a0004;
-        public static final int action_settings=0x7f0a0012;
+        public static final int action_settings=0x7f0a0019;
         public static final int app_name=0x7f0a0010;
         public static final int hello_world=0x7f0a0011;
+        public static final int hello_world_again=0x7f0a0012;
+        public static final int menu_borrow=0x7f0a0016;
+        public static final int menu_email=0x7f0a0017;
+        public static final int menu_home=0x7f0a0014;
+        public static final int menu_profile=0x7f0a0015;
+        public static final int title_activity_main=0x7f0a0013;
+        public static final int title_activity_profile=0x7f0a0018;
     }
     public static final class style {
         /** 
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
-
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     
  API 11 theme customizations can go here. 
-
-        Base application theme for API 14+. This theme completely replaces
-        AppBaseTheme from BOTH res/values/styles.xml and
-        res/values-v11/styles.xml on API 14+ devices.
-    
- API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0b00eb;
-        /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
-         */
-        public static final int AppTheme=0x7f0b00ec;
+        public static final int AppBaseTheme=0x7f0b00ec;
+        public static final int AppTheme=0x7f0b00eb;
         public static final int Base_TextAppearance_AppCompat=0x7f0b0098;
         public static final int Base_TextAppearance_AppCompat_Body1=0x7f0b00a3;
         public static final int Base_TextAppearance_AppCompat_Body2=0x7f0b00a2;
