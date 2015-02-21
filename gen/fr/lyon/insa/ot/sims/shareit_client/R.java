@@ -1642,8 +1642,8 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020038;
     }
     public static final class id {
-        public static final int FirstName=0x7f090042;
-        public static final int LastName=0x7f090041;
+        public static final int FirstName=0x7f090041;
+        public static final int LastName=0x7f090042;
         public static final int MainTV=0x7f09003f;
         public static final int RelativeLayout1=0x7f090040;
         public static final int action_bar=0x7f090031;
