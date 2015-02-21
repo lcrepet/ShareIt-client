@@ -1642,8 +1642,10 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020038;
     }
     public static final class id {
-        public static final int RelativeLayout1=0x7f09003f;
-        public static final int TextView1=0x7f090040;
+        public static final int FirstName=0x7f090042;
+        public static final int LastName=0x7f090041;
+        public static final int MainTV=0x7f09003f;
+        public static final int RelativeLayout1=0x7f090040;
         public static final int action_bar=0x7f090031;
         public static final int action_bar_activity_content=0x7f090003;
         public static final int action_bar_container=0x7f090030;
@@ -1657,7 +1659,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f09002e;
         public static final int action_mode_bar_stub=0x7f09002d;
         public static final int action_mode_close_button=0x7f090020;
-        public static final int action_settings=0x7f090045;
+        public static final int action_settings=0x7f090047;
         public static final int activity_chooser_view_content=0x7f090021;
         public static final int always=0x7f090014;
         public static final int beginning=0x7f09001b;
@@ -1679,10 +1681,10 @@ containing a value of this type.
         public static final int image=0x7f090023;
         public static final int listMode=0x7f09000a;
         public static final int list_item=0x7f090025;
-        public static final int menu_borrow=0x7f090043;
-        public static final int menu_email=0x7f090044;
-        public static final int menu_home=0x7f090041;
-        public static final int menu_profile=0x7f090042;
+        public static final int menu_borrow=0x7f090045;
+        public static final int menu_email=0x7f090046;
+        public static final int menu_home=0x7f090043;
+        public static final int menu_profile=0x7f090044;
         public static final int middle=0x7f09001d;
         public static final int never=0x7f090017;
         public static final int none=0x7f09000f;
@@ -1831,18 +1833,20 @@ containing a value of this type.
         /**  Content description for the Toolbar icon used to collapse an expanded action mode. [CHAR LIMIT=NONE] 
          */
         public static final int abc_toolbar_collapse_description=0x7f0a0004;
-        public static final int action_settings=0x7f0a0019;
+        public static final int action_settings=0x7f0a001b;
         public static final int app_name=0x7f0a0010;
         public static final int hello_world=0x7f0a0011;
-        public static final int hello_world_again=0x7f0a0012;
-        public static final int menu_borrow=0x7f0a0016;
-        public static final int menu_email=0x7f0a0017;
-        public static final int menu_home=0x7f0a0014;
-        public static final int menu_profile=0x7f0a0015;
-        public static final int title_activity_borrow=0x7f0a001a;
-        public static final int title_activity_email=0x7f0a001b;
-        public static final int title_activity_main=0x7f0a0013;
-        public static final int title_activity_profile=0x7f0a0018;
+        public static final int hello_world_borrow=0x7f0a0013;
+        public static final int hello_world_email=0x7f0a0014;
+        public static final int hello_world_profile=0x7f0a0012;
+        public static final int menu_borrow=0x7f0a0018;
+        public static final int menu_email=0x7f0a0019;
+        public static final int menu_home=0x7f0a0016;
+        public static final int menu_profile=0x7f0a0017;
+        public static final int title_activity_borrow=0x7f0a001c;
+        public static final int title_activity_email=0x7f0a001d;
+        public static final int title_activity_main=0x7f0a0015;
+        public static final int title_activity_profile=0x7f0a001a;
     }
     public static final class style {
         /** 

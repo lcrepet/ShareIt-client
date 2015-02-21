@@ -4,7 +4,7 @@
     <string name="app_name">ShareIt-client</string>
     <string name="hello_world">Hello world!</string>
     <string name="hello_world_profile">Ceci est le profil</string>
-    <string name="hello_world_borrow">Ceci est la liste d'emprunts</string>
+    <string name="hello_world_borrow">Ceci est la liste des emprunts</string>
     <string name="hello_world_email">Ceci est la messagerie</string>
     <string name="title_activity_main"></string>
     <string name="menu_home">Home</string>
