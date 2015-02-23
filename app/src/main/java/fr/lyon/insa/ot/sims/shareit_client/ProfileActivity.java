@@ -79,12 +79,12 @@ public class ProfileActivity extends Activity {
         }
 
         protected void onPostExecute(JSONObject reader) {
-            EditText firstName = (EditText) findViewById(R.id.FirstName);
-            EditText lastName = (EditText) findViewById(R.id.LastName);
+            TextView firstName = (TextView) findViewById(R.id.FirstName);
+            TextView lastName = (TextView) findViewById(R.id.LastName);
 
             try {
-                firstName.setHint(reader.getString("firstname"));
-                lastName.setHint(reader.getString("lastname"));
+                firstName.setText(reader.getString("firstname"));
+                lastName.setText(reader.getString("lastname"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
