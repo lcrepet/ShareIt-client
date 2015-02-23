@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ShareIt-client</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hello_world_profile">Ceci est le profil</string>
+    <string name="hello_world_borrow">Ceci est la liste des emprunts</string>
+    <string name="hello_world_email">Ceci est la messagerie</string>
+    <string name="title_activity_main"></string>
+    <string name="menu_home">Home</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_borrow">Borrow</string>
+    <string name="menu_email">Email</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_borrow">BorrowActivity</string>
+    <string name="title_activity_email">EmailActivity</string>
+
+</resources>
