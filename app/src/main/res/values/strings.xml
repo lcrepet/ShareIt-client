@@ -15,5 +15,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_borrow">BorrowActivity</string>
     <string name="title_activity_email">EmailActivity</string>
+    <string name="title_activity_add_object">AddObjectActivity</string>
 
 </resources>
