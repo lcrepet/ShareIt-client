@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -29,7 +30,16 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        final ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, ObjectActivity.class);
+                intent.putExtra("id", listView.getAdapter().getItemId(position));
+                startActivity(intent);
+            }
+        });
         SearchListAdapter adapter = null;
         try {
             adapter = new SearchListAdapter(this, new JSONArray());
@@ -63,15 +73,15 @@ public class MainActivity extends Activity {
 			return true;
 		case R.id.menu_profile:
             Utils.openOtherActivity(this,
-					ProfileActivity.class);
+                    ProfileActivity.class);
 			return true;
 		case R.id.menu_borrow:
             Utils.openOtherActivity(this,
-					BorrowActivity.class);
+                    BorrowActivity.class);
 			return true;
 		case R.id.menu_email:
             Utils.openOtherActivity(this,
-					EmailActivity.class);
+                    EmailActivity.class);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

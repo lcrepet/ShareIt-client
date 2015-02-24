@@ -44,6 +44,14 @@
             android:label="@string/title_activity_email"
             android:parentActivityName=".MainActivity" >
         </activity>
+
+        <activity
+            android:name=".ObjectActivity"
+            android:label="@string/title_activity_object"
+            android:parentActivityName=".MainActivity" >
+        </activity>
+
+
     </application>
 
 </manifest>
