@@ -1,17 +1,44 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
-public class BorrowRequestActivity extends ActionBarActivity {
+public class BorrowRequestActivity extends Activity {
+
+    //TODO stub object to delete
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrow_request);
+
+        //TODO replace by real value passed in extras
+        try {
+            JSONObject fakeId = new JSONObject("{\"id\":1,\"name\":\"Perceuse\",\"description\":\"C est une super perceuse :)\",\"sharer\":{\"id\":1,\"profilePicture\":null,\"proFilePictureType\":null,\"lastname\":\"paul\",\"firstname\":\"jean\",\"age\":25,\"sex\":\"M\",\"rating\":0.0,\"postCode\":69100,\"telephone\":null},\"status\":\"disponible\",\"category\":{\"id\":1,\"name\":\"outils\"}}");
+
+            //TODO code to keep
+            TextView name = (TextView) findViewById(R.id.objectName);
+            TextView owner = (TextView) findViewById(R.id.objectOwner);
+
+            String nameToSet = fakeId.getString("name") + "(" + fakeId.getJSONObject("category").getString("name") + ")";
+            String ownerToSet = fakeId.getJSONObject("sharer").getString("firstname") + " " + fakeId.getJSONObject("sharer").getString("lastname");
+
+            name.setText(nameToSet);
+            owner.setText(ownerToSet);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
