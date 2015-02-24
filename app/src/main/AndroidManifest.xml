@@ -49,6 +49,14 @@
             android:label="@string/title_activity_add_object"
             android:parentActivityName=".ProfileActivity" >
         </activity>
+        <activity
+            android:name=".ObjectActivity"
+            android:label="@string/title_activity_object" >
+        </activity>
+        <activity
+            android:name=".BorrowRequestActivity"
+            android:label="@string/title_activity_borrow_request" >
+        </activity>
     </application>
 
 </manifest>
