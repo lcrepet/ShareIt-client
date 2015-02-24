@@ -84,8 +84,10 @@ public class Request {
         return reader;
     }
 
-    public static String NewUser(String url, List<NameValuePair> pairs) {
+    public static JSONObject newRequest(String url, List<NameValuePair> pairs) {
         HttpResponse response = null;
+        String result = " ";
+        JSONObject reader = null;
         try {
 
             HttpClient client = new DefaultHttpClient();
@@ -95,17 +97,29 @@ public class Request {
             response = client.execute(post);
 
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
+            result += e.getMessage();
             e.printStackTrace();
         } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
+            result += e.getMessage();
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            result += e.getMessage();
             e.printStackTrace();
         }
 
-        return response.getStatusLine().toString();
+        try {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(
+                    response.getEntity().getContent()));
+            String line = "";
+            while ((line = rd.readLine()) != null) {
+                result = result + line;
+            }
+            reader = new JSONObject(result);
+        } catch (Exception e) {
+            result += e.getMessage();
+        }
+
+        return reader;
 
     }
 
@@ -132,5 +146,7 @@ public class Request {
 
         return response.getStatusLine().toString();
     }
+
+
 
 }
