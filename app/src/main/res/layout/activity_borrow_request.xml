@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/borrow_request"
-        android:id="@+id/button2"
+        android:id="@+id/buttonBorrow"
         android:layout_below="@+id/objectOwner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="77dp" />

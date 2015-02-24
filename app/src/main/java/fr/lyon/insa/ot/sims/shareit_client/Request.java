@@ -84,7 +84,7 @@ public class Request {
         return reader;
     }
 
-    public static JSONObject newRequest(String url, List<NameValuePair> pairs) {
+    public static JSONObject newPostRequest(String url, List<NameValuePair> pairs) {
         HttpResponse response = null;
         String result = " ";
         JSONObject reader = null;

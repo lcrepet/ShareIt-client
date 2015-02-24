@@ -2,20 +2,15 @@ package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -52,9 +47,9 @@ public class AddObjectActivity extends Activity {
 			pairs.add(new BasicNameValuePair("name", name.getText().toString()));
 			pairs.add(new BasicNameValuePair("category", "3"));
 			pairs.add(new BasicNameValuePair("description", description.getText().toString()));
-			Request.newRequest(Constants.uri, pairs);
+			Request.newPostRequest(Constants.uri, pairs);
 
-            return Request.newRequest(message[0], pairs);
+            return Request.newPostRequest(message[0], pairs);
         }
 
         protected void onPostExecute() {
