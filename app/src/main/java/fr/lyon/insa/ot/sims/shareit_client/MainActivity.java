@@ -9,20 +9,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import fr.lyon.insa.ot.sims.shareit_client.searchList.SearchListAdapter;
+
 public class MainActivity extends Activity {
 
 	private TextView tv;
+    private ListView listView;
+    private SearchListAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        SearchListAdapter adapter = null;
+        try {
+            adapter = new SearchListAdapter(this, new JSONArray());
+            listView.setAdapter(adapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         final Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -72,13 +86,14 @@ public class MainActivity extends Activity {
         }
 
         protected void onPostExecute(JSONArray reader) {
-            TextView result = (TextView) findViewById(R.id.textView2);
-            try{
-                result.setText(reader.toString());
-            } catch (Exception e) {
+            ListView listView = (ListView) findViewById(R.id.listView);
+            try {
+                SearchListAdapter adapter = (SearchListAdapter) listView.getAdapter();
+                adapter.updateProducts(reader);
+                listView.setAdapter(adapter);
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }
