@@ -1,11 +1,12 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class EmailActivity extends ActionBarActivity {
+public class EmailActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

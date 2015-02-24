@@ -48,25 +48,20 @@ public class MainActivity extends Activity {
 			// TODO : home
 			return true;
 		case R.id.menu_profile:
-			openOtherActivity((View) findViewById(R.layout.activity_main),
+            Utils.openOtherActivity(this,
 					ProfileActivity.class);
 			return true;
 		case R.id.menu_borrow:
-			openOtherActivity((View) findViewById(R.layout.activity_main),
+            Utils.openOtherActivity(this,
 					BorrowActivity.class);
 			return true;
 		case R.id.menu_email:
-			openOtherActivity((View) findViewById(R.layout.activity_main),
+            Utils.openOtherActivity(this,
 					EmailActivity.class);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	}
-
-	public void openOtherActivity(View view, Class<?> cls) {
-		Intent intent = new Intent(this, cls);
-		startActivity(intent);
 	}
 
     private class SearchProducts extends AsyncTask<String, Void, JSONArray>{
@@ -86,5 +81,4 @@ public class MainActivity extends Activity {
 
         }
     }
-
 }

@@ -7,7 +7,9 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Button;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +22,13 @@ public class ProfileActivity extends Activity {
         setContentView(R.layout.activity_profile);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         new GetProfile().execute(Constants.uri + "user/1");
+
+        Button addObject = (Button) findViewById(R.id.AddObject);
+        addObject.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Utils.openOtherActivity(ProfileActivity.this, AddObjectActivity.class);
+            }
+        });
     }
 
     @Override

@@ -6,6 +6,7 @@
     <string name="hello_world_profile">Ceci est le profil</string>
     <string name="hello_world_borrow">Ceci est la liste des emprunts</string>
     <string name="hello_world_email">Ceci est la messagerie</string>
+    <string name="button_add_object">Add object</string>
     <string name="title_activity_main"></string>
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>

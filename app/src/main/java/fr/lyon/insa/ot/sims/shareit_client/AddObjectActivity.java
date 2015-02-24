@@ -1,12 +1,13 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class AddObjectActivity extends ActionBarActivity {
+public class AddObjectActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
