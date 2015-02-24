@@ -27,5 +27,6 @@
     <string name="title_activity_object">ObjectActivity</string>
     <string name="search">Recherche d\'objet</string>
     <string name="title_activity_borrow_request">BorrowRequestActivity</string>
+    <string name="category_prompt">Catégorie</string>
 
 </resources>

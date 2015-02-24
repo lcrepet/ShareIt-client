@@ -1,4 +1,4 @@
-package fr.lyon.insa.ot.sims.shareit_client.searchList;
+package fr.lyon.insa.ot.sims.shareit_client.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -84,7 +84,7 @@ public class SearchListAdapter extends BaseAdapter {
         public long id;
 
         public SimplifiedProduct(JSONObject item) throws JSONException {
-            this.name = item.getString("nom");
+            this.name = item.getString("name");
             this.disponibility = item.getString("status");
             this.id = item.getInt("id");
             this.category = item.getJSONObject("category").getString("name");

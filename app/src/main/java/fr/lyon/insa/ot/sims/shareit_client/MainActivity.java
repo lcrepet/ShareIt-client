@@ -8,16 +8,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.lyon.insa.ot.sims.shareit_client.searchList.SearchListAdapter;
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.lyon.insa.ot.sims.shareit_client.Adapters.SearchListAdapter;
 
 public class MainActivity extends Activity {
 
@@ -48,11 +53,18 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 
+        new InitCategories().execute();
+
         final Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText postCode = (EditText) findViewById(R.id.textView);
-                new SearchProducts().execute(Constants.uri + "product/?postcode=" + postCode.getText());
+                Spinner spinner = (Spinner) findViewById((R.id.spinner));
+                String arguments = "category=" + (spinner.getSelectedItemPosition() + 1);
+                if(!postCode.getText().equals("")){
+                    arguments = arguments + "&postcode=" + postCode.getText();
+                }
+                new SearchProducts().execute(Constants.uri + "product/?" + arguments);
             }
         });
 	}
@@ -105,5 +117,31 @@ public class MainActivity extends Activity {
                 e.printStackTrace();
             }
         }
+    }
+
+    private class InitCategories extends AsyncTask<String, Void, JSONArray>{
+
+        @Override
+        protected JSONArray doInBackground(String... params) {
+            return Request.getListRequest(Constants.uri + "product/category");
+        }
+
+        protected void onPostExecute(JSONArray reader){
+            Spinner spinner = (Spinner) findViewById(R.id.spinner);
+            List<String> list = new ArrayList<>();
+            for(int i = 0; i < reader.length(); i++){
+                JSONObject row = null;
+                try {
+                    row = reader.getJSONObject(i);
+                    list.add(row.getString("name"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(MainActivity.this ,android.R.layout.simple_spinner_item, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(dataAdapter);
+        }
+
     }
 }
