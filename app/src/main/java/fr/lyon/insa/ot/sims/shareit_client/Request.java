@@ -17,12 +17,13 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Request {
 
-    public static JSONObject GetUser(String url) {
+    public static JSONObject getRequest(String url) {
         HttpClient httpclient;
         HttpGet request;
         HttpResponse response = null;
@@ -46,6 +47,36 @@ public class Request {
             }
 
             reader = new JSONObject(result);
+        } catch (Exception e) {
+            result = "error";
+        }
+
+        return reader;
+    }
+
+    public static JSONArray getListRequest(String url) {
+        HttpClient httpclient;
+        HttpGet request;
+        HttpResponse response = null;
+        String result = " ";
+        JSONArray reader = null;
+
+        try {
+            httpclient = new DefaultHttpClient();
+            request = new HttpGet(url);
+            response = httpclient.execute(request);
+        } catch (Exception e) {
+            result = "error";
+        }
+
+        try {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(
+                    response.getEntity().getContent()));
+            String line = "";
+            while ((line = rd.readLine()) != null) {
+                result = result + line;
+            }
+            reader = new JSONArray(result);
         } catch (Exception e) {
             result = "error";
         }
@@ -101,6 +132,5 @@ public class Request {
 
         return response.getStatusLine().toString();
     }
-
 
 }
