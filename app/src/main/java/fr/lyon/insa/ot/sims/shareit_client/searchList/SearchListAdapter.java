@@ -15,7 +15,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.lyon.insa.ot.sims.shareit_client.MainActivity;
 import fr.lyon.insa.ot.sims.shareit_client.R;
 
 /**
@@ -34,7 +33,6 @@ public class SearchListAdapter extends BaseAdapter {
             JSONObject row = products.getJSONObject(i);
             this.products.add(new SimplifiedProduct(row));
         }
-
     }
 
     public void updateProducts(JSONArray products) throws JSONException {

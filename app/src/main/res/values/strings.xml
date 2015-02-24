@@ -24,6 +24,7 @@
     <string name="title_activity_borrow">BorrowActivity</string>
     <string name="title_activity_email">EmailActivity</string>
     <string name="title_activity_add_object">AddObjectActivity</string>
+    <string name="title_activity_object">ObjectActivity</string>
     <string name="search">Recherche d\'objet</string>
     <string name="title_activity_object">ObjectActivity</string>
     <string name="title_activity_borrow_request">BorrowRequestActivity</string>
