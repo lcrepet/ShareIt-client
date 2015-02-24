@@ -8,6 +8,13 @@
     <string name="hello_world_email">Ceci est la messagerie</string>
     <string name="button_add_object">Add object</string>
     <string name="title_activity_main"></string>
+    <string name="title_add_object">Ajouter un objet</string>
+    <string name="type_object">Type</string>
+    <string name="name_object">Nom</string>
+    <string name="desc_object">Description</string>
+    <string name="avail_object">Disponibilité</string>
+    <string name="pic_object">Charger une photo</string>
+    <string name="save_object">Enregistrer</string>
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_borrow">Borrow</string>
