@@ -1,14 +1,19 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +32,8 @@ public class AddObjectActivity extends Activity {
     private EditText name = null;
     private EditText description = null;
     private Button save = null;
+    private Spinner categories = null;
+    private ListView list = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,9 @@ public class AddObjectActivity extends Activity {
         name = (EditText) findViewById(R.id.NameObject);
         description = (EditText) findViewById(R.id.DescObject);
         save = (Button) findViewById(R.id.SaveObject);
+        categories = (Spinner) findViewById(R.id.TypeObject);
+
+        new GetCategories().execute(Constants.uri + "/product/category");
 
         save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -52,7 +62,6 @@ public class AddObjectActivity extends Activity {
 			pairs.add(new BasicNameValuePair("name", name.getText().toString()));
 			pairs.add(new BasicNameValuePair("category", "3"));
 			pairs.add(new BasicNameValuePair("description", description.getText().toString()));
-			Request.newRequest(Constants.uri, pairs);
 
             return Request.newRequest(message[0], pairs);
         }
@@ -70,8 +79,21 @@ public class AddObjectActivity extends Activity {
             return Request.getListRequest(message[0]);
         }
 
-        protected void onPostExecute() {
-            Toast.makeText(getApplicationContext(),"Objet créé !", Toast.LENGTH_LONG).show();
+        protected void onPostExecute(JSONArray reader) {
+            List<String> list = new ArrayList<String>();
+
+            for(int i = 0;i < reader.length() ; i++) {
+                try {
+                    list.add(reader.getJSONObject(i).getString("name"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(AddObjectActivity.this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            categories.setAdapter(dataAdapter);
 
         }
     }
