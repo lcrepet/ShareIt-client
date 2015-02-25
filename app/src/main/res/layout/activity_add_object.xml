@@ -40,17 +40,10 @@
         android:lines="5"/>
 
     <EditText
-        android:id="@+id/AvailObject"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/DescObject"
-        android:hint="@string/avail_object" />
-
-    <EditText
         android:id="@+id/PicObject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/AvailObject"
+        android:layout_below="@id/DescObject"
         android:hint="@string/pic_object"
         android:inputType="text" />
 
@@ -60,7 +53,7 @@
         android:layout_height="wrap_content"
         android:text="..."
         android:layout_toRightOf="@id/PicObject"
-        android:layout_below="@id/AvailObject"/>
+        android:layout_below="@id/DescObject"/>
 
     <Button
         android:id="@+id/SaveObject"

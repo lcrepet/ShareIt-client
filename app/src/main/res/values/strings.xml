@@ -12,7 +12,6 @@
     <string name="type_object">Type</string>
     <string name="name_object">Nom</string>
     <string name="desc_object">Description</string>
-    <string name="avail_object">Disponibilité</string>
     <string name="pic_object">Charger une photo</string>
     <string name="save_object">Enregistrer</string>
     <string name="menu_home">Home</string>
