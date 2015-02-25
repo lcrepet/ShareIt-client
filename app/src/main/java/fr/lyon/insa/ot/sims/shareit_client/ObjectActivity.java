@@ -49,8 +49,7 @@ public class ObjectActivity extends Activity {
         final Button objectButton = (Button) findViewById(R.id.bouton1);
         objectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(ObjectActivity.this, BorrowRequestActivity.class);
-                startActivity(intent);
+                Utils.openOtherActivity(ObjectActivity.this, BorrowRequestActivity.class);
             }
         });
     }

@@ -1,6 +1,7 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -21,7 +22,7 @@ public class ProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        new GetProfile().execute(Constants.uri + "user/1");
+        new GetProfile().execute(Constants.uri + "user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
 
         Button addObject = (Button) findViewById(R.id.AddObject);
         addObject.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +37,7 @@ public class ProfileActivity extends Activity {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
 
-        inflater.inflate(R.menu.activity_main, menu);
+        inflater.inflate(R.menu.profile, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -47,9 +48,17 @@ public class ProfileActivity extends Activity {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+            case R.id.menu_borrow:
+                Utils.openOtherActivity(this,
+                        BorrowActivity.class);
+                return true;
+            case R.id.menu_email:
+                Utils.openOtherActivity(this,
+                        EmailActivity.class);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private class GetProfile extends AsyncTask<String, Void, JSONObject> {
