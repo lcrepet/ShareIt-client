@@ -28,5 +28,6 @@
     <string name="search">Recherche d\'objet</string>
     <string name="title_activity_borrow_request">BorrowRequestActivity</string>
     <string name="category_prompt">Catégorie</string>
+    <string name="borrow_request">Envoyer la demande d\'emprunt</string>
 
 </resources>

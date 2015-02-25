@@ -3,10 +3,7 @@ package fr.lyon.insa.ot.sims.shareit_client;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -60,10 +57,10 @@ public class AddObjectActivity extends Activity {
 
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair("name", name.getText().toString()));
-			pairs.add(new BasicNameValuePair("category", "3"));
+			pairs.add(new BasicNameValuePair("category", Integer.toString(categories.getSelectedItemPosition() + 1)));
 			pairs.add(new BasicNameValuePair("description", description.getText().toString()));
 
-            return Request.newRequest(message[0], pairs);
+            return Request.newPostRequest(message[0], pairs);
         }
 
         protected void onPostExecute() {
