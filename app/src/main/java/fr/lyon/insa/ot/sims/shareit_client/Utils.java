@@ -39,7 +39,7 @@ public class Utils extends Activity{
 
         try{
             name = sharer.getString("firstname");
-            name += sharer.getString("lastname");
+            name += " " + sharer.getString("lastname");
         } catch (JSONException e) {
             e.printStackTrace();
         }
