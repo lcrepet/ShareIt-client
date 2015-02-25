@@ -20,6 +20,9 @@ public class ProfileActivity extends Activity {
     private TextView firstName = null;
     private TextView lastName = null;
     private TextView phoneNumber = null;
+    private TextView age = null;
+    private TextView sexe = null;
+    private TextView rating = null;
     private Button addObject = null;
 
     @Override
@@ -33,6 +36,9 @@ public class ProfileActivity extends Activity {
         firstName = (TextView) findViewById(R.id.FirstName);
         lastName = (TextView) findViewById(R.id.LastName);
         phoneNumber = (TextView) findViewById(R.id.PhoneNumber);
+        age = (TextView) findViewById(R.id.Age);
+        sexe = (TextView) findViewById(R.id.Sex);
+        rating = (TextView) findViewById(R.id.Rating);
         addObject = (Button) findViewById(R.id.AddObject);
         addObject.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -82,7 +88,10 @@ public class ProfileActivity extends Activity {
             try {
                 firstName.setText(reader.getString("firstname"));
                 lastName.setText(reader.getString("lastname"));
-                phoneNumber.setText(reader.getString("phone"));
+                phoneNumber.setText(reader.getString("telephone"));
+                age.setText(reader.getString("age") + " ans");
+                sexe.setText(reader.getString("sex"));
+                rating.setText("Note : " + reader.getString("rating"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

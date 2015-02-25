@@ -8,6 +8,8 @@
         android:id="@+id/ProfilePic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="10sp"
+        android:paddingTop="10sp"
         android:src="@drawable/ic_launcher"/>
 
     <TextView
@@ -15,7 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ProfilePic"
-        android:paddingLeft="16dp"
+        android:paddingLeft="16sp"
+        android:paddingTop="10sp"
         android:text=""
         android:textSize="30sp"/>
 
@@ -24,15 +27,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/FirstName"
-        android:paddingLeft="16dp"
+        android:paddingLeft="10sp"
+        android:paddingTop="10sp"
         android:text=""
         android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/SendMail"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/LastName"
+        android:paddingLeft="16sp"
+        android:paddingTop="10sp"
+        android:src="@drawable/ic_action_send_email"/>
 
     <TextView
         android:id="@+id/PhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ProfilePic"
+        android:layout_below="@id/FirstName"
+        android:paddingLeft="10sp"
         android:text="" />
 
     <TextView
@@ -40,13 +55,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ProfilePic"
+        android:layout_below="@id/PhoneNumber"
+        android:paddingLeft="10sp"
         android:text="" />
 
     <TextView
-        android:id="@+id/Sexe"
+        android:id="@+id/Sex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ProfilePic"
+        android:layout_below="@id/Age"
+        android:paddingLeft="10sp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/PostCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ProfilePic"
+        android:layout_below="@id/Sex"
+        android:paddingLeft="10sp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/Rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/PostCode"
+        android:paddingLeft="10sp"
+        android:paddingTop="10sp"
         android:text="" />
 
     <Button

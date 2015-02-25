@@ -1,23 +1,17 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
-import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import fr.lyon.insa.ot.sims.shareit_client.searchList.SearchListAdapter;
 
 
 public class ObjectActivity extends Activity {
