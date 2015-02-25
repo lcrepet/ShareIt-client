@@ -9,11 +9,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Button;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.lyon.insa.ot.sims.shareit_client.Adapters.SearchListAdapter;
 
 public class ProfileActivity extends Activity {
 
@@ -23,6 +30,7 @@ public class ProfileActivity extends Activity {
     private TextView age = null;
     private TextView sexe = null;
     private TextView rating = null;
+    private ListView listProducts = null;
     private Button addObject = null;
 
     @Override
@@ -30,8 +38,6 @@ public class ProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        new GetProfile().execute(Constants.uri + "user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
-
 
         firstName = (TextView) findViewById(R.id.FirstName);
         lastName = (TextView) findViewById(R.id.LastName);
@@ -39,7 +45,21 @@ public class ProfileActivity extends Activity {
         age = (TextView) findViewById(R.id.Age);
         sexe = (TextView) findViewById(R.id.Sex);
         rating = (TextView) findViewById(R.id.Rating);
+        listProducts = (ListView) findViewById(R.id.ListProducts);
         addObject = (Button) findViewById(R.id.AddObject);
+
+
+        new GetProfile().execute(Constants.uri + "user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
+
+        SearchListAdapter adapter = null;
+        try {
+            adapter = new SearchListAdapter(this, new JSONArray());
+            listProducts.setAdapter(adapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new GetProducts().execute(Constants.uri + "user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)) + "/product");
+
         addObject.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Utils.openOtherActivity(ProfileActivity.this, AddObjectActivity.class);
@@ -92,6 +112,24 @@ public class ProfileActivity extends Activity {
                 age.setText(reader.getString("age") + " ans");
                 sexe.setText(reader.getString("sex"));
                 rating.setText("Note : " + reader.getString("rating"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class GetProducts extends AsyncTask<String, Void, JSONArray> {
+        @Override
+        protected JSONArray doInBackground(String... message) {
+
+            return Request.getListRequest("http://178.62.199.79:8080/shareit/user/2/product");
+        }
+
+        protected void onPostExecute(JSONArray reader) {
+            try {
+                SearchListAdapter adapter = (SearchListAdapter) listProducts.getAdapter();
+                adapter.updateProducts(reader);
+                listProducts.setAdapter(adapter);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

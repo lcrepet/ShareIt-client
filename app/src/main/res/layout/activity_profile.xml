@@ -86,6 +86,16 @@
         android:paddingTop="10sp"
         android:text="" />
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ListProducts"
+        android:layout_below="@+id/Rating"
+        android:smoothScrollbar="false"
+        android:scrollingCache="false"
+        android:visibility="visible"
+        android:paddingTop="20sp" />
+
     <Button
         android:id="@+id/AddObject"
         android:layout_height="wrap_content"
@@ -99,6 +109,6 @@
         android:layout_width="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/button_add_object" />
+        android:text="@string/button_edit_profile" />
 
 </RelativeLayout>

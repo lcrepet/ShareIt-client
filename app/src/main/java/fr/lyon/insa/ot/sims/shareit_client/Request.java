@@ -1,5 +1,7 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -66,7 +68,7 @@ public class Request {
             request = new HttpGet(url);
             response = httpclient.execute(request);
         } catch (Exception e) {
-            result = "error";
+            e.printStackTrace();
         }
 
         try {
@@ -76,9 +78,14 @@ public class Request {
             while ((line = rd.readLine()) != null) {
                 result = result + line;
             }
-            reader = new JSONArray(result);
         } catch (Exception e) {
-            result = "error";
+            e.printStackTrace();
+
+        }
+        try {
+            reader = new JSONArray(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         return reader;
