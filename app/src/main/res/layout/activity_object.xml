@@ -1,9 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
     tools:context="fr.lyon.insa.ot.sims.shareit_client.ObjectActivity">
 
     <Button
@@ -14,4 +16,54 @@
         android:layout_weight="40"
         android:text="Emprunter cet objet " />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/NomObjet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bouton1"
+        android:text="Nom"                  />
+
+    <TextView
+     android:id="@+id/TypeObjet"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/NomObjet"
+     android:text="Type d'objet"      />
+
+     <TextView
+     android:id="@+id/StatusObjet"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/TypeObjet"
+     android:text="Status"               />
+
+     <TextView
+     android:id="@+id/DescriptionObjet"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+         android:text="Description"
+         android:layout_below="@+id/StatusObjet"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentStart="true" />
+
+      <TextView
+      android:id="@+id/Proprietaire"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+          android:text="Proprietaire"
+          android:layout_above="@+id/Note"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentStart="true" />
+
+
+    <TextView
+     android:id="@+id/Note"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+        android:text="Note"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/StatusObjet"
+        android:layout_alignEnd="@+id/StatusObjet"
+        android:layout_marginBottom="107dp" />
+
+    </RelativeLayout>
