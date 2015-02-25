@@ -80,9 +80,6 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menu_home:
-			// TODO : home
-			return true;
 		case R.id.menu_profile:
             Utils.openOtherActivity(this,
                     ProfileActivity.class);
