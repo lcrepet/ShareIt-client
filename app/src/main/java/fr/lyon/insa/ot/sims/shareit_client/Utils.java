@@ -10,6 +10,9 @@ import android.view.View;
 import android.content.Context;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Louise on 23/02/2015.
  */
@@ -29,5 +32,18 @@ public class Utils extends Activity{
 
     public static long getUserId(SharedPreferences settings){
         return Long.parseLong(settings.getString("userId", "-1"));
+    }
+
+    public static String getUserName(JSONObject sharer){
+        String name = null;
+
+        try{
+            name = sharer.getString("firstname");
+            name += sharer.getString("lastname");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return name;
     }
 }
