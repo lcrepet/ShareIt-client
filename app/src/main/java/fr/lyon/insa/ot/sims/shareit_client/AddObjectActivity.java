@@ -64,7 +64,7 @@ public class AddObjectActivity extends Activity {
         }
 
         protected void onPostExecute() {
-            Toast.makeText(getApplicationContext(),"Objet créé !", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddObjectActivity.this,"Objet créé !", Toast.LENGTH_LONG).show();
 
         }
     }

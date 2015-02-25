@@ -17,6 +17,11 @@ import org.json.JSONObject;
 
 public class ProfileActivity extends Activity {
 
+    private TextView firstName = null;
+    private TextView lastName = null;
+    private TextView phoneNumber = null;
+    private Button addObject = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +29,11 @@ public class ProfileActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         new GetProfile().execute(Constants.uri + "user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
 
-        Button addObject = (Button) findViewById(R.id.AddObject);
+
+        firstName = (TextView) findViewById(R.id.FirstName);
+        lastName = (TextView) findViewById(R.id.LastName);
+        phoneNumber = (TextView) findViewById(R.id.PhoneNumber);
+        addObject = (Button) findViewById(R.id.AddObject);
         addObject.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Utils.openOtherActivity(ProfileActivity.this, AddObjectActivity.class);
@@ -65,22 +74,15 @@ public class ProfileActivity extends Activity {
         @Override
         protected JSONObject doInBackground(String... message) {
 
-			/*List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			pairs.add(new BasicNameValuePair("firstname", "henri"));
-			pairs.add(new BasicNameValuePair("lastname", "durad"));
-			pairs.add(new BasicNameValuePair("postcode", "69100"));
-			Request.NewUser("http://178.62.199.79:8080/shareit/user", pairs);*/
-
             return Request.getRequest(message[0]);
         }
 
         protected void onPostExecute(JSONObject reader) {
-            TextView firstName = (TextView) findViewById(R.id.FirstName);
-            TextView lastName = (TextView) findViewById(R.id.LastName);
 
             try {
                 firstName.setText(reader.getString("firstname"));
                 lastName.setText(reader.getString("lastname"));
+                phoneNumber.setText(reader.getString("phone"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
