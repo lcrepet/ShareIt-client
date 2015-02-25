@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -33,6 +34,9 @@ public class SignUpActivity extends Activity {
                 EditText firstName = (EditText) findViewById(R.id.firstNameText);
                 EditText lastName = (EditText) findViewById(R.id.lastNameText);
                 EditText postCode = (EditText) findViewById(R.id.postCode);
+                EditText age = (EditText) findViewById(R.id.age);
+                Spinner sex = (Spinner) findViewById(R.id.sex);
+                EditText phone = (EditText) findViewById(R.id.phone);
 
                 JSONObject userInfos = new JSONObject();
 
@@ -50,6 +54,22 @@ public class SignUpActivity extends Activity {
                         userInfos.put("firstname", firstName.getText());
                         userInfos.put("lastname", lastName.getText());
                         userInfos.put("postcode", postCode.getText());
+
+                        if(!phone.getText().toString().trim().equals("")){
+                            userInfos.put("phone", phone.getText());
+                        }
+                        if(sex.getSelectedItemPosition() != 0){
+                            String sexToSet;
+                            if(sex.getSelectedItemPosition() == 1){
+                                sexToSet = "M";
+                            } else {
+                                sexToSet = "F";
+                            }
+                            userInfos.put("sex", sexToSet);
+                        }
+                        if(!age.getText().toString().trim().equals("")){
+                            userInfos.put("age", age.getText());
+                        }
                         new SignUp().execute(Constants.uri + "user/", userInfos.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -96,6 +116,15 @@ public class SignUpActivity extends Activity {
                 pairs.add(new BasicNameValuePair("firstname", user.getString("firstname")));
                 pairs.add(new BasicNameValuePair("lastname", user.getString("lastname")));
                 pairs.add(new BasicNameValuePair("postcode", user.getString("postcode")));
+                if(user.has("sex")){
+                    pairs.add(new BasicNameValuePair("sex", user.getString("sex")));
+                }
+                if(user.has("age")){
+                    pairs.add(new BasicNameValuePair("age", user.getString("age")));
+                }
+                if(user.has("phone")){
+                    pairs.add(new BasicNameValuePair("phone", user.getString("phone")));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
