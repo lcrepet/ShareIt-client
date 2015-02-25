@@ -19,11 +19,11 @@ public class ObjectActivity extends Activity {
     private long id;
     private  String TAG_ID = "id";
     private  String TAG_NAME = "name";
-    private  String TAG_TYPE = "type";
+    private  String TAG_TYPE = "category";
     private  String TAG_STATUS = "status";
     private  String TAG_DESCRIPTION="description";
-    private  String TAG_PROP="prop";
-    JSONObject object = null;
+    private  String TAG_SHARER="sharer";
+    private String TAG_LASTNAME = "lastname";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +34,8 @@ public class ObjectActivity extends Activity {
         if (extras == null) {
             return;
         }
-        id = extras.getLong(Intent.EXTRA_TEXT);
-        TAG_ID= String.valueOf(id);
+        id = extras.getLong("id");
+        TAG_ID = String.valueOf(id);
 
 
 
@@ -46,6 +46,8 @@ public class ObjectActivity extends Activity {
                 Utils.openOtherActivity(ObjectActivity.this, BorrowRequestActivity.class);
             }
         });
+
+        new DisplayObject().execute();
     }
 
     @Override
@@ -85,23 +87,20 @@ public class ObjectActivity extends Activity {
 
             try {
 
+                String nameToSet = reader.getString(TAG_NAME);
+                nom.setText(nameToSet);
 
-                JSONObject c = object.getJSONObject(TAG_ID);
+                String typeToSet = reader.getJSONObject(TAG_TYPE).getString(TAG_NAME);
+                type.setText(typeToSet);
 
-                String name = c.getString(TAG_NAME);
-                nom.setText((CharSequence) name);
+                String statusToSet = reader.getString(TAG_STATUS);
+                status.setText(statusToSet);
 
-                String typ = c.getString(TAG_TYPE);
-                type.setText((CharSequence) typ);
+                String descToSet = reader.getString(TAG_DESCRIPTION);
+                desc.setText(descToSet);
 
-                String stat = c.getString(TAG_STATUS);
-                type.setText((CharSequence) stat);
-
-                String des = c.getString(TAG_DESCRIPTION);
-                type.setText((CharSequence) des);
-
-                String pro = c.getString(TAG_PROP);
-                type.setText((CharSequence) pro);
+                String propToSet = reader.getJSONObject(TAG_SHARER).getString(TAG_LASTNAME);
+                prop.setText(propToSet);
 
 
             } catch (JSONException e) {
