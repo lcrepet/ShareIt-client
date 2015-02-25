@@ -21,7 +21,7 @@
     <string name="menu_email">Email</string>
     <string name="title_activity_profile">Profil</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_borrow">Eprunts et prêts</string>
+    <string name="title_activity_borrow">Emprunts et prêts</string>
     <string name="title_activity_email">Messagerie</string>
     <string name="title_activity_add_object">Ajouter un objet</string>
     <string name="title_activity_object">Object</string>
