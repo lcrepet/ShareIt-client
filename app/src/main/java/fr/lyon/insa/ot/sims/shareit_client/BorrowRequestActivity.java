@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -101,6 +102,7 @@ public class BorrowRequestActivity extends Activity {
         }
 
         protected void onPostExecute(JSONObject reader){
+            Toast.makeText(getApplicationContext(), "Requète envoyée !", Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(BorrowRequestActivity.this, ObjectActivity.class);
             startActivity(intent);

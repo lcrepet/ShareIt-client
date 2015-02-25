@@ -56,7 +56,8 @@
 
         <activity
             android:name=".BorrowRequestActivity"
-            android:label="@string/title_activity_borrow_request" >
+            android:label="@string/title_activity_borrow_request"
+            android:parentActivityName=".ObjectActivity" >
         </activity>
     </application>
 
