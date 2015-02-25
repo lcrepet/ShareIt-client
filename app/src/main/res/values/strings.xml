@@ -29,5 +29,10 @@
     <string name="category_prompt">Catégorie</string>
     <string name="borrow_request">Envoyer la demande d\'emprunt</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
+    <string-array name="sex">
+        <item>Sexe</item>
+        <item>Homme</item>
+        <item>Femme</item>
+    </string-array>
 
 </resources>

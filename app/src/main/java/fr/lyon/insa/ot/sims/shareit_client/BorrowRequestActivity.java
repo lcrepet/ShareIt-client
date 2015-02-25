@@ -24,8 +24,6 @@ import java.util.List;
 
 public class BorrowRequestActivity extends Activity {
 
-    //TODO stub object to delete
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

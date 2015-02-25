@@ -14,7 +14,7 @@
         android:id="@+id/firstNameText"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="Prénom" />
+        android:hint="Prénom (requis)" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         android:id="@+id/lastNameText"
         android:layout_below="@+id/firstNameText"
         android:layout_centerHorizontal="true"
-        android:hint="Nom" />
+        android:hint="Nom (requis)" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -34,14 +34,42 @@
         android:id="@+id/postCode"
         android:layout_below="@+id/lastNameText"
         android:layout_centerHorizontal="true"
-        android:hint="Code Postal" />
+        android:hint="Code Postal (requis)" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Connexion"
         android:id="@+id/signUpButton"
+        android:layout_below="@+id/phone"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/age"
         android:layout_below="@+id/postCode"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp" />
+        android:hint="Age" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sex"
+        android:layout_below="@+id/age"
+        android:layout_centerHorizontal="true"
+        android:entries="@array/sex" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/phone"
+        android:layout_below="@+id/sex"
+        android:layout_alignLeft="@+id/age"
+        android:layout_alignStart="@+id/age"
+        android:hint="Telephone" />
 </RelativeLayout>

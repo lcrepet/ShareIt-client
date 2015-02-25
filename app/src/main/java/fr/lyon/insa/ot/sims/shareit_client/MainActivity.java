@@ -145,7 +145,7 @@ public class MainActivity extends Activity {
                     e.printStackTrace();
                 }
             }
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(MainActivity.this ,android.R.layout.simple_spinner_item, list);
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(MainActivity.this ,android.R.layout.simple_spinner_item, list);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(dataAdapter);
         }
