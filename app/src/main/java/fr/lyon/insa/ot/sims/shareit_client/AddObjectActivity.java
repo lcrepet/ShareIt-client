@@ -1,6 +1,7 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,7 +47,7 @@ public class AddObjectActivity extends Activity {
 
         save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new SaveObject().execute(Constants.uri + "/user/1/product");
+                new SaveObject().execute(Constants.uri + "/user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)) + "/product");
             }
         });
     }
