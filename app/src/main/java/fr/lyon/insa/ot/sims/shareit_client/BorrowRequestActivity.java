@@ -1,6 +1,7 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -92,8 +93,8 @@ public class BorrowRequestActivity extends Activity {
             try {
                 JSONObject product = new JSONObject(message[1]);
                 pairs.add(new BasicNameValuePair("lender", product.getJSONObject("sharer").getString("id")));
-                //TODO change with user id
-                pairs.add(new BasicNameValuePair("borrower", "2"));
+                pairs.add(new BasicNameValuePair("borrower",
+                        String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)))));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

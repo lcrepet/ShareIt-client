@@ -1,6 +1,7 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,10 +31,19 @@ public class MainActivity extends Activity {
     private ListView listView;
     private SearchListAdapter adapter;
 
+    public static final String SETTINGS = "SettingsFile";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+        if(Utils.getUserId(getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)) == -1L){
+            //user undefined, create account
+            Intent intent;
+            intent = new Intent(MainActivity.this, SignUpActivity.class);
+            startActivity(intent);
+        }
 
         final ListView listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
