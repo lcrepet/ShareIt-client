@@ -23,7 +23,6 @@ public class ObjectActivity extends Activity {
     private  String TAG_STATUS = "status";
     private  String TAG_DESCRIPTION="description";
     private  String TAG_SHARER="sharer";
-    private String TAG_LASTNAME = "lastname";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
