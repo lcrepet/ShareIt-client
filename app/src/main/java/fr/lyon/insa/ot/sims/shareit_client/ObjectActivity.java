@@ -99,7 +99,7 @@ public class ObjectActivity extends Activity {
                 String descToSet = reader.getString(TAG_DESCRIPTION);
                 desc.setText(descToSet);
 
-                String propToSet = reader.getJSONObject(TAG_SHARER).getString(TAG_LASTNAME);
+                String propToSet = Utils.getUserName(reader.getJSONObject(TAG_SHARER));
                 prop.setText(propToSet);
 
 
