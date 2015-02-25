@@ -47,9 +47,17 @@ public class ProfileActivity extends Activity {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+            case R.id.menu_borrow:
+                Utils.openOtherActivity(this,
+                        BorrowActivity.class);
+                return true;
+            case R.id.menu_email:
+                Utils.openOtherActivity(this,
+                        EmailActivity.class);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private class GetProfile extends AsyncTask<String, Void, JSONObject> {
