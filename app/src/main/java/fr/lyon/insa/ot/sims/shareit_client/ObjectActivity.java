@@ -13,6 +13,8 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 
 public class ObjectActivity extends Activity {
 
@@ -40,7 +42,9 @@ public class ObjectActivity extends Activity {
         final Button objectButton = (Button) findViewById(R.id.bouton1);
         objectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Utils.openOtherActivity(ObjectActivity.this, BorrowRequestActivity.class);
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put("id", TAG_ID);
+                Utils.openOtherActivity(ObjectActivity.this, BorrowRequestActivity.class, extras);
             }
         });
 

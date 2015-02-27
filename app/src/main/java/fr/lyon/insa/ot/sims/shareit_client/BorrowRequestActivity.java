@@ -2,9 +2,7 @@ package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,35 +27,7 @@ public class BorrowRequestActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrow_request);
 
-        //TODO replace by real value passed in extras
-        try {
-            final JSONObject fakeId = new JSONObject("{\"id\":1,\"name\":\"Perceuse\",\"description\":\"C est une super perceuse :)\",\"sharer\":{\"id\":1,\"profilePicture\":null,\"proFilePictureType\":null,\"lastname\":\"paul\",\"firstname\":\"jean\",\"age\":25,\"sex\":\"M\",\"rating\":0.0,\"postCode\":69100,\"telephone\":null},\"status\":\"disponible\",\"category\":{\"id\":1,\"name\":\"outils\"}}");
-
-            //TODO code to keep
-            TextView name = (TextView) findViewById(R.id.objectName);
-            TextView owner = (TextView) findViewById(R.id.objectOwner);
-
-            String nameToSet = fakeId.getString("name") + " (" + fakeId.getJSONObject("category").getString("name") + ")";
-            String ownerToSet = fakeId.getJSONObject("sharer").getString("firstname") + " " + fakeId.getJSONObject("sharer").getString("lastname");
-
-            name.setText(nameToSet);
-            owner.setText(ownerToSet);
-
-            final Button objectButton = (Button) findViewById(R.id.buttonBorrow);
-            objectButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-
-                    try {
-                        new BorrowRequest().execute(Constants.uri + "/product/" + fakeId.getString("id") + "/borrow/", fakeId.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        new GetObject().execute(Constants.uri + "product/" + getIntent().getExtras().getString("id"));
     }
 
 
@@ -83,11 +53,45 @@ public class BorrowRequestActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    private class GetObject extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        public JSONObject doInBackground(String... message) {
+            return Request.getRequest(message[0]);
+        }
+
+        protected void onPostExecute(final JSONObject object){
+            TextView name = (TextView) findViewById(R.id.objectName);
+            TextView owner = (TextView) findViewById(R.id.objectOwner);
+            try {
+                String nameToSet = object.getString("name") + " (" + object.getJSONObject("category").getString("name") + ")";
+                String ownerToSet = object.getJSONObject("sharer").getString("firstname") + " " + object.getJSONObject("sharer").getString("lastname");
+
+                name.setText(nameToSet);
+                owner.setText(ownerToSet);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            final Button objectButton = (Button) findViewById(R.id.buttonBorrow);
+            objectButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    try {
+                        new BorrowRequest().execute(Constants.uri + "/product/" + object.getString("id") + "/borrow/", object.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+        }
+    }
+
     private class BorrowRequest extends AsyncTask<String, Void, JSONObject>{
 
         @Override
         protected JSONObject doInBackground(String... message) {
-            List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+            List<NameValuePair> pairs = new ArrayList<>();
             try {
                 JSONObject product = new JSONObject(message[1]);
                 pairs.add(new BasicNameValuePair("lender", product.getJSONObject("sharer").getString("id")));
