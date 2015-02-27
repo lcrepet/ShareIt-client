@@ -64,8 +64,19 @@ public class AddObjectActivity extends Activity {
             return Request.newPostRequest(message[0], pairs);
         }
 
-        protected void onPostExecute() {
+        protected void onPostExecute(JSONObject object) {
             Toast.makeText(AddObjectActivity.this,"Objet créé !", Toast.LENGTH_LONG).show();
+
+            Intent intent;
+            intent = new Intent(AddObjectActivity.this, ObjectActivity.class);
+            intent.putExtra(Intent.EXTRA_INTENT, ProfileActivity.class.getCanonicalName());
+            try {
+                intent.putExtra("id", Long.parseLong(object.getString("id")));
+
+                startActivity(intent);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
         }
     }

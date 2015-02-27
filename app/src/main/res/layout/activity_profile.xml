@@ -94,7 +94,8 @@
         android:smoothScrollbar="false"
         android:scrollingCache="false"
         android:visibility="visible"
-        android:paddingTop="20sp" />
+        android:paddingTop="20sp"
+        android:layout_above="@+id/AddObject" />
 
     <Button
         android:id="@+id/AddObject"
