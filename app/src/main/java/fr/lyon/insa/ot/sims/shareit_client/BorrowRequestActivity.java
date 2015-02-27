@@ -103,8 +103,7 @@ public class BorrowRequestActivity extends Activity {
         protected void onPostExecute(JSONObject reader){
             Toast.makeText(getApplicationContext(), "Requète envoyée !", Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(BorrowRequestActivity.this, ObjectActivity.class);
-            startActivity(intent);
+            Utils.openOtherActivity(BorrowRequestActivity.this, ObjectActivity.class);
         }
     }
 }

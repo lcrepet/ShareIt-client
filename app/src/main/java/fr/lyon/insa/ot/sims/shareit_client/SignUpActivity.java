@@ -2,7 +2,6 @@ package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -137,9 +136,7 @@ public class SignUpActivity extends Activity {
                 long userId =  reader.getLong("id");
                 Utils.setUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE), userId);
 
-                Intent intent;
-                intent = new Intent(SignUpActivity.this, MainActivity.class);
-                startActivity(intent);
+                Utils.openOtherActivity(SignUpActivity.this, MainActivity.class);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

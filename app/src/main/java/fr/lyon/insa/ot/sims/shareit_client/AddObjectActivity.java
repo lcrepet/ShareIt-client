@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -67,13 +68,11 @@ public class AddObjectActivity extends Activity {
         protected void onPostExecute(JSONObject object) {
             Toast.makeText(AddObjectActivity.this,"Objet créé !", Toast.LENGTH_LONG).show();
 
-            Intent intent;
-            intent = new Intent(AddObjectActivity.this, ObjectActivity.class);
-            intent.putExtra(Intent.EXTRA_INTENT, ProfileActivity.class.getCanonicalName());
             try {
-                intent.putExtra("id", Long.parseLong(object.getString("id")));
-
-                startActivity(intent);
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, ProfileActivity.class.getCanonicalName());
+                extras.put("id", object.getString("id"));
+                Utils.openOtherActivity(AddObjectActivity.this, ObjectActivity.class, extras);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

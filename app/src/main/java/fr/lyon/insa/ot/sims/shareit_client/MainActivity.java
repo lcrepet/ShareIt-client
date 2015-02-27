@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import fr.lyon.insa.ot.sims.shareit_client.Adapters.SearchListAdapter;
@@ -40,20 +41,17 @@ public class MainActivity extends Activity {
 
         if(Utils.getUserId(getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)) == -1L){
             //user undefined, create account
-            Intent intent;
-            intent = new Intent(MainActivity.this, SignUpActivity.class);
-            startActivity(intent);
+            Utils.openOtherActivity(MainActivity.this, SignUpActivity.class);
         }
 
         final ListView listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent;
-                intent = new Intent(MainActivity.this, ObjectActivity.class);
-                intent.putExtra(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
-                intent.putExtra("id", listView.getAdapter().getItemId(position));
-                startActivity(intent);
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
+                extras.put("id", String.valueOf(listView.getAdapter().getItemId(position)));
+                Utils.openOtherActivity(MainActivity.this, ObjectActivity.class, extras);
             }
         });
         SearchListAdapter adapter = null;

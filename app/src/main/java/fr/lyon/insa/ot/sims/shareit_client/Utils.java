@@ -13,6 +13,9 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
 /**
  * Created by Louise on 23/02/2015.
  */
@@ -20,6 +23,17 @@ public class Utils extends Activity{
 
     public static void openOtherActivity(Context context, Class<?> cls) {
         Intent intent = new Intent(context, cls);
+        context.startActivity(intent);
+    }
+
+    public static void openOtherActivity(Context context, Class<?> cls, HashMap<String, String> extras){
+        Intent intent = new Intent(context, cls);
+        Iterator it = extras.entrySet().iterator();
+        while(it.hasNext()){
+            HashMap.Entry<String, String> pair = (HashMap.Entry<String, String>) it.next();
+            intent.putExtra(pair.getKey(), pair.getValue());
+        }
+
         context.startActivity(intent);
     }
 

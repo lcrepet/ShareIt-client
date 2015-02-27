@@ -34,7 +34,7 @@ public class ObjectActivity extends Activity {
         if (extras == null) {
             return;
         }
-        id = extras.getLong("id");
+        id = Long.valueOf(extras.getString("id"));
         TAG_ID = String.valueOf(id);
 
         final Button objectButton = (Button) findViewById(R.id.bouton1);

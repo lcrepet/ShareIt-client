@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import fr.lyon.insa.ot.sims.shareit_client.Adapters.SearchListAdapter;
@@ -71,11 +72,10 @@ public class ProfileActivity extends Activity {
         listProducts.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent;
-                intent = new Intent(ProfileActivity.this, ObjectActivity.class);
-                intent.putExtra(Intent.EXTRA_INTENT, ProfileActivity.class.getCanonicalName());
-                intent.putExtra("id", listProducts.getAdapter().getItemId(position));
-                startActivity(intent);
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, ProfileActivity.class.getCanonicalName());
+                extras.put("id", String.valueOf(listProducts.getAdapter().getItemId(position)));
+                Utils.openOtherActivity(ProfileActivity.this, ObjectActivity.class, extras);
             }
         });
     }
