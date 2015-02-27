@@ -122,7 +122,7 @@ public class ProfileActivity extends Activity {
         @Override
         protected JSONArray doInBackground(String... message) {
 
-            return Request.getListRequest("http://178.62.199.79:8080/shareit/user/2/product");
+            return Request.getListRequest(message[0]);
         }
 
         protected void onPostExecute(JSONArray reader) {
