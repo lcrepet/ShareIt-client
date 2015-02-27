@@ -51,8 +51,7 @@
         </activity>
         <activity
             android:name=".ObjectActivity"
-            android:label="@string/title_activity_object"
-            android:parentActivityName=".MainActivity" >
+            android:label="@string/title_activity_object">
         </activity>
         <activity
             android:name=".BorrowRequestActivity"

@@ -2,6 +2,7 @@ package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Button;
@@ -63,6 +65,17 @@ public class ProfileActivity extends Activity {
         addObject.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Utils.openOtherActivity(ProfileActivity.this, AddObjectActivity.class);
+            }
+        });
+
+        listProducts.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+                intent = new Intent(ProfileActivity.this, ObjectActivity.class);
+                intent.putExtra(Intent.EXTRA_INTENT, ProfileActivity.class.getCanonicalName());
+                intent.putExtra("id", listProducts.getAdapter().getItemId(position));
+                startActivity(intent);
             }
         });
     }

@@ -28,6 +28,7 @@ public class ObjectActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_object);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
@@ -35,9 +36,6 @@ public class ObjectActivity extends Activity {
         }
         id = extras.getLong("id");
         TAG_ID = String.valueOf(id);
-
-
-
 
         final Button objectButton = (Button) findViewById(R.id.bouton1);
         objectButton.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +67,19 @@ public class ObjectActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Intent getParentActivityIntent(){
+        Intent parentIntent = getIntent();
+        String className = parentIntent.getStringExtra(Intent.EXTRA_INTENT);
+
+        try {
+            return new Intent(this, Class.forName(className));
+        } catch (ClassNotFoundException cnf) {
+            cnf.printStackTrace();
+            return null;
+        }
     }
 
     private class DisplayObject extends AsyncTask<String, Void, JSONObject>{

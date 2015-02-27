@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
                 intent = new Intent(MainActivity.this, ObjectActivity.class);
+                intent.putExtra(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
                 intent.putExtra("id", listView.getAdapter().getItemId(position));
                 startActivity(intent);
             }
