@@ -1,18 +1,48 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+<<<<<<< HEAD
+import android.os.AsyncTask;
+import android.os.Build;
+=======
+import android.content.Intent;
+>>>>>>> c192dc258a720730c12a1da11959ab205d86f74b
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class BorrowActivity extends Activity {
 
-	@Override
+    private long id;
+    private  String TAG_ID = "id";
+    private  String TAG_NAME = "name";
+
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_borrow);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) {
+            return;
+        }
+        id = Long.valueOf(extras.getString("id"));
+        TAG_ID = String.valueOf(id);
+
+        new DisplayBorrowedObjects().execute();
+        new DisplayLendedObjects().execute();
+
 	}
 
 	@Override
@@ -34,8 +64,10 @@ public class BorrowActivity extends Activity {
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.menu_profile:
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, ObjectActivity.class.getCanonicalName());
                 Utils.openOtherActivity(this,
-                        ProfileActivity.class);
+                        ProfileActivity.class, extras);
                 return true;
             case R.id.menu_email:
                 Utils.openOtherActivity(this,
@@ -45,4 +77,48 @@ public class BorrowActivity extends Activity {
                 return super.onOptionsItemSelected(item);
         }
 	}
+
+    private class DisplayBorrowedObjects extends AsyncTask<String, Void, JSONObject>{
+
+        @Override
+        public JSONObject doInBackground(String... message) {
+            return Request.getRequest(Constants.uri + "user/{id}/borrowed" + TAG_ID);
+        }
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+        protected void onPostExecute(JSONObject reader) {
+            TextView nomEmprunte = (TextView) findViewById(R.id.NomObjetEmprunte);
+            try {
+                String nameToSet = reader.getString(TAG_NAME);
+                nomEmprunte.setText(nameToSet);
+                getActionBar().setTitle(nameToSet);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DisplayLendedObjects extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        public JSONObject doInBackground(String... message) {
+            return Request.getRequest(Constants.uri + "user/{id}/lended" + TAG_ID);
+        }
+
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+        protected void onPostExecute(JSONObject reader) {
+            TextView nomPrete = (TextView) findViewById(R.id.NomObjetPrete);
+            try {
+                String nameToSet = reader.getString(TAG_NAME);
+                nomPrete.setText(nameToSet);
+                getActionBar().setTitle(nameToSet);
+
+
+            }catch(JSONException e) {
+                e.printStackTrace();
+
+            }
+        }
+    }
 }

@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Button;
@@ -35,6 +36,7 @@ public class ProfileActivity extends Activity {
     private TextView rating = null;
     private ListView listProducts = null;
     private Button addObject = null;
+    private String profileId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +53,18 @@ public class ProfileActivity extends Activity {
         listProducts = (ListView) findViewById(R.id.ListProducts);
         addObject = (Button) findViewById(R.id.AddObject);
 
+        try{
+            profileId = getIntent().getExtras().getString("userId");
+        } catch(Exception e) {
+            profileId = String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
+        }
 
-        new GetProfile().execute(Constants.uri + "user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
+        if(profileId == null) {
+            profileId = String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
+        }
+
+
+        new GetProfile().execute(Constants.uri + "user/" + profileId);
 
         SearchListAdapter adapter = null;
         try {
@@ -61,7 +73,7 @@ public class ProfileActivity extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new GetProducts().execute(Constants.uri + "user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)) + "/product");
+        new GetProducts().execute(Constants.uri + "user/" + profileId + "/product");
 
         addObject.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -78,6 +90,21 @@ public class ProfileActivity extends Activity {
                 Utils.openOtherActivity(ProfileActivity.this, ObjectActivity.class, extras);
             }
         });
+
+        ImageButton messageButton = (ImageButton) findViewById(R.id.SendMail);
+        if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(profileId)){
+            messageButton.setVisibility(View.INVISIBLE);
+        }
+
+        messageButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, ProfileActivity.class.getCanonicalName());
+                extras.put("contactId", profileId);
+                Utils.openOtherActivity(ProfileActivity.this, MessageActivity.class, extras);
+            }
+        });
     }
 
     @Override
@@ -87,6 +114,19 @@ public class ProfileActivity extends Activity {
 
         inflater.inflate(R.menu.profile, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public Intent getParentActivityIntent(){
+        Intent parentIntent = getIntent();
+        String className = parentIntent.getStringExtra(Intent.EXTRA_INTENT);
+
+        try {
+            return new Intent(this, Class.forName(className));
+        } catch (ClassNotFoundException cnf) {
+            cnf.printStackTrace();
+            return null;
+        }
     }
 
     @Override
