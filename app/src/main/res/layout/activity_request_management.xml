@@ -9,8 +9,7 @@
     <TextView
         android:id="@+id/Product"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/product"/>
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/OK"

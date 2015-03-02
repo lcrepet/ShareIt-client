@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -27,11 +28,16 @@ public class RequestManagementActivity extends ActionBarActivity {
     private Button ok = null;
     private Button nok = null;
     private Button returned = null;
+    private TextView product = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_management);
+
+
+        product = (TextView) findViewById(R.id.Product);
+        product.setText(getResources().getString(R.string.product, "Produit", "Catégorie"));
 
         ok = (Button) findViewById(R.id.OK);
         nok = (Button) findViewById(R.id.NOK);
