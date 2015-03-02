@@ -59,6 +59,9 @@ public class ProfileActivity extends Activity {
             profileId = String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
         }
 
+        if(profileId == null) {
+            profileId = String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
+        }
 
 
         new GetProfile().execute(Constants.uri + "user/" + profileId);
@@ -111,6 +114,19 @@ public class ProfileActivity extends Activity {
 
         inflater.inflate(R.menu.profile, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public Intent getParentActivityIntent(){
+        Intent parentIntent = getIntent();
+        String className = parentIntent.getStringExtra(Intent.EXTRA_INTENT);
+
+        try {
+            return new Intent(this, Class.forName(className));
+        } catch (ClassNotFoundException cnf) {
+            cnf.printStackTrace();
+            return null;
+        }
     }
 
     @Override

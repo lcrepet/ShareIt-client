@@ -1,11 +1,14 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.HashMap;
 
 public class BorrowActivity extends Activity {
 
@@ -34,8 +37,10 @@ public class BorrowActivity extends Activity {
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.menu_profile:
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, ObjectActivity.class.getCanonicalName());
                 Utils.openOtherActivity(this,
-                        ProfileActivity.class);
+                        ProfileActivity.class, extras);
                 return true;
             case R.id.menu_email:
                 Utils.openOtherActivity(this,

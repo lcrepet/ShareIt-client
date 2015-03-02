@@ -125,6 +125,7 @@ public class ObjectActivity extends Activity {
             sharer.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     HashMap<String, String> extras = new HashMap<>();
+                    extras.put(Intent.EXTRA_INTENT, ObjectActivity.class.getCanonicalName());
                     try {
                         extras.put("userId", reader.getJSONObject(TAG_SHARER).getString("id"));
                     } catch (JSONException e) {

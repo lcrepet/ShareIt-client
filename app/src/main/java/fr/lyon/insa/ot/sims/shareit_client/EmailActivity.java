@@ -61,8 +61,10 @@ public class EmailActivity extends Activity {
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.menu_profile:
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, ObjectActivity.class.getCanonicalName());
                 Utils.openOtherActivity(this,
-                        ProfileActivity.class);
+                        ProfileActivity.class, extras);
                 return true;
             case R.id.menu_borrow:
                 Utils.openOtherActivity(this,
