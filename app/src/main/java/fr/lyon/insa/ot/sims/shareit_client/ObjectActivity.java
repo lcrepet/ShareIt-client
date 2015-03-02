@@ -103,6 +103,7 @@ public class ObjectActivity extends Activity {
 
                 String nameToSet = reader.getString(TAG_NAME);
                 nom.setText(nameToSet);
+                getActionBar().setTitle(nameToSet);
 
                 String typeToSet = reader.getJSONObject(TAG_TYPE).getString(TAG_NAME);
                 type.setText(typeToSet);
