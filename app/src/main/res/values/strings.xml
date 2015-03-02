@@ -33,14 +33,12 @@
     <string name="button_OK">Accepter</string>
     <string name="button_NOK">Refuser</string>
     <string name="title_activity_sign_up">Identification</string>
-
-
     <string-array name="sex">
         <item>Sexe</item>
         <item>Homme</item>
         <item>Femme</item>
     </string-array>
-
     <string name="title_activity_request_management">RequestManagementActivity</string>
-
+    <string name="title_activity_message">MessageActivity</string>
+    <string name="sendMessage">Envoyer</string>
 </resources>

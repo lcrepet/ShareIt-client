@@ -95,8 +95,12 @@ public class ObjectActivity extends Activity {
         public JSONObject doInBackground(String... message) {
             return Request.getRequest(Constants.uri + "product/" + TAG_ID);
         }
+<<<<<<< HEAD
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         protected void onPostExecute(JSONObject reader) {
+=======
+        protected void onPostExecute(final JSONObject reader) {
+>>>>>>> c192dc258a720730c12a1da11959ab205d86f74b
             TextView nom = (TextView) findViewById(R.id.NomObjet);
             TextView type = (TextView) findViewById(R.id.TypeObjet);
             TextView status = (TextView)findViewById(R.id.StatusObjet);
@@ -121,10 +125,25 @@ public class ObjectActivity extends Activity {
                 String propToSet = Utils.getUserName(reader.getJSONObject(TAG_SHARER));
                 prop.setText(propToSet);
 
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            final TextView sharer = (TextView) findViewById(R.id.Proprietaire);
+            sharer.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    HashMap<String, String> extras = new HashMap<>();
+                    extras.put(Intent.EXTRA_INTENT, ObjectActivity.class.getCanonicalName());
+                    try {
+                        extras.put("userId", reader.getJSONObject(TAG_SHARER).getString("id"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Utils.openOtherActivity(ObjectActivity.this, ProfileActivity.class, extras);
+                }
+            });
+
+
 
         }
     }

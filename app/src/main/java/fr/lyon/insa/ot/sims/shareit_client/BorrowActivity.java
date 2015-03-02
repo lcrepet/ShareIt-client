@@ -2,8 +2,12 @@ package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+<<<<<<< HEAD
 import android.os.AsyncTask;
 import android.os.Build;
+=======
+import android.content.Intent;
+>>>>>>> c192dc258a720730c12a1da11959ab205d86f74b
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,6 +17,8 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class BorrowActivity extends Activity {
 
@@ -58,8 +64,10 @@ public class BorrowActivity extends Activity {
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.menu_profile:
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, ObjectActivity.class.getCanonicalName());
                 Utils.openOtherActivity(this,
-                        ProfileActivity.class);
+                        ProfileActivity.class, extras);
                 return true;
             case R.id.menu_email:
                 Utils.openOtherActivity(this,
