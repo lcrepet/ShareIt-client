@@ -130,7 +130,7 @@ public class Request {
 
     }
 
-    public static String SetUser(String url, List<NameValuePair> pairs) {
+    public static String setRequest(String url, List<NameValuePair> pairs) {
         HttpResponse response = null;
         try {
 

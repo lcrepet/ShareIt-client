@@ -15,6 +15,7 @@
     <string name="desc_object">Description</string>
     <string name="pic_object">Charger une photo</string>
     <string name="save_object">Enregistrer</string>
+    <string name="product">%1$s (%2$s)</string>
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_borrow">Borrow</string>
@@ -29,11 +30,17 @@
     <string name="title_activity_borrow_request">Emprunter un objet</string>
     <string name="category_prompt">Catégorie</string>
     <string name="borrow_request">Envoyer la demande d\'emprunt</string>
-    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="button_OK">Accepter</string>
+    <string name="button_NOK">Refuser</string>
+    <string name="title_activity_sign_up">Identification</string>
+
+
     <string-array name="sex">
         <item>Sexe</item>
         <item>Homme</item>
         <item>Femme</item>
     </string-array>
+
+    <string name="title_activity_request_management">RequestManagementActivity</string>
 
 </resources>
