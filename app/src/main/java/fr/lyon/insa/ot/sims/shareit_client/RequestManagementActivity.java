@@ -1,5 +1,6 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -22,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class RequestManagementActivity extends ActionBarActivity {
+public class RequestManagementActivity extends Activity {
 
     private Button ok = null;
     private Button nok = null;

@@ -1,8 +1,10 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +28,7 @@ public class ObjectActivity extends Activity {
     private  String TAG_DESCRIPTION="description";
     private  String TAG_SHARER="sharer";
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +95,7 @@ public class ObjectActivity extends Activity {
         public JSONObject doInBackground(String... message) {
             return Request.getRequest(Constants.uri + "product/" + TAG_ID);
         }
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         protected void onPostExecute(JSONObject reader) {
             TextView nom = (TextView) findViewById(R.id.NomObjet);
             TextView type = (TextView) findViewById(R.id.TypeObjet);

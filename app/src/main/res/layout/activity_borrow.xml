@@ -9,8 +9,33 @@
     tools:context="fr.lyon.insa.ot.sims.shareit_client.BorrowActivity" >
 
     <TextView
+        android:id="@+id/ObjetEmprunte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world_borrow" />
+        android:text="Objets empruntés" />
+
+    <TextView
+        android:id="@+id/NomObjetEmprunte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ObjetEmprunte"
+        android:text="nomEmprunte"                  />
+
+
+
+    <TextView
+        android:id="@+id/objetPrete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/NomObjetEmprunte"
+        android:text="Objets prêtés" />
+
+    <TextView
+        android:id="@+id/NomObjetPrete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/objetPrete"
+        android:text="nomPrete"                  />
+
 
 </RelativeLayout>
