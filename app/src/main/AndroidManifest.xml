@@ -67,6 +67,10 @@
             android:name=".RequestManagementActivity"
             android:label="@string/title_activity_request_management" >
         </activity>
+        <activity
+            android:name=".MessageActivity"
+            android:label="@string/title_activity_message" >
+        </activity>
     </application>
 
 </manifest>

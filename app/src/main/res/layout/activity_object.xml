@@ -53,7 +53,8 @@
           android:text="Proprietaire"
           android:layout_above="@+id/Note"
           android:layout_alignParentLeft="true"
-          android:layout_alignParentStart="true" />
+          android:layout_alignParentStart="true"
+          android:clickable="true" />
 
 
     <TextView

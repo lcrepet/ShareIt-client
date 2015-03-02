@@ -1,11 +1,25 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.HashMap;
+
+import fr.lyon.insa.ot.sims.shareit_client.Adapters.ContactListAdapter;
+import fr.lyon.insa.ot.sims.shareit_client.Adapters.SearchListAdapter;
 
 public class EmailActivity extends Activity {
 
@@ -13,6 +27,20 @@ public class EmailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_email);
+
+        final ListView contactList = (ListView) findViewById(R.id.contactList);
+
+        contactList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, EmailActivity.class.getCanonicalName());
+                extras.put("contactId", String.valueOf(contactList.getAdapter().getItemId(position)));
+                Utils.openOtherActivity(EmailActivity.this, MessageActivity.class, extras);
+            }
+        });
+
+        new SearchContacts().execute(Constants.uri + "contacts/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
 	}
 
 	@Override
@@ -44,4 +72,22 @@ public class EmailActivity extends Activity {
                 return super.onOptionsItemSelected(item);
         }
 	}
+
+    private class SearchContacts extends AsyncTask<String, Void, JSONArray> {
+
+        @Override
+        protected JSONArray doInBackground(String... message) {
+            return Request.getListRequest(message[0]);
+        }
+
+        protected void onPostExecute(JSONArray reader) {
+            ListView contactList = (ListView) findViewById(R.id.contactList);
+            try {
+                ContactListAdapter adapter = new ContactListAdapter(EmailActivity.this, reader);
+                contactList.setAdapter(adapter);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
