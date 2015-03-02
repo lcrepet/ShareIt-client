@@ -13,6 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import fr.lyon.insa.ot.sims.shareit_client.R;
@@ -35,6 +37,16 @@ public class MessageListAdapter extends BaseAdapter {
             JSONObject row = messages.getJSONObject(i);
             this.messages.add(new Message(row));
         }
+
+        Collections.sort(this.messages, new Comparator<Message>() {
+            @Override
+            public int compare(Message m1, Message m2) {
+                if(m1.date > m2.date) {
+                    return 1;
+                }
+                return -1;
+            }
+        });
     }
 
     @Override
@@ -73,11 +85,13 @@ public class MessageListAdapter extends BaseAdapter {
         public String text;
         public String from;
         public long id;
+        public long date;
 
         public Message(JSONObject message) throws JSONException {
             this.from = Utils.getUserName(message.getJSONObject("sender"));
             this.text = message.getString("message");
             this.id = message.getLong("id");
+            this.date = message.getLong("date");
         }
     }
 }
