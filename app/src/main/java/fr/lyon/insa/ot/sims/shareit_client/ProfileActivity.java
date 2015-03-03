@@ -36,6 +36,7 @@ public class ProfileActivity extends Activity {
     private TextView rating = null;
     private ListView listProducts = null;
     private Button addObject = null;
+    private Button changeProfile = null;
     private String profileId;
 
     @Override
@@ -52,6 +53,7 @@ public class ProfileActivity extends Activity {
         rating = (TextView) findViewById(R.id.Rating);
         listProducts = (ListView) findViewById(R.id.ListProducts);
         addObject = (Button) findViewById(R.id.AddObject);
+        changeProfile = (Button) findViewById(R.id.EditProfile);
 
         try{
             profileId = getIntent().getExtras().getString("userId");
@@ -81,6 +83,14 @@ public class ProfileActivity extends Activity {
             }
         });
 
+        changeProfile.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put("modification", "true");
+                Utils.openOtherActivity(ProfileActivity.this, SignUpActivity.class, extras);
+            }
+        });
+
         listProducts.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -94,6 +104,9 @@ public class ProfileActivity extends Activity {
         ImageButton messageButton = (ImageButton) findViewById(R.id.SendMail);
         if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(profileId)){
             messageButton.setVisibility(View.INVISIBLE);
+        } else {
+            addObject.setVisibility(View.INVISIBLE);
+            changeProfile.setVisibility(View.INVISIBLE);
         }
 
         messageButton.setOnClickListener(new View.OnClickListener(){

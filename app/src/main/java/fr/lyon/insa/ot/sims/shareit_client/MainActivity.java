@@ -41,6 +41,8 @@ public class MainActivity extends Activity {
 
         if(Utils.getUserId(getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)) == -1L){
             //user undefined, create account
+            HashMap<String, String> extras = new HashMap<>();
+            extras.put("modification", "false");
             Utils.openOtherActivity(MainActivity.this, SignUpActivity.class);
         }
 

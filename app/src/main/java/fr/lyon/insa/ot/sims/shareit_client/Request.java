@@ -135,8 +135,16 @@ public class Request {
         try {
 
             HttpClient client = new DefaultHttpClient();
+            url += "?";
+            int i = 0;
+            for(NameValuePair n: pairs){
+                if(i > 0) url += "&";
+                url += n.getName() + "=" + n.getValue();
+                i++;
+            }
+
             HttpPut put = new HttpPut(url);
-            put.setEntity(new UrlEncodedFormEntity(pairs));
+            //put.setEntity(new UrlEncodedFormEntity(pairs));
 
             response = client.execute(put);
 
