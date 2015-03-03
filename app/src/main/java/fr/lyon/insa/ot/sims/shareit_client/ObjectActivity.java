@@ -2,6 +2,7 @@ package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -43,6 +44,10 @@ public class ObjectActivity extends Activity {
         TAG_ID = String.valueOf(id);
 
         final Button objectButton = (Button) findViewById(R.id.bouton1);
+        if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(TAG_SHARER)){
+            objectButton.setVisibility(View.INVISIBLE);
+        }
+
         objectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 HashMap<String, String> extras = new HashMap<>();
