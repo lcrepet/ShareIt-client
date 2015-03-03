@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -107,7 +108,10 @@ public class BorrowRequestActivity extends Activity {
         protected void onPostExecute(JSONObject reader){
             Toast.makeText(getApplicationContext(), "Requête envoyée !", Toast.LENGTH_LONG).show();
 
-            Utils.openOtherActivity(BorrowRequestActivity.this, ObjectActivity.class);
+            Bundle extra = getIntent().getExtras();
+            HashMap<String, String> extras = new HashMap<>();
+            extras.put("id", String.valueOf(Long.valueOf(extra.getString("id"))));
+            Utils.openOtherActivity(BorrowRequestActivity.this, ObjectActivity.class, extras);
         }
     }
 }

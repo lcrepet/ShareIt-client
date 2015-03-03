@@ -2,12 +2,9 @@ package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-<<<<<<< HEAD
 import android.os.AsyncTask;
 import android.os.Build;
-=======
 import android.content.Intent;
->>>>>>> c192dc258a720730c12a1da11959ab205d86f74b
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
