@@ -40,23 +40,13 @@ public class ObjectActivity extends Activity {
         if (extras == null) {
             return;
         }
+
         id = Long.valueOf(extras.getString("id"));
         TAG_ID = String.valueOf(id);
 
-        final Button objectButton = (Button) findViewById(R.id.bouton1);
-        if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(TAG_SHARER)){
-            objectButton.setVisibility(View.INVISIBLE);
-        }
-
-        objectButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                HashMap<String, String> extras = new HashMap<>();
-                extras.put("id", TAG_ID);
-                Utils.openOtherActivity(ObjectActivity.this, BorrowRequestActivity.class, extras);
-            }
-        });
-
         new DisplayObject().execute();
+
+
     }
 
     @Override
@@ -107,6 +97,20 @@ public class ObjectActivity extends Activity {
             TextView status = (TextView)findViewById(R.id.StatusObjet);
             TextView desc = (TextView)findViewById(R.id.DescriptionObjet);
             TextView prop = (TextView) findViewById(R.id.Proprietaire);
+
+            final Button objectButton = (Button) findViewById(R.id.bouton1);
+
+            if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(TAG_SHARER)){
+                objectButton.setVisibility(View.INVISIBLE);
+            }
+
+            objectButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    HashMap<String, String> extras = new HashMap<>();
+                    extras.put("id", TAG_ID);
+                    Utils.openOtherActivity(ObjectActivity.this, BorrowRequestActivity.class, extras);
+                }
+            });
 
             try {
 
