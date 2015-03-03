@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,13 +22,22 @@ import java.util.HashMap;
 
 public class ObjectActivity extends Activity {
 
-    private long id;
+    private String id;
     private  String TAG_ID = "id";
     private  String TAG_NAME = "name";
     private  String TAG_TYPE = "category";
     private  String TAG_STATUS = "status";
     private  String TAG_DESCRIPTION="description";
     private  String TAG_SHARER="sharer";
+
+
+
+    private TextView nom = null;
+    private TextView type = null;
+    private TextView status = null;
+    private TextView desc = null;
+    private TextView prop = null;
+    private Button objectButton = null;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -41,8 +51,14 @@ public class ObjectActivity extends Activity {
             return;
         }
 
-        id = Long.valueOf(extras.getString("id"));
-        TAG_ID = String.valueOf(id);
+        id = String.valueOf(Long.valueOf(extras.getString("id")));
+
+        nom = (TextView) findViewById(R.id.NomObjet);
+        type = (TextView) findViewById(R.id.TypeObjet);
+        status = (TextView)findViewById(R.id.StatusObjet);
+        desc = (TextView)findViewById(R.id.DescriptionObjet);
+        prop = (TextView) findViewById(R.id.Proprietaire);
+        objectButton = (Button) findViewById(R.id.bouton1);
 
         new DisplayObject().execute();
 
@@ -88,30 +104,30 @@ public class ObjectActivity extends Activity {
 
         @Override
         public JSONObject doInBackground(String... message) {
-            return Request.getRequest(Constants.uri + "product/" + TAG_ID);
+            return Request.getRequest(Constants.uri + "product/" + id);
         }
 
         protected void onPostExecute(final JSONObject reader) {
 
-            final Button objectButton = (Button) findViewById(R.id.bouton1);
 
-            if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(TAG_SHARER)){
-                objectButton.setVisibility(View.INVISIBLE);
-            } else {
+            String idJSON = "";
+
+            try {
+                idJSON = reader.getJSONObject(TAG_SHARER).getString(TAG_ID);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+           if(!(Long.toString(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(idJSON))){
+                objectButton.setVisibility(View.VISIBLE);
                 objectButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         HashMap<String, String> extras = new HashMap<>();
-                        extras.put("id", TAG_ID);
+                        extras.put(TAG_ID, id);
                         Utils.openOtherActivity(ObjectActivity.this, BorrowRequestActivity.class, extras);
                     }
                 });
             }
-
-            TextView nom = (TextView) findViewById(R.id.NomObjet);
-            TextView type = (TextView) findViewById(R.id.TypeObjet);
-            TextView status = (TextView)findViewById(R.id.StatusObjet);
-            TextView desc = (TextView)findViewById(R.id.DescriptionObjet);
-            TextView prop = (TextView) findViewById(R.id.Proprietaire);
 
 
             try {
