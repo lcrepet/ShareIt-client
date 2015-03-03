@@ -18,8 +18,7 @@
         android:id="@+id/NomObjetEmprunte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ObjetEmprunte"
-        android:text="nomEmprunte"                  />
+        android:layout_below="@id/ObjetEmprunte"/>
 
 
 
@@ -34,8 +33,7 @@
         android:id="@+id/NomObjetPrete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/objetPrete"
-        android:text="nomPrete"                  />
+        android:layout_below="@id/objetPrete"/>
 
 
 </RelativeLayout>

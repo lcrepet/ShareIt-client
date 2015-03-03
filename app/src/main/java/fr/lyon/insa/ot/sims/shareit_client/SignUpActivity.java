@@ -44,7 +44,9 @@ public class SignUpActivity extends Activity {
         phone = (EditText) findViewById(R.id.phone);
         final Button button = (Button) findViewById(R.id.signUpButton);
 
-        if(getIntent().getExtras().getString("modification").equals("true")){
+        if(getIntent().getExtras() != null && getIntent().getExtras().getString("modification").equals("true")){
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+
             button.setText("Enregistrer");
             firstName.setHint("Prénom");
             lastName.setHint("Nom");
@@ -154,6 +156,18 @@ public class SignUpActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Intent getParentActivityIntent(){
+        String className = ProfileActivity.class.getCanonicalName();
+
+        try {
+            return new Intent(this, Class.forName(className));
+        } catch (ClassNotFoundException cnf) {
+            cnf.printStackTrace();
+            return null;
+        }
     }
 
     private class SignUp extends AsyncTask<String, Void, JSONObject> {
