@@ -7,22 +7,38 @@
     tools:context="fr.lyon.insa.ot.sims.shareit_client.BorrowRequestActivity">
 
     <TextView
+        android:id="@+id/objectName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/objectName"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/objectOwner"
         android:layout_alignStart="@+id/objectOwner" />
 
     <TextView
+        android:id="@+id/objectOwner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/objectOwner"
         android:layout_below="@+id/objectName"
+        android:layout_centerHorizontal="true" />
+
+    <DatePicker
+        android:id="@+id/StartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:layout_below="@+id/objectOwner"
+        android:layout_centerHorizontal="true"/>
+
+    <DatePicker
+        android:id="@+id/EndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:layout_below="@+id/StartDate"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -30,8 +46,7 @@
         android:layout_height="wrap_content"
         android:text="@string/borrow_request"
         android:id="@+id/buttonBorrow"
-        android:layout_below="@+id/objectOwner"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="77dp" />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
