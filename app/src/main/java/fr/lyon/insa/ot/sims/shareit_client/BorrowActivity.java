@@ -2,6 +2,7 @@ package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.content.Intent;
@@ -20,9 +21,23 @@ import java.util.HashMap;
 
 public class BorrowActivity extends Activity {
 
-    private long id;
-    private  String TAG_ID = "id";
-    private  String TAG_NAME = "name";
+    private String idUser;
+
+    /* données sur l'échange (lended ou borrowed)*/
+
+    private String TAG_LENDER= "lender";
+    private String TAG_BORROWER="borrower";
+    private  String TAG_PRODUCT = "product";
+
+    /* nom du produit*/
+
+    private String TAG_NAME="name";
+
+    /* nom et prénom emprunteur ou prêteur*/
+
+    private String TAG_FIRSTNAME="firstname";
+    private String TAG_LASTNAME="lastname";
+
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -34,9 +49,19 @@ public class BorrowActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
             return;
+
         }
-        id = Long.valueOf(extras.getString("id"));
-        TAG_ID = String.valueOf(id);
+        
+        try{
+            idUser = getIntent().getExtras().getString("userId");
+        } catch(Exception e) {
+            idUser = String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
+        }
+
+        if(idUser == null) {
+            idUser = String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
+        }
+
 
         new DisplayBorrowedObjects().execute();
         new DisplayLendedObjects().execute();
@@ -76,19 +101,34 @@ public class BorrowActivity extends Activity {
         }
 	}
 
+    /* affichage des objets empruntés par l'utilisateur*/
+
     private class DisplayBorrowedObjects extends AsyncTask<String, Void, JSONObject>{
 
         @Override
         public JSONObject doInBackground(String... message) {
-            return Request.getRequest(Constants.uri + "user/{id}/borrowed" + TAG_ID);
+            return Request.getRequest(Constants.uri + "user/{}/borrowed" );
         }
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         protected void onPostExecute(JSONObject reader) {
-            TextView nomEmprunte = (TextView) findViewById(R.id.NomObjetEmprunte);
+            TextView nomObjetEmprunte= (TextView) findViewById(R.id.NomObjetEmprunte);
+            TextView nomPreteur = (TextView) findViewById(R.id.NomPreteur);
+            TextView prenomPreteur = (TextView) findViewById(R.id.PrenomPreteur);
+
+
             try {
-                String nameToSet = reader.getString(TAG_NAME);
-                nomEmprunte.setText(nameToSet);
-                getActionBar().setTitle(nameToSet);
+
+                String productToSet = reader.getJSONObject(TAG_PRODUCT).getString(TAG_NAME);
+                nomObjetEmprunte.setText(productToSet);
+                getActionBar().setTitle(productToSet);
+
+                String lenderNameToSet = reader.getJSONObject(TAG_LENDER).getString(TAG_LASTNAME);
+                nomPreteur.setText(lenderNameToSet);
+                getActionBar().setTitle(lenderNameToSet);
+
+                String lenderFirstNameToSet = reader.getJSONObject(TAG_LENDER).getString(TAG_FIRSTNAME);
+                prenomPreteur.setText(lenderFirstNameToSet);
+                getActionBar().setTitle(lenderFirstNameToSet);
 
 
             } catch (JSONException e) {
@@ -97,20 +137,34 @@ public class BorrowActivity extends Activity {
         }
     }
 
+    /* affichage des objets prêtés par l'utilisateur*/
+
     private class DisplayLendedObjects extends AsyncTask<String, Void, JSONObject> {
 
         @Override
         public JSONObject doInBackground(String... message) {
-            return Request.getRequest(Constants.uri + "user/{id}/lended" + TAG_ID);
+            return Request.getRequest(Constants.uri + "user/{"+ idUser +"}/lended");
         }
 
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         protected void onPostExecute(JSONObject reader) {
-            TextView nomPrete = (TextView) findViewById(R.id.NomObjetPrete);
+            TextView nomObjetPrete= (TextView) findViewById(R.id.NomObjetPrete);
+            TextView nomEmprunteur = (TextView) findViewById(R.id.NomEmprunteur);
+            TextView prenomEmprunteur = (TextView) findViewById(R.id.PrenomEmprunteur);
+
             try {
-                String nameToSet = reader.getString(TAG_NAME);
-                nomPrete.setText(nameToSet);
-                getActionBar().setTitle(nameToSet);
+
+                String productToSet = reader.getJSONObject(TAG_PRODUCT).getString(TAG_NAME);
+                nomObjetPrete.setText(productToSet);
+                getActionBar().setTitle(productToSet);
+
+                String borrowerNameToSet = reader.getJSONObject(TAG_BORROWER).getString(TAG_LASTNAME);
+                nomEmprunteur.setText(borrowerNameToSet);
+                getActionBar().setTitle(borrowerNameToSet);
+
+                String borrowerFirstNameToSet = reader.getJSONObject(TAG_BORROWER).getString(TAG_FIRSTNAME);
+                prenomEmprunteur.setText(borrowerFirstNameToSet);
+                getActionBar().setTitle(borrowerFirstNameToSet);
 
 
             }catch(JSONException e) {
