@@ -95,6 +95,7 @@ public class ObjectActivity extends Activity {
         public JSONObject doInBackground(String... message) {
             return Request.getRequest(Constants.uri + "product/" + TAG_ID);
         }
+
         protected void onPostExecute(final JSONObject reader) {
             TextView nom = (TextView) findViewById(R.id.NomObjet);
             TextView type = (TextView) findViewById(R.id.TypeObjet);
