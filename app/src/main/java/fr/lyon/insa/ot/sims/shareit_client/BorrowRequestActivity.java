@@ -2,6 +2,7 @@ package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -107,6 +109,8 @@ public class BorrowRequestActivity extends Activity {
         protected void onPostExecute(JSONObject reader){
             Toast.makeText(getApplicationContext(), "Requête envoyée !", Toast.LENGTH_LONG).show();
 
+            HashMap<String, String> extras = new HashMap<>();
+            extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
             Utils.openOtherActivity(BorrowRequestActivity.this, ObjectActivity.class);
         }
     }
