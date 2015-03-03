@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +29,7 @@ public class MessageActivity extends Activity {
 
     public String contact;
     public EditText message;
+    public Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,9 @@ public class MessageActivity extends Activity {
         setContentView(R.layout.activity_message);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        this.handler = new Handler();
 
+        this.handler.postDelayed(this.runnable, 5000);
 
         this.contact = getIntent().getExtras().getString("contactId");
 
@@ -90,6 +95,19 @@ public class MessageActivity extends Activity {
             return null;
         }
     }
+
+    private final Runnable runnable = new Runnable()
+    {
+        public void run()
+
+        {
+            new GetMessages().execute(Constants.uri + "messages/"
+                    + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)) + "/"
+                    + MessageActivity.this.contact);
+            MessageActivity.this.handler.postDelayed(runnable, 5000);
+        }
+
+    };
 
     private class GetMessages extends AsyncTask<String, Void, JSONArray> {
 
