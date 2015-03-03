@@ -111,6 +111,7 @@ public class BorrowRequestActivity extends Activity {
 
             Bundle extra = getIntent().getExtras();
             HashMap<String, String> extras = new HashMap<>();
+            extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
             extras.put("id", String.valueOf(Long.valueOf(extra.getString("id"))));
             Utils.openOtherActivity(BorrowRequestActivity.this, ObjectActivity.class, extras);
         }
