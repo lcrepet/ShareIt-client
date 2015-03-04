@@ -90,16 +90,18 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+        HashMap<String, String> extras = new HashMap<>();
 		switch (item.getItemId()) {
 		case R.id.menu_profile:
-            HashMap<String, String> extras = new HashMap<>();
+
             extras.put(Intent.EXTRA_INTENT, ObjectActivity.class.getCanonicalName());
             Utils.openOtherActivity(this,
                     ProfileActivity.class, extras);
 			return true;
 		case R.id.menu_borrow:
+            extras.put(Intent.EXTRA_INTENT, ObjectActivity.class.getCanonicalName());
             Utils.openOtherActivity(this,
-                    BorrowActivity.class);
+                    BorrowActivity.class, extras);
 			return true;
 		case R.id.menu_email:
             Utils.openOtherActivity(this,

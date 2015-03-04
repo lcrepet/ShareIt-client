@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/NomObjetPrete"
+        style="@style/text_style"
+        android:layout_below="@id/PrenomPreteur"/>
+
+    <TextView
+        android:id="@+id/NomEmprunteur"
+        style="@style/text_style"
+        android:layout_below="@id/NomObjetPrete"/>
+
+    <TextView
+        android:id="@+id/PrenomEmprunteur"
+        android:layout_below="@id/NomEmprunteur"
+        style="@style/text_style"/>
+
+
+</LinearLayout>

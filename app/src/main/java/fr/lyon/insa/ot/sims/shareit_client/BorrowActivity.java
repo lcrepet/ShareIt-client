@@ -7,51 +7,50 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
+
+import fr.lyon.insa.ot.sims.shareit_client.Adapters.ProductListAdapter;
+import fr.lyon.insa.ot.sims.shareit_client.Adapters.ProductListLendAdapter;
 
 public class BorrowActivity extends Activity {
 
     private String idUser;
-
-    /* données sur l'échange (lended ou borrowed)*/
-
-    private String TAG_LENDER= "lender";
-    private String TAG_BORROWER="borrower";
-    private  String TAG_PRODUCT = "product";
-
-    /* nom du produit*/
-
-    private String TAG_NAME="name";
-
-    /* nom et prénom emprunteur ou prêteur*/
-
-    private String TAG_FIRSTNAME="firstname";
-    private String TAG_LASTNAME="lastname";
+    private ListView listExchangesBorrow = null;
+    private ListView listExchangesLend = null;
 
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_borrow);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras == null) {
-            return;
 
-        }
-        
+        listExchangesBorrow = (ListView) findViewById(R.id.listExchanges);
+        listExchangesLend = (ListView) findViewById(R.id.listExchangesLend);
+
+        /*kListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
+                extras.put("id", String.valueOf(listView.getAdapter().getItemId(position)));
+                Utils.openOtherActivity(MainActivity.this, ObjectActivity.class, extras);
+            }
+        });*/
+
+
         try{
             idUser = getIntent().getExtras().getString("userId");
         } catch(Exception e) {
@@ -63,8 +62,26 @@ public class BorrowActivity extends Activity {
         }
 
 
-        new DisplayBorrowedObjects().execute();
-        new DisplayLendedObjects().execute();
+       ProductListAdapter adapterBorrow = null;
+
+        try {
+            adapterBorrow = new ProductListAdapter(this, new JSONArray());
+            listExchangesBorrow.setAdapter(adapterBorrow);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ProductListLendAdapter  adapterLend = null;
+        try {
+            adapterLend = new ProductListLendAdapter(this, new JSONArray());
+            listExchangesLend.setAdapter(adapterLend);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        new DisplayBorrowedObjects().execute(Constants.uri + "user/"+ idUser+"/borrowed");
+        new DisplayLendedObjects().execute(Constants.uri + "user/"+ idUser+"/lended");
+
 
 	}
 
@@ -103,32 +120,20 @@ public class BorrowActivity extends Activity {
 
     /* affichage des objets empruntés par l'utilisateur*/
 
-    private class DisplayBorrowedObjects extends AsyncTask<String, Void, JSONObject>{
+    private class DisplayBorrowedObjects extends AsyncTask<String, Void, JSONArray>{
 
         @Override
-        public JSONObject doInBackground(String... message) {
-            return Request.getRequest(Constants.uri + "user/{}/borrowed" );
+        protected JSONArray doInBackground(String... message) {
+            return Request.getListRequest(message[0]);
         }
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-        protected void onPostExecute(JSONObject reader) {
-            TextView nomObjetEmprunte= (TextView) findViewById(R.id.NomObjetEmprunte);
-            TextView nomPreteur = (TextView) findViewById(R.id.NomPreteur);
-            TextView prenomPreteur = (TextView) findViewById(R.id.PrenomPreteur);
+        protected void onPostExecute(JSONArray reader) {
 
 
             try {
-
-                String productToSet = reader.getJSONObject(TAG_PRODUCT).getString(TAG_NAME);
-                nomObjetEmprunte.setText(productToSet);
-                getActionBar().setTitle(productToSet);
-
-                String lenderNameToSet = reader.getJSONObject(TAG_LENDER).getString(TAG_LASTNAME);
-                nomPreteur.setText(lenderNameToSet);
-                getActionBar().setTitle(lenderNameToSet);
-
-                String lenderFirstNameToSet = reader.getJSONObject(TAG_LENDER).getString(TAG_FIRSTNAME);
-                prenomPreteur.setText(lenderFirstNameToSet);
-                getActionBar().setTitle(lenderFirstNameToSet);
+                ProductListAdapter adapterBorrow = (ProductListAdapter) listExchangesBorrow.getAdapter();
+                adapterBorrow.updateProducts(reader);
+                listExchangesBorrow.setAdapter(adapterBorrow);
 
 
             } catch (JSONException e) {
@@ -139,38 +144,28 @@ public class BorrowActivity extends Activity {
 
     /* affichage des objets prêtés par l'utilisateur*/
 
-    private class DisplayLendedObjects extends AsyncTask<String, Void, JSONObject> {
+    private class DisplayLendedObjects extends AsyncTask<String, Void, JSONArray> {
 
         @Override
-        public JSONObject doInBackground(String... message) {
-            return Request.getRequest(Constants.uri + "user/{"+ idUser +"}/lended");
+        protected JSONArray doInBackground(String... message) {
+            return Request.getListRequest(message[0]);
         }
 
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-        protected void onPostExecute(JSONObject reader) {
-            TextView nomObjetPrete= (TextView) findViewById(R.id.NomObjetPrete);
-            TextView nomEmprunteur = (TextView) findViewById(R.id.NomEmprunteur);
-            TextView prenomEmprunteur = (TextView) findViewById(R.id.PrenomEmprunteur);
+        protected void onPostExecute(JSONArray reader) {
 
             try {
 
-                String productToSet = reader.getJSONObject(TAG_PRODUCT).getString(TAG_NAME);
-                nomObjetPrete.setText(productToSet);
-                getActionBar().setTitle(productToSet);
+                ProductListLendAdapter adapterLend = (ProductListLendAdapter) listExchangesLend.getAdapter();
+                adapterLend.updateProducts(reader);
+                listExchangesLend.setAdapter(adapterLend);
 
-                String borrowerNameToSet = reader.getJSONObject(TAG_BORROWER).getString(TAG_LASTNAME);
-                nomEmprunteur.setText(borrowerNameToSet);
-                getActionBar().setTitle(borrowerNameToSet);
-
-                String borrowerFirstNameToSet = reader.getJSONObject(TAG_BORROWER).getString(TAG_FIRSTNAME);
-                prenomEmprunteur.setText(borrowerFirstNameToSet);
-                getActionBar().setTitle(borrowerFirstNameToSet);
-
-
-            }catch(JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
-
             }
+                //TextView tv= (TextView)findViewById(R.id.objetPrete);
+                //tv.setText(reader.toString());
+
         }
     }
 }

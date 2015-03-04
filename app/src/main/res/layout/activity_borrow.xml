@@ -13,7 +13,7 @@
         android:id="@+id/ObjetEmprunte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:text="Objet empruntés" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -32,21 +32,15 @@
         android:layout_below="@+id/listExchanges"
         android:text="Objets prêtés" />
 
-    <TextView
-        android:id="@+id/NomObjetPrete"
-        style="@style/text_style"
-        android:layout_below="@id/objetPrete"/>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listExchangesLend"
+        android:layout_below="@+id/ObjetPrete"
+        android:smoothScrollbar="false"
+        android:scrollingCache="false"
+        android:visibility="visible" />
 
-    <TextView
-        android:id="@+id/NomEmprunteur"
-        style="@style/text_style"
-        android:layout_below="@id/NomObjetPrete"/>
-
-    <TextView
-        android:id="@+id/PrenomEmprunteur"
-        android:layout_below="@id/NomEmprunteur"
-        style="@style/text_style"
-        android:text="nomPrete"/>
 
 
 </RelativeLayout>
