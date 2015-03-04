@@ -68,7 +68,7 @@ public class ProductListLendAdapter extends BaseAdapter{
         if (inflater == null)
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.exchanges_list_item_layout, null);
+            convertView = inflater.inflate(R.layout.exchanges_list_lend_item_layout, null);
 
         TextView name = (TextView) convertView.findViewById(R.id.NomObjetPrete);
         TextView lastname = (TextView) convertView.findViewById(R.id.NomEmprunteur);

@@ -65,7 +65,6 @@ public class ProfileActivity extends Activity {
             profileId = String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
         }
 
-
         new GetProfile().execute(Constants.uri + "user/" + profileId);
 
         SearchListAdapter adapter = null;

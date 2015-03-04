@@ -30,6 +30,7 @@ public class RequestManagementActivity extends Activity {
     private Button nok = null;
     private Button returned = null;
     private TextView product = null;
+    private int exchangeId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class RequestManagementActivity extends Activity {
         ok = (Button) findViewById(R.id.OK);
         nok = (Button) findViewById(R.id.NOK);
         returned = (Button) findViewById(R.id.Returned);
+
+        exchangeId = 1;
 
         ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -95,7 +98,7 @@ public class RequestManagementActivity extends Activity {
         protected String doInBackground(String... message) {
 
             List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-            pairs.add(new BasicNameValuePair("id", Integer.toString(1)));
+            pairs.add(new BasicNameValuePair("id", Integer.toString(exchangeId)));
            return Request.setRequest(message[0], pairs);
         }
 

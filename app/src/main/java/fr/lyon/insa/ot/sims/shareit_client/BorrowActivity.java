@@ -61,7 +61,6 @@ public class BorrowActivity extends Activity {
             idUser = String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
         }
 
-
        ProductListAdapter adapterBorrow = null;
 
         try {
@@ -81,7 +80,6 @@ public class BorrowActivity extends Activity {
 
         new DisplayBorrowedObjects().execute(Constants.uri + "user/"+ idUser+"/borrowed");
         new DisplayLendedObjects().execute(Constants.uri + "user/"+ idUser+"/lended");
-
 
 	}
 
@@ -120,6 +118,7 @@ public class BorrowActivity extends Activity {
 
     /* affichage des objets empruntés par l'utilisateur*/
 
+
     private class DisplayBorrowedObjects extends AsyncTask<String, Void, JSONArray>{
 
         @Override
@@ -144,8 +143,8 @@ public class BorrowActivity extends Activity {
 
     /* affichage des objets prêtés par l'utilisateur*/
 
-    private class DisplayLendedObjects extends AsyncTask<String, Void, JSONArray> {
 
+    private class DisplayLendedObjects extends AsyncTask<String, Void, JSONArray> {
         @Override
         protected JSONArray doInBackground(String... message) {
             return Request.getListRequest(message[0]);
