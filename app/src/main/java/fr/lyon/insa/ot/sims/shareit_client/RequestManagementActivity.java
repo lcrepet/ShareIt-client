@@ -30,26 +30,25 @@ public class RequestManagementActivity extends Activity {
     private Button nok = null;
     private Button returned = null;
     private TextView product = null;
-    private int exchangeId = 0;
+    private long exchangeId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_management);
 
+        exchangeId = Long.valueOf(getIntent().getExtras().getString("id"));
 
         product = (TextView) findViewById(R.id.Product);
-        product.setText(getResources().getString(R.string.product, "Produit", "Catégorie"));
+        product.setText(String.valueOf(exchangeId));
 
         ok = (Button) findViewById(R.id.OK);
         nok = (Button) findViewById(R.id.NOK);
         returned = (Button) findViewById(R.id.Returned);
 
-        exchangeId = 1;
-
         ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new Answer().execute(Constants.uri + "/user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)) + "/accept");
+                new Answer().execute(Constants.uri + "/exchange/" + exchangeId + "/accept");
                 ok.setVisibility(View.INVISIBLE);
                 returned.setVisibility(View.VISIBLE);
             }
@@ -57,14 +56,14 @@ public class RequestManagementActivity extends Activity {
 
         nok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new Answer().execute(Constants.uri + "/user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)) + "/reject");
+                new Answer().execute(Constants.uri + "/exchange/" + exchangeId + "/reject");
                 Utils.openOtherActivity(RequestManagementActivity.this, BorrowActivity.class);
             }
         });
 
         returned.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new Answer().execute(Constants.uri + "/user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)) + "/complete");
+                new Answer().execute(Constants.uri + "/exchange/" + exchangeId + "/complete");
                 Utils.openOtherActivity(RequestManagementActivity.this, BorrowActivity.class);
             }
         });
@@ -98,12 +97,11 @@ public class RequestManagementActivity extends Activity {
         protected String doInBackground(String... message) {
 
             List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-            pairs.add(new BasicNameValuePair("id", Integer.toString(exchangeId)));
            return Request.setRequest(message[0], pairs);
         }
 
-        protected void onPostExecute() {
-
+        protected void onPostExecute(String message) {
+            product.setText(message);
         }
     }
 

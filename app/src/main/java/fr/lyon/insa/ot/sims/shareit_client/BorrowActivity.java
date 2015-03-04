@@ -10,6 +10,8 @@ import android.support.v4.app.NavUtils;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -40,15 +42,15 @@ public class BorrowActivity extends Activity {
         listExchangesBorrow = (ListView) findViewById(R.id.listExchanges);
         listExchangesLend = (ListView) findViewById(R.id.listExchangesLend);
 
-        /*kListener(new AdapterView.OnItemClickListener(){
+        listExchangesLend.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HashMap<String, String> extras = new HashMap<>();
                 extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
-                extras.put("id", String.valueOf(listView.getAdapter().getItemId(position)));
-                Utils.openOtherActivity(MainActivity.this, ObjectActivity.class, extras);
+                extras.put("id", String.valueOf(listExchangesLend.getAdapter().getItemId(position)));
+                Utils.openOtherActivity(BorrowActivity.this, RequestManagementActivity.class, extras);
             }
-        });*/
+        });
 
 
         try{
@@ -162,9 +164,6 @@ public class BorrowActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-                //TextView tv= (TextView)findViewById(R.id.objetPrete);
-                //tv.setText(reader.toString());
-
         }
     }
 }
