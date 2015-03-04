@@ -26,13 +26,11 @@
         android:layout_height="wrap_content"
         android:text="@string/sendMessage"
         android:id="@+id/sendButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         style="@style/button_style"
         android:background="@drawable/custom_button"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="3dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ListView
         android:layout_width="wrap_content"

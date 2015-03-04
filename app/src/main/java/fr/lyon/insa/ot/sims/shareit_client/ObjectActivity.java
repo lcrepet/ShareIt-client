@@ -109,7 +109,6 @@ public class ObjectActivity extends Activity {
 
         protected void onPostExecute(final JSONObject reader) {
 
-
             String idJSON = "";
 
             try {
@@ -128,7 +127,6 @@ public class ObjectActivity extends Activity {
                     }
                 });
             }
-
 
             try {
 
@@ -165,8 +163,6 @@ public class ObjectActivity extends Activity {
                     Utils.openOtherActivity(ObjectActivity.this, ProfileActivity.class, extras);
                 }
             });
-
-
 
         }
     }
