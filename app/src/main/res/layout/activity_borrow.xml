@@ -12,32 +12,23 @@
         android:id="@+id/ObjetEmprunte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Objets empruntés" />
+        android:text="" />
 
-    <TextView
-        android:id="@+id/NomObjetEmprunte"
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ObjetEmprunte"/>
-
-    <TextView
-        android:id="@+id/NomPreteur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/NomObjetEmprunte"/>
-
-    <TextView
-        android:id="@+id/PrenomPreteur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/NomPreteur"/>
+        android:id="@+id/listExchanges"
+        android:layout_below="@+id/ObjetEmprunte"
+        android:smoothScrollbar="false"
+        android:scrollingCache="false"
+        android:visibility="visible" />
 
 
     <TextView
         android:id="@+id/objetPrete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/PrenomPreteur"
+        android:layout_below="@+id/listExchanges"
         android:text="Objets prêtés" />
 
     <TextView
