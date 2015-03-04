@@ -16,15 +16,9 @@
 
     <TextView
         android:id="@+id/NomObjetEmprunte"
-<<<<<<< HEAD
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ObjetEmprunte"/>
-=======
-        style="@style/text_style"
         android:layout_below="@id/ObjetEmprunte"
+        style="@style/text_style"
         android:text="nomEmprunte"                  />
->>>>>>> design changes
 
     <TextView
         android:id="@+id/NomPreteur"
