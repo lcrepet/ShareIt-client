@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="fr.lyon.insa.ot.sims.shareit_client.EmailActivity" >
+    tools:context="fr.lyon.insa.ot.sims.shareit_client.EmailActivity"
+    style="@style/background_style">
 
     <ListView
         android:layout_width="wrap_content"

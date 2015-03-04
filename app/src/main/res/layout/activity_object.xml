@@ -6,7 +6,8 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    tools:context="fr.lyon.insa.ot.sims.shareit_client.ObjectActivity">
+    tools:context="fr.lyon.insa.ot.sims.shareit_client.ObjectActivity"
+    style="@style/background_style">
 
     <Button
         android:id="@+id/bouton1"
@@ -15,57 +16,58 @@
         android:layout_gravity="top"
         android:layout_weight="40"
         android:text="Emprunter cet objet "
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        android:background="@drawable/custom_button"
+        style="@style/button_style" />
 
     <TextView
         android:id="@+id/NomObjet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@id/bouton1"
-        android:text="Nom"                  />
+        android:text="Nom"
+        style="@style/text_style" />
 
     <TextView
      android:id="@+id/TypeObjet"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
      android:layout_below="@+id/NomObjet"
+     style="@style/text_style"
      android:text="Type d'objet"      />
 
      <TextView
      android:id="@+id/StatusObjet"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
      android:layout_below="@+id/TypeObjet"
+         style="@style/text_style"
      android:text="Status"               />
 
      <TextView
      android:id="@+id/DescriptionObjet"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
          android:text="Description"
          android:layout_below="@+id/StatusObjet"
+         style="@style/text_style"
          android:layout_alignParentLeft="true"
          android:layout_alignParentStart="true" />
 
       <TextView
       android:id="@+id/Proprietaire"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
           android:text="Proprietaire"
           android:layout_above="@+id/Note"
           android:layout_alignParentLeft="true"
           android:layout_alignParentStart="true"
-          android:clickable="true" />
+          style="@style/text_style"
+          android:clickable="true"
+          android:elegantTextHeight="false"
+          android:linksClickable="false"
+          android:longClickable="false"
+          android:textIsSelectable="false" />
 
 
     <TextView
      android:id="@+id/Note"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
         android:text="Note"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/StatusObjet"
         android:layout_alignEnd="@+id/StatusObjet"
-        android:layout_marginBottom="107dp" />
+        style="@style/text_style"
+        android:layout_marginBottom="107dp"
+        android:singleLine="false" />
 
     </RelativeLayout>
