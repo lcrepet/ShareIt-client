@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listExchangesLend"
-        android:layout_below="@+id/objetPrete"
+        android:layout_below="@+id/ObjetPrete"
         android:smoothScrollbar="false"
         android:scrollingCache="false"
         android:visibility="visible" />
