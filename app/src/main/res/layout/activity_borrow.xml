@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="fr.lyon.insa.ot.sims.shareit_client.BorrowActivity" >
+    tools:context="fr.lyon.insa.ot.sims.shareit_client.BorrowActivity"
+    style="@style/background_style">
 
     <TextView
         android:id="@+id/ObjetEmprunte"
@@ -33,21 +34,19 @@
 
     <TextView
         android:id="@+id/NomObjetPrete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_style"
         android:layout_below="@id/objetPrete"/>
 
     <TextView
         android:id="@+id/NomEmprunteur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_style"
         android:layout_below="@id/NomObjetPrete"/>
 
     <TextView
         android:id="@+id/PrenomEmprunteur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/NomEmprunteur"/>
+        android:layout_below="@id/NomEmprunteur"
+        style="@style/text_style"
+        android:text="nomPrete"/>
 
 
 </RelativeLayout>

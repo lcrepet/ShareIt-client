@@ -2,7 +2,8 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    style="@style/background_style">
 
     <ImageView
         android:id="@+id/ProfilePic"
@@ -14,77 +15,74 @@
 
     <TextView
         android:id="@+id/FirstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ProfilePic"
         android:paddingLeft="16sp"
         android:paddingTop="10sp"
         android:text=""
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        style="@style/text_style" />
 
     <TextView
         android:id="@+id/LastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_toRightOf="@id/FirstName"
         android:paddingLeft="10sp"
         android:paddingTop="10sp"
         android:text=""
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        style="@style/text_style" />
 
     <ImageButton
         android:id="@+id/SendMail"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_toRightOf="@id/LastName"
+        android:layout_height="wrap_content"
         android:paddingLeft="16sp"
         android:paddingTop="10sp"
-        android:src="@drawable/ic_action_send_email"/>
+        android:src="@drawable/ic_action_send_email"
+        android:background="@drawable/custom_button"
+        android:layout_below="@+id/ProfilePic"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="3dp" />
 
     <TextView
         android:id="@+id/PhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ProfilePic"
         android:layout_below="@id/FirstName"
         android:paddingLeft="10sp"
-        android:text="" />
+        android:text=""
+        style="@style/text_style" />
 
     <TextView
         android:id="@+id/Age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ProfilePic"
         android:layout_below="@id/PhoneNumber"
         android:paddingLeft="10sp"
-        android:text="" />
+        android:text=""
+        style="@style/text_style" />
 
     <TextView
         android:id="@+id/Sex"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ProfilePic"
         android:layout_below="@id/Age"
         android:paddingLeft="10sp"
-        android:text="" />
+        android:text=""
+        style="@style/text_style" />
 
     <TextView
         android:id="@+id/PostCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ProfilePic"
         android:layout_below="@id/Sex"
         android:paddingLeft="10sp"
-        android:text="" />
+        android:text=""
+        style="@style/text_style" />
 
     <TextView
         android:id="@+id/Rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@id/PostCode"
         android:paddingLeft="10sp"
         android:paddingTop="10sp"
-        android:text="" />
+        android:text=""
+        style="@style/text_style" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -102,7 +100,9 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/button_add_object" />
+        android:text="@string/button_add_object"
+        android:background="@drawable/custom_button"
+        android:layout_margin="3dp" />
 
     <Button
         android:id="@+id/EditProfile"
@@ -110,6 +110,8 @@
         android:layout_width="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/button_edit_profile" />
+        android:text="@string/button_edit_profile"
+        android:background="@drawable/custom_button"
+        android:layout_margin="3dp" />
 
 </RelativeLayout>
