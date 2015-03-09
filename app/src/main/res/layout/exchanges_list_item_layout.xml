@@ -5,21 +5,13 @@
 
     <TextView
         android:id="@+id/NomObjetEmprunte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="nom objet"/>
+        android:text="nom objet"
+        style="@style/text_style"/>
 
     <TextView
         android:id="@+id/NomPreteur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/NomObjetEmprunte"/>
-
-    <TextView
-        android:id="@+id/PrenomPreteur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/NomPreteur"/>
+        android:layout_below="@id/NomObjetEmprunte"
+        style="@style/text_style"/>
 
 
 </LinearLayout>

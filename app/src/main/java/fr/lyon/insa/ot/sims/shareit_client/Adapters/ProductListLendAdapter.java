@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.lyon.insa.ot.sims.shareit_client.R;
+import fr.lyon.insa.ot.sims.shareit_client.Utils;
 
 
 public class ProductListLendAdapter extends BaseAdapter{
@@ -72,28 +73,26 @@ public class ProductListLendAdapter extends BaseAdapter{
 
         TextView name = (TextView) convertView.findViewById(R.id.NomObjetPrete);
         TextView lastname = (TextView) convertView.findViewById(R.id.NomEmprunteur);
-        TextView firstname = (TextView) convertView.findViewById(R.id.PrenomEmprunteur);
 
         SimplifiedProduct product = this.products.get(position);
-        name.setText(product.name);
-        lastname.setText(product.lastname);
-        firstname.setText(product.firstname);
+        name.setText(product.name + " (" + product.status + ")");
+        lastname.setText(product.sharer);
 
         return convertView;
     }
 
     private class SimplifiedProduct {
         public String name;
-        public String lastname;
-        public String firstname;
+        public String sharer;
+        public String status;
         public long id;
 
 
 
         public SimplifiedProduct(JSONObject item) throws JSONException {
             this.name = item.getJSONObject("product").getString("name");
-            this.lastname = item.getJSONObject("borrower").getString("lastname");
-            this.firstname = item.getJSONObject("borrower").getString("firstname");
+            this.sharer = Utils.getUserName(item.getJSONObject("borrower"));
+            this.status = item.getJSONObject("product").getString("status");
             this.id = item.getInt("id");
 
 

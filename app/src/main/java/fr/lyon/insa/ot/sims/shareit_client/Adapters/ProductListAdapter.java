@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.lyon.insa.ot.sims.shareit_client.R;
+import fr.lyon.insa.ot.sims.shareit_client.Utils;
 
 
 public class ProductListAdapter extends BaseAdapter{
@@ -71,32 +72,26 @@ public class ProductListAdapter extends BaseAdapter{
             convertView = inflater.inflate(R.layout.exchanges_list_item_layout, null);
 
         TextView name = (TextView) convertView.findViewById(R.id.NomObjetEmprunte);
-        TextView lastname = (TextView) convertView.findViewById(R.id.NomPreteur);
-        TextView firstname = (TextView) convertView.findViewById(R.id.PrenomPreteur);
+        TextView sharer = (TextView) convertView.findViewById(R.id.NomPreteur);
 
         SimplifiedProduct product = this.products.get(position);
-        name.setText(product.name);
-        lastname.setText(product.lastname);
-        firstname.setText(product.firstname);
+        name.setText(product.name + " (" + product.status + ")");
+        sharer.setText(product.sharer);
 
         return convertView;
     }
 
     private class SimplifiedProduct {
         public String name;
-        public String lastname;
-        public String firstname;
+        public String sharer;
+        public String status;
         public long id;
-
-
 
         public SimplifiedProduct(JSONObject item) throws JSONException {
             this.name = item.getJSONObject("product").getString("name");
-            this.lastname = item.getJSONObject("lender").getString("lastname");
-            this.firstname = item.getJSONObject("lender").getString("firstname");
+            this.sharer = Utils.getUserName(item.getJSONObject("lender"));
             this.id = item.getInt("id");
-
-
+            this.status = item.getJSONObject("product").getString("status");
         }
     }
 }
