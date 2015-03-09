@@ -118,10 +118,8 @@ public class RequestManagementActivity extends Activity {
         protected void onPostExecute(JSONObject reader) {
             try {
                 String currentStatus = reader.getString("status");
-                //if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(reader.getJSONObject("lender").getLong("id"))){
-                TextView o = (TextView) findViewById(R.id.Owner);
-                o.setText(String.valueOf(reader.getJSONObject("lender").getLong("id")));
-                if(currentStatus.equals(status.getJSONObject(0).getString("0"))) {
+                if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(reader.getJSONObject("lender").getString("id"))){
+                    if(currentStatus.equals(status.getJSONObject(0).getString("0"))) {
                         ok.setVisibility(View.VISIBLE);
                         nok.setVisibility(View.VISIBLE);
                         //returned.setVisibility(View.INVISIBLE);
@@ -134,7 +132,7 @@ public class RequestManagementActivity extends Activity {
                         nok.setVisibility(View.INVISIBLE);*/
                         returned.setVisibility(View.VISIBLE);
                     }
-               // }
+                }
 
 
                 Resources res = getResources();
