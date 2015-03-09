@@ -3,6 +3,7 @@ package fr.lyon.insa.ot.sims.shareit_client;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,11 +42,12 @@ public class RequestManagementActivity extends Activity {
         exchangeId = Long.valueOf(getIntent().getExtras().getString("id"));
 
         product = (TextView) findViewById(R.id.Product);
-        product.setText(String.valueOf(exchangeId));
 
         ok = (Button) findViewById(R.id.OK);
         nok = (Button) findViewById(R.id.NOK);
         returned = (Button) findViewById(R.id.Returned);
+
+        new GetExchange().execute(Constants.uri + "/exchange/status", Constants.uri + "/exchange/" + exchangeId);
 
         ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -64,7 +67,7 @@ public class RequestManagementActivity extends Activity {
         returned.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 new Answer().execute(Constants.uri + "/exchange/" + exchangeId + "/complete");
-                //Utils.openOtherActivity(RequestManagementActivity.this, BorrowActivity.class);
+                Utils.openOtherActivity(RequestManagementActivity.this, BorrowActivity.class);
             }
         });
     }
@@ -90,6 +93,42 @@ public class RequestManagementActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class GetExchange extends AsyncTask<String, Void, JSONObject> {
+        private JSONArray status = null;
+
+        @Override
+        protected JSONObject doInBackground(String... message) {
+            status = Request.getListRequest(message[0]);
+            return Request.getRequest(message[1]);
+        }
+
+        protected void onPostExecute(JSONObject reader) {
+            try {
+                String currentStatus = reader.getString("status");
+
+                if(currentStatus.equals(status.getJSONObject(0).getString("0"))) {
+                    ok.setVisibility(View.VISIBLE);
+                    nok.setVisibility(View.VISIBLE);
+                    returned.setVisibility(View.INVISIBLE);
+                } else if(currentStatus.equals(status.getJSONObject(1).getString("1"))) {
+                    ok.setVisibility(View.INVISIBLE);
+                    nok.setVisibility(View.INVISIBLE);
+                    returned.setVisibility(View.VISIBLE);
+                } else  {
+                    ok.setVisibility(View.INVISIBLE);
+                    nok.setVisibility(View.INVISIBLE);
+                    returned.setVisibility(View.INVISIBLE);
+                }
+
+                Resources res = getResources();
+                product.setText(res.getString(R.string.product,reader.getJSONObject("product").getString("name"),reader.getJSONObject("product").getJSONObject("category").getString("name")));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private class Answer extends AsyncTask<String, Void, String> {
