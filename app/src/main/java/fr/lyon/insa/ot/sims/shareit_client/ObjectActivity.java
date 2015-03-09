@@ -117,18 +117,6 @@ public class ObjectActivity extends Activity {
                 e.printStackTrace();
             }
 
-           if(!(Long.toString(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(idJSON))
-                   && status.getText().equals("disponible")){
-                objectButton.setVisibility(View.VISIBLE);
-                objectButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        HashMap<String, String> extras = new HashMap<>();
-                        extras.put(TAG_ID, id);
-                        Utils.openOtherActivity(ObjectActivity.this, BorrowRequestActivity.class, extras);
-                    }
-                });
-            }
-
             try {
 
                 String nameToSet = reader.getString(TAG_NAME);
@@ -146,6 +134,18 @@ public class ObjectActivity extends Activity {
 
                 String propToSet = Utils.getUserName(reader.getJSONObject(TAG_SHARER));
                 prop.setText(propToSet);
+
+                if(!(Long.toString(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(idJSON))
+                        && status.getText().equals("disponible")){
+                    objectButton.setVisibility(View.VISIBLE);
+                    objectButton.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            HashMap<String, String> extras = new HashMap<>();
+                            extras.put(TAG_ID, id);
+                            Utils.openOtherActivity(ObjectActivity.this, BorrowRequestActivity.class, extras);
+                        }
+                    });
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
