@@ -22,6 +22,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Product"/>
 
+    <TextView
+        android:id="@+id/Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Owner"/>
+
     <Button
         android:id="@+id/OK"
         android:layout_width="wrap_content"

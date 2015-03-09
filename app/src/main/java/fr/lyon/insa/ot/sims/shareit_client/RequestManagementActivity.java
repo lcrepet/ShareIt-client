@@ -33,6 +33,8 @@ public class RequestManagementActivity extends Activity {
     private Button done = null;
     private Button returned = null;
     private TextView product = null;
+    private TextView owner = null;
+    private TextView status = null;
     private long exchangeId = 0;
     private String profileId;
 
@@ -44,6 +46,9 @@ public class RequestManagementActivity extends Activity {
         exchangeId = Long.valueOf(getIntent().getExtras().getString("id"));
 
         product = (TextView) findViewById(R.id.Product);
+        owner = (TextView) findViewById(R.id.Owner);
+        status = (TextView) findViewById(R.id.Status);
+
         new GetExchange().execute(Constants.uri + "/exchange/status", Constants.uri + "/exchange/" + exchangeId);
 
         ok = (Button) findViewById(R.id.OK);
@@ -107,11 +112,11 @@ public class RequestManagementActivity extends Activity {
     }
 
     private class GetExchange extends AsyncTask<String, Void, JSONObject> {
-        private JSONArray status = null;
+        private JSONArray statusList = null;
 
         @Override
         protected JSONObject doInBackground(String... message) {
-            status = Request.getListRequest(message[0]);
+            statusList = Request.getListRequest(message[0]);
             return Request.getRequest(message[1]);
         }
 
@@ -119,19 +124,23 @@ public class RequestManagementActivity extends Activity {
             try {
                 String currentStatus = reader.getString("status");
                 if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(reader.getJSONObject("lender").getString("id"))){
-                    if(currentStatus.equals(status.getJSONObject(0).getString("0"))) {
+                    if(currentStatus.equals(statusList.getJSONObject(0).getString("0"))) {
                         ok.setVisibility(View.VISIBLE);
                         nok.setVisibility(View.VISIBLE);
                         //returned.setVisibility(View.INVISIBLE);
-                    } else if(currentStatus.equals(status.getJSONObject(1).getString("1"))) {
+                    } else if(currentStatus.equals(statusList.getJSONObject(1).getString("1"))) {
                         /*ok.setVisibility(View.INVISIBLE);
                         nok.setVisibility(View.INVISIBLE);*/
                         done.setVisibility(View.VISIBLE);
-                    } else if(currentStatus.equals(status.getJSONObject(2).getString("2"))) {
+                    } else if(currentStatus.equals(statusList.getJSONObject(2).getString("2"))) {
                         /*ok.setVisibility(View.INVISIBLE);
                         nok.setVisibility(View.INVISIBLE);*/
                         returned.setVisibility(View.VISIBLE);
                     }
+                } else {
+                    owner.setText(Utils.getUserName(reader.getJSONObject("lender")));
+                    status.setText(currentStatus);
+                    //TODO: mettre statut compréhensible pour l'utilisateur
                 }
 
 
