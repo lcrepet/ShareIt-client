@@ -52,16 +52,6 @@ public class BorrowActivity extends Activity {
             }
         });
 
-        listExchangesBorrow.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                HashMap<String, String> extras = new HashMap<>();
-                extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
-                extras.put("id", String.valueOf(listExchangesLend.getAdapter().getItemId(position)));
-                Utils.openOtherActivity(BorrowActivity.this, RequestViewActivity.class, extras);
-            }
-        });
-
 
         try{
             idUser = getIntent().getExtras().getString("userId");

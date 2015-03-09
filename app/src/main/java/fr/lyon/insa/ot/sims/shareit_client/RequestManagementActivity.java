@@ -30,9 +30,11 @@ public class RequestManagementActivity extends Activity {
 
     private Button ok = null;
     private Button nok = null;
+    private Button done = null;
     private Button returned = null;
     private TextView product = null;
     private long exchangeId = 0;
+    private String profileId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +44,26 @@ public class RequestManagementActivity extends Activity {
         exchangeId = Long.valueOf(getIntent().getExtras().getString("id"));
 
         product = (TextView) findViewById(R.id.Product);
+        new GetExchange().execute(Constants.uri + "/exchange/status", Constants.uri + "/exchange/" + exchangeId);
 
         ok = (Button) findViewById(R.id.OK);
         nok = (Button) findViewById(R.id.NOK);
+        done = (Button) findViewById(R.id.Done);
         returned = (Button) findViewById(R.id.Returned);
-
-        new GetExchange().execute(Constants.uri + "/exchange/status", Constants.uri + "/exchange/" + exchangeId);
 
         ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 new Answer().execute(Constants.uri + "/exchange/" + exchangeId + "/accept");
                 ok.setVisibility(View.INVISIBLE);
+                nok.setVisibility(View.INVISIBLE);
+                done.setVisibility(View.VISIBLE);
+            }
+        });
+
+        done.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                new Answer().execute(Constants.uri + "/exchange/" + exchangeId + "/confirm");
+                done.setVisibility(View.INVISIBLE);
                 returned.setVisibility(View.VISIBLE);
             }
         });
@@ -107,20 +118,24 @@ public class RequestManagementActivity extends Activity {
         protected void onPostExecute(JSONObject reader) {
             try {
                 String currentStatus = reader.getString("status");
-
+                //if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(reader.getJSONObject("lender").getLong("id"))){
+                TextView o = (TextView) findViewById(R.id.Owner);
+                o.setText(String.valueOf(reader.getJSONObject("lender").getLong("id")));
                 if(currentStatus.equals(status.getJSONObject(0).getString("0"))) {
-                    ok.setVisibility(View.VISIBLE);
-                    nok.setVisibility(View.VISIBLE);
-                    returned.setVisibility(View.INVISIBLE);
-                } else if(currentStatus.equals(status.getJSONObject(1).getString("1"))) {
-                    ok.setVisibility(View.INVISIBLE);
-                    nok.setVisibility(View.INVISIBLE);
-                    returned.setVisibility(View.VISIBLE);
-                } else  {
-                    ok.setVisibility(View.INVISIBLE);
-                    nok.setVisibility(View.INVISIBLE);
-                    returned.setVisibility(View.INVISIBLE);
-                }
+                        ok.setVisibility(View.VISIBLE);
+                        nok.setVisibility(View.VISIBLE);
+                        //returned.setVisibility(View.INVISIBLE);
+                    } else if(currentStatus.equals(status.getJSONObject(1).getString("1"))) {
+                        /*ok.setVisibility(View.INVISIBLE);
+                        nok.setVisibility(View.INVISIBLE);*/
+                        done.setVisibility(View.VISIBLE);
+                    } else if(currentStatus.equals(status.getJSONObject(2).getString("2"))) {
+                        /*ok.setVisibility(View.INVISIBLE);
+                        nok.setVisibility(View.INVISIBLE);*/
+                        returned.setVisibility(View.VISIBLE);
+                    }
+               // }
+
 
                 Resources res = getResources();
                 product.setText(res.getString(R.string.product,reader.getJSONObject("product").getString("name"),reader.getJSONObject("product").getJSONObject("category").getString("name")));
@@ -141,7 +156,6 @@ public class RequestManagementActivity extends Activity {
         }
 
         protected void onPostExecute(String message) {
-            product.setText(message);
         }
     }
 

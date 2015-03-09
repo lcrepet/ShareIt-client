@@ -16,6 +16,12 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
+    <TextView
+        android:id="@+id/Owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Product"/>
+
     <Button
         android:id="@+id/OK"
         android:layout_width="wrap_content"
@@ -26,6 +32,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:text="@string/button_OK"/>
+
+    <Button
+        android:id="@+id/Done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:background="@drawable/custom_button"
+        style="@style/button_style"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/button_done"/>
 
     <Button
         android:id="@+id/Returned"
