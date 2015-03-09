@@ -64,7 +64,7 @@ public class RequestManagementActivity extends Activity {
         returned.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 new Answer().execute(Constants.uri + "/exchange/" + exchangeId + "/complete");
-                Utils.openOtherActivity(RequestManagementActivity.this, BorrowActivity.class);
+                //Utils.openOtherActivity(RequestManagementActivity.this, BorrowActivity.class);
             }
         });
     }
@@ -97,6 +97,7 @@ public class RequestManagementActivity extends Activity {
         protected String doInBackground(String... message) {
 
             List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+            pairs.add(new BasicNameValuePair("returned", "true"));
            return Request.setRequest(message[0], pairs);
         }
 

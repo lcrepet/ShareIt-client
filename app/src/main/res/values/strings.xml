@@ -15,6 +15,7 @@
     <string name="desc_object">Description</string>
     <string name="pic_object">Charger une photo</string>
     <string name="save_object">Enregistrer</string>
+    <string name="change_date">Modifier</string>
     <string name="product">%1$s (%2$s)</string>
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>

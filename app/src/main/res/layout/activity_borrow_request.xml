@@ -12,41 +12,57 @@
         style="@style/text_style"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/objectOwner"
-        android:layout_alignStart="@+id/objectOwner" />
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:id="@+id/objectOwner"
         style="@style/text_style"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:layout_below="@+id/objectName"
+        android:layout_below="@id/objectName"
         android:layout_centerHorizontal="true" />
 
-    <DatePicker
+    <TextView
         android:id="@+id/StartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:calendarViewShown="false"
-        android:layout_below="@+id/objectOwner"
-        android:layout_centerHorizontal="true"/>
+        android:text=""
+        android:layout_below="@id/objectOwner"/>
 
-    <DatePicker
+    <Button
+        android:id="@+id/ChangeStartDate"
+        style="@style/button_style"
+        android:background="@drawable/custom_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_date"
+        android:layout_toRightOf="@id/StartDate"
+        android:layout_below="@id/objectOwner"/>
+
+    <TextView
         android:id="@+id/EndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:calendarViewShown="false"
-        android:layout_below="@+id/StartDate"
-        android:layout_centerHorizontal="true" />
+        android:text=""
+        android:layout_below="@id/StartDate" />
 
     <Button
+        android:id="@+id/ChangeEndDate"
+        style="@style/button_style"
+        android:background="@drawable/custom_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_date"
+        android:layout_toRightOf="@id/EndDate"
+        android:layout_below="@id/ChangeStartDate"/>
+
+    <Button
+        android:id="@+id/buttonBorrow"
         style="@style/button_style"
         android:background="@drawable/custom_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/borrow_request"
-        android:id="@+id/buttonBorrow"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true" />
 

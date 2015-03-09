@@ -1,6 +1,7 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -26,17 +27,66 @@ import java.util.List;
 
 public class BorrowRequestActivity extends Activity {
 
-    private DatePicker startDate = null;
-    private DatePicker endDate = null;
+    private TextView startDate = null;
+    private TextView endDate = null;
+    private Button changeStart = null;
+    private Button changeEnd = null;
+
+    private int sYear;
+    private int sMonth;
+    private int sDay;
+    private int eYear;
+    private int eMonth;
+    private int eDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrow_request);
 
-        startDate = (DatePicker) findViewById(R.id.StartDate);
-        endDate = (DatePicker) findViewById(R.id.EndDate);
+        startDate = (TextView) findViewById(R.id.StartDate);
+        endDate = (TextView) findViewById(R.id.EndDate);
+        changeStart = (Button) findViewById(R.id.ChangeStartDate);
+        changeEnd = (Button) findViewById(R.id.ChangeEndDate);
         setCurrentDate();
+
+        changeStart.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                DatePickerDialog dpd1 = new DatePickerDialog(BorrowRequestActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                sDay = dayOfMonth;
+                                sMonth = monthOfYear+1;
+                                sYear = year;
+                                startDate.setText(sDay + "-"+ sMonth + "-" + sYear);
+
+                            }
+                        }, sYear, sMonth, sDay);
+                dpd1.show();
+            }
+        });
+
+        changeEnd.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                DatePickerDialog dpd1 = new DatePickerDialog(BorrowRequestActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                eDay = dayOfMonth;
+                                eMonth = monthOfYear+1;
+                                eYear = year;
+                                endDate.setText(sDay + "-"+ sMonth + "-" + sYear);
+
+                            }
+                        }, eYear, eMonth, eDay);
+                dpd1.show();
+            }
+        });
 
         new GetObject().execute(Constants.uri + "product/" + getIntent().getExtras().getString("id"));
     }
@@ -66,13 +116,19 @@ public class BorrowRequestActivity extends Activity {
 
     private void setCurrentDate() {
         Calendar c = Calendar.getInstance();
-        int year, month, day;
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-        day = c.get(Calendar.DAY_OF_MONTH);
+        sYear = c.get(Calendar.YEAR);
+        sMonth = c.get(Calendar.MONTH);
+        sDay = c.get(Calendar.DAY_OF_MONTH);
+        eYear = c.get(Calendar.YEAR);
+        eMonth = c.get(Calendar.MONTH);
+        eDay = c.get(Calendar.DAY_OF_MONTH);
 
-        startDate.init(year, month, day, null);
-        endDate.init(year, month, day, null);
+        startDate.setText(new StringBuilder()
+                .append(sDay).append("-").append(sMonth + 1).append("-")
+                .append(sYear));
+        endDate.setText(new StringBuilder()
+                .append(eDay).append("-").append(eMonth + 1).append("-")
+                .append(eYear));
     }
 
     private class GetObject extends AsyncTask<String, Void, JSONObject> {
@@ -116,10 +172,8 @@ public class BorrowRequestActivity extends Activity {
             List<NameValuePair> pairs = new ArrayList<>();
             try {
                 JSONObject product = new JSONObject(message[1]);
-                int monthCorrect = startDate.getMonth() +1;
-                String start = startDate.getDayOfMonth() + "-" + monthCorrect + "-" + startDate.getYear();
-                monthCorrect = endDate.getMonth() +1;
-                String end = endDate.getDayOfMonth() + "-" + monthCorrect + "-" + endDate.getYear();
+                String start = sDay + "-" + sMonth + "-" + sYear;
+                String end = eDay + "-" + eMonth + "-" + eYear;
 
                 pairs.add(new BasicNameValuePair("lender", product.getJSONObject("sharer").getString("id")));
                 pairs.add(new BasicNameValuePair("borrower",
