@@ -117,7 +117,8 @@ public class ObjectActivity extends Activity {
                 e.printStackTrace();
             }
 
-           if(!(Long.toString(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(idJSON))){
+           if(!(Long.toString(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(idJSON))
+                   && status.getText().equals("disponible")){
                 objectButton.setVisibility(View.VISIBLE);
                 objectButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
