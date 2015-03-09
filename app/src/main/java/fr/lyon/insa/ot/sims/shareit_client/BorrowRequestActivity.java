@@ -80,7 +80,7 @@ public class BorrowRequestActivity extends Activity {
                                 eDay = dayOfMonth;
                                 eMonth = monthOfYear+1;
                                 eYear = year;
-                                endDate.setText(sDay + "-"+ sMonth + "-" + sYear);
+                                endDate.setText(eDay + "-"+ eMonth + "-" + eYear);
 
                             }
                         }, eYear, eMonth, eDay);
