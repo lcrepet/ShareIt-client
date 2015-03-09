@@ -32,7 +32,7 @@
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop" >
         </activity>
         <activity
             android:name=".BorrowActivity"
@@ -71,6 +71,10 @@
         <activity
             android:name=".MessageActivity"
             android:label="@string/title_activity_message" >
+        </activity>
+        <activity
+            android:name=".RequestViewActivity"
+            android:label="@string/title_activity_request_view" >
         </activity>
     </application>
 

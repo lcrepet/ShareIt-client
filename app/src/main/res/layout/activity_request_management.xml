@@ -11,7 +11,10 @@
         android:id="@+id/Product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/text_style" />
+        style="@style/text_style"
+        android:textSize="40px"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/OK"
