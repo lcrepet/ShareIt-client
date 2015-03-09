@@ -81,17 +81,19 @@ public class ProductListAdapter extends BaseAdapter{
         return convertView;
     }
 
-    private class SimplifiedProduct {
+    public class SimplifiedProduct {
         public String name;
         public String sharer;
         public String status;
         public long id;
+        public boolean hasNote;
 
         public SimplifiedProduct(JSONObject item) throws JSONException {
             this.name = item.getJSONObject("product").getString("name");
             this.sharer = Utils.getUserName(item.getJSONObject("lender"));
             this.id = item.getInt("id");
             this.status = item.getJSONObject("product").getString("status");
+            this.hasNote = !item.getString("borrowerRating").equals("-1.0");
         }
     }
 }

@@ -76,6 +76,10 @@
             android:name=".RequestViewActivity"
             android:label="@string/title_activity_request_view" >
         </activity>
+        <activity
+            android:name=".ExchangeNotation"
+            android:label="@string/title_activity_exchange_notation" >
+        </activity>
     </application>
 
 </manifest>

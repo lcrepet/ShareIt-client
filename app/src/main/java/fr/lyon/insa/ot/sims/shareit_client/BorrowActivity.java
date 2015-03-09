@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +52,28 @@ public class BorrowActivity extends Activity {
             }
         });
 
+        listExchangesBorrow.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ProductListAdapter.SimplifiedProduct product = (ProductListAdapter.SimplifiedProduct) listExchangesBorrow.getAdapter().getItem(position);
+                if(product.status.equals("completed")) {
+                    if (!product.hasNote) {
+                        HashMap<String, String> extras = new HashMap<>();
+                        extras.put(Intent.EXTRA_INTENT, BorrowActivity.class.getCanonicalName());
+                        extras.put("id", String.valueOf(listExchangesBorrow.getAdapter().getItemId(position)));
+                        Utils.openOtherActivity(BorrowActivity.this, ExchangeNotation.class, extras);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Une seule note par échange !", Toast.LENGTH_LONG).show();
+                    }
+
+                } else {
+                    HashMap<String, String> extras = new HashMap<>();
+                    extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
+                    extras.put("id", String.valueOf(listExchangesLend.getAdapter().getItemId(position)));
+                    Utils.openOtherActivity(BorrowActivity.this, RequestViewActivity.class, extras);
+                }
+            }
+        });
 
         try{
             idUser = getIntent().getExtras().getString("userId");

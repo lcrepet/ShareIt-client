@@ -119,6 +119,13 @@ public class MessageActivity extends Activity {
         protected void onPostExecute(JSONArray reader) {
             ListView messageList = (ListView) findViewById(R.id.messageList);
             try {
+                JSONObject firstMessage = (JSONObject) reader.get(0);
+                if(firstMessage.getJSONObject("sender").getString("id").equals(contact)){
+                    getActionBar().setTitle(Utils.getUserName(firstMessage.getJSONObject("sender")));
+                } else {
+                    getActionBar().setTitle(Utils.getUserName(firstMessage.getJSONObject("receiver")));
+                }
+
                 MessageListAdapter adapter = new MessageListAdapter(MessageActivity.this, reader);
                 messageList.setAdapter(adapter);
             } catch (JSONException e) {
