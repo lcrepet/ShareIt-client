@@ -32,7 +32,8 @@
         android:background="@drawable/custom_button"
         style="@style/button_style"
         android:layout_alignParentLeft="true"
-    android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:text="@string/button_returned" />
 
     <Button
         android:id="@+id/NOK"
@@ -43,6 +44,6 @@
         android:background="@drawable/custom_button"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:text="@string/button_OK" />
+        android:text="@string/button_NOK" />
 
 </RelativeLayout>
