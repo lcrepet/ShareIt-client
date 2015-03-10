@@ -1,6 +1,7 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -75,6 +76,17 @@ public class Utils extends Activity{
         }
 
         return name;
+    }
+
+    public static String getExchangeStatus(String status, Resources resources) {
+        switch (status) {
+            case "accepted": return resources.getString(R.string.status_accepted);
+            case "borrowed": return resources.getString(R.string.status_borrowed);
+            case "completed": return resources.getString(R.string.status_completed);
+            case "issued": return resources.getString(R.string.status_issued);
+            case "refused": return resources.getString(R.string.status_refused);
+        }
+        return null;
     }
 
     public static class CheckExchanges extends AsyncTask<String, Void, Integer> {

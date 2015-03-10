@@ -5,6 +5,7 @@ package fr.lyon.insa.ot.sims.shareit_client.Adapters;
  */
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,11 @@ public class ProductListAdapter extends BaseAdapter{
 
     private Activity activity;
     private List<SimplifiedProduct> products;
+    private Resources resources;
     private LayoutInflater inflater;
 
-    public ProductListAdapter (Activity activity, JSONArray products) throws JSONException {
+    public ProductListAdapter (Activity activity, JSONArray products, Resources resources) throws JSONException {
+        this.resources = resources;
         this.activity = activity;
         this.products = new ArrayList<>();
 
@@ -92,7 +95,7 @@ public class ProductListAdapter extends BaseAdapter{
             this.name = item.getJSONObject("product").getString("name");
             this.sharer = Utils.getUserName(item.getJSONObject("lender"));
             this.id = item.getInt("id");
-            this.status = item.getJSONObject("product").getString("status");
+            this.status = Utils.getExchangeStatus(item.getString("status"), resources);
             this.hasNote = !item.getString("borrowerRating").equals("-1.0");
         }
     }

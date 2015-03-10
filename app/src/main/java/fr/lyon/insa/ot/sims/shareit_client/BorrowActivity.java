@@ -89,7 +89,7 @@ public class BorrowActivity extends Activity {
        ProductListAdapter adapterBorrow = null;
 
         try {
-            adapterBorrow = new ProductListAdapter(this, new JSONArray());
+            adapterBorrow = new ProductListAdapter(this, new JSONArray(), getResources());
             listExchangesBorrow.setAdapter(adapterBorrow);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -97,7 +97,7 @@ public class BorrowActivity extends Activity {
 
         ProductListLendAdapter  adapterLend = null;
         try {
-            adapterLend = new ProductListLendAdapter(this, new JSONArray());
+            adapterLend = new ProductListLendAdapter(this, new JSONArray(), getResources());
             listExchangesLend.setAdapter(adapterLend);
         } catch (JSONException e) {
             e.printStackTrace();
