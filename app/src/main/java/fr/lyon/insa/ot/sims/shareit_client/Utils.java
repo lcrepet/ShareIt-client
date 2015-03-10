@@ -1,6 +1,7 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -8,13 +9,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.content.Context;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import fr.lyon.insa.ot.sims.shareit_client.Adapters.ContactListAdapter;
 
 /**
  * Created by Louise on 23/02/2015.
@@ -59,5 +75,45 @@ public class Utils extends Activity{
         }
 
         return name;
+    }
+
+    public static class CheckExchanges extends AsyncTask<String, Void, Integer> {
+
+        final Menu menu;
+
+        CheckExchanges(Menu menu){
+            this.menu = menu;
+        }
+
+        @Override
+        protected Integer doInBackground(String... message) {
+            HttpResponse response = null;
+            HttpClient client = new DefaultHttpClient();
+            HttpGet get = new HttpGet(Constants.uri + "exchange/" +
+                    message[0] + "/awaiting");
+            int result = 0;
+
+            try {
+                response = client.execute(get);
+                BufferedReader rd = new BufferedReader(new InputStreamReader(
+                        response.getEntity().getContent()));
+                result = Integer.parseInt(rd.readLine());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+        protected void onPostExecute(Integer nb) {
+            RelativeLayout borrowItem = (RelativeLayout) this.menu.findItem(R.id.menu_borrow).getActionView();
+            TextView count = (TextView) borrowItem.findViewById(R.id.countText);
+            ImageView badge = (ImageView) borrowItem.findViewById(R.id.badge_borrow);
+
+            if(nb != 0){
+                count.setVisibility(View.VISIBLE);
+                badge.setVisibility(View.VISIBLE);
+                count.setText(String.valueOf(nb));
+            }
+        }
     }
 }

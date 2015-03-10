@@ -128,10 +128,10 @@ public class ProfileActivity extends Activity {
         inflater.inflate(R.menu.profile, menu);
         final Menu m = menu;
 
-        final MenuItem borrowItem = menu.findItem(R.id.menu_borrow);
-        TextView count = (TextView) borrowItem.getActionView().findViewById(R.id.countText);
-        count.setText("2");
+        Utils.CheckExchanges badge = new Utils.CheckExchanges(menu);
+        badge.execute(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))));
 
+        final MenuItem borrowItem = menu.findItem(R.id.menu_borrow);
         borrowItem.getActionView().setOnClickListener(new View.OnClickListener() {
 
             @Override

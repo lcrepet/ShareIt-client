@@ -23,7 +23,8 @@
         android:layout_alignRight="@+id/icon_borrow"
         android:layout_alignEnd="@+id/icon_borrow"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="28dp" />
+        android:layout_marginRight="28dp"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,6 +37,7 @@
         android:layout_alignEnd="@+id/badge_borrow"
         android:textSize="8dp"
         android:layout_marginRight="4dp"
-        android:textColor="#ffffffff" />
+        android:textColor="#ffffffff"
+        android:visibility="invisible" />
 
 </RelativeLayout>

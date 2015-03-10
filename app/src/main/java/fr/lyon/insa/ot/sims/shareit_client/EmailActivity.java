@@ -49,6 +49,9 @@ public class EmailActivity extends Activity {
 		getMenuInflater().inflate(R.menu.email, menu);
 
         final Menu m = menu;
+        Utils.CheckExchanges badge = new Utils.CheckExchanges(menu);
+        badge.execute(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))));
+
         final MenuItem borrowItem = menu.findItem(R.id.menu_borrow);
         borrowItem.getActionView().setOnClickListener(new View.OnClickListener() {
 

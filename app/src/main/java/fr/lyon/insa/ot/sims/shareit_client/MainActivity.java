@@ -88,8 +88,10 @@ public class MainActivity extends Activity {
 
         final Menu m = menu;
 
-        final MenuItem borrowItem = menu.findItem(R.id.menu_borrow);
+        Utils.CheckExchanges badge = new Utils.CheckExchanges(menu);
+        badge.execute(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))));
 
+        final MenuItem borrowItem = menu.findItem(R.id.menu_borrow);
         borrowItem.getActionView().setOnClickListener(new View.OnClickListener() {
 
             @Override
