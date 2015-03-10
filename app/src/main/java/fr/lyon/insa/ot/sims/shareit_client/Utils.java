@@ -1,8 +1,10 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -107,15 +109,18 @@ public class Utils extends Activity{
 
             try {
                 response = client.execute(get);
-                BufferedReader rd = new BufferedReader(new InputStreamReader(
-                        response.getEntity().getContent()));
-                result = Integer.parseInt(rd.readLine());
+                if ( response.getStatusLine().getStatusCode()==200 ) {
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(
+                            response.getEntity().getContent()));
+                    result = Integer.parseInt(rd.readLine());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return result;
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         protected void onPostExecute(Integer nb) {
             RelativeLayout borrowItem = (RelativeLayout) this.menu.findItem(R.id.menu_borrow).getActionView();
             TextView count = (TextView) borrowItem.findViewById(R.id.countText);

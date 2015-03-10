@@ -3,13 +3,17 @@ package fr.lyon.insa.ot.sims.shareit_client;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import org.apache.http.NameValuePair;
@@ -17,6 +21,15 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +43,10 @@ public class SignUpActivity extends Activity {
     private EditText age;
     private Spinner sex;
     private EditText phone;
+    private EditText cheminPhoto;
+    private ImageView photo;
+    private static Bitmap bmp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +59,11 @@ public class SignUpActivity extends Activity {
         age = (EditText) findViewById(R.id.age);
         sex = (Spinner) findViewById(R.id.sex);
         phone = (EditText) findViewById(R.id.phone);
+        cheminPhoto= (EditText) findViewById(R.id.PicUser);
+        photo = (ImageView)findViewById(R.id.Pic);
         final Button button = (Button) findViewById(R.id.signUpButton);
+        final Button downloadPicture = (Button) findViewById(R.id.FindPic);
+
 
         if(getIntent().getExtras() != null && getIntent().getExtras().getString("modification").equals("true")){
             getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -51,6 +72,8 @@ public class SignUpActivity extends Activity {
             firstName.setHint("Prénom");
             lastName.setHint("Nom");
             postCode.setHint("Code postal");
+            cheminPhoto.setHint("Photo de profil");
+
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,7 +112,44 @@ public class SignUpActivity extends Activity {
                     }
                 }
             });
-        } else {
+            downloadPicture.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    try {
+                        JSONObject pictureInfos = new JSONObject();
+                        Log.i("verification champ rempli ", cheminPhoto.getText().toString());
+                        if (cheminPhoto.getText().toString().trim().length() > 0) {
+                            //bmp = getBitmapFromURL(cheminPhoto.getText().toString().trim());
+                            //photo.setImageBitmap(bmp);
+                            //pictureInfos.put("profilePicture",bmp);
+                            //File picture = getFile
+                            File fichier= new File("dossier");
+                            fichier.createNewFile();
+                            try {
+                                URL imageURL = new URL(cheminPhoto.getText().toString().trim());
+                                ReadableByteChannel rdbc = Channels.newChannel(imageURL.openStream());
+                                FileOutputStream fos = new FileOutputStream(fichier);
+                                fos.getChannel().transferFrom(rdbc,0, Long.MAX_VALUE);
+                                new UpdatePicture(fichier).execute(Constants.uri + "user/" +
+                                        Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
+                                       , pictureInfos.toString());
+                             }
+                            catch ( MalformedURLException e ){
+                                e.printStackTrace();
+                            }
+                            catch ( IOException e){
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+        }else {
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
@@ -134,7 +194,26 @@ public class SignUpActivity extends Activity {
             });
         }
     }
+    /*
+    public static Bitmap getBitmapFromURL(String link) {
+        try {
+            link= "http://www.online-image-editor.com//styles/2014/images/example_image.png";
+            URL url = new URL(link);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
 
+            return myBitmap;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("getBmpFromUrl error: ", e.getMessage().toString());
+            return null;
+        }
+    }
+    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -240,6 +319,30 @@ public class SignUpActivity extends Activity {
             }
 
             return Request.setRequest(message[0], pairs);
+        }
+
+        protected void onPostExecute(String reader) {
+            HashMap<String, String> extras = new HashMap<>();
+            extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
+            Utils.openOtherActivity(SignUpActivity.this, ProfileActivity.class, extras);
+        }
+    }
+
+    private class UpdatePicture extends AsyncTask<String, Void, String> {
+
+        private File picture;
+        public UpdatePicture ( File file){
+            super();
+            this.picture = file;
+        }
+
+        @Override
+        protected String doInBackground(String... message) {
+            List <NameValuePair> pairs = new ArrayList<>();
+
+                    pairs.add(new BasicNameValuePair("profilePicture",message[1]));
+
+            return Request.putPicture(message[0], pairs, picture);
         }
 
         protected void onPostExecute(String reader) {

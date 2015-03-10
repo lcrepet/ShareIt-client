@@ -1,15 +1,7 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
-import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -17,11 +9,24 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.CoreProtocolPNames;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Request {
 
@@ -137,8 +142,8 @@ public class Request {
             HttpClient client = new DefaultHttpClient();
             url += "?";
             int i = 0;
-            for(NameValuePair n: pairs){
-                if(i > 0) url += "&";
+            for (NameValuePair n : pairs) {
+                if (i > 0) url += "&";
                 url += n.getName() + "=" + n.getValue();
                 i++;
             }
@@ -162,6 +167,52 @@ public class Request {
         return response.getStatusLine().toString();
     }
 
+
+    public static String putPicture(String url, List<NameValuePair> nameValuePairs, File picture) {
+        String responseBody = "failure";
+        HttpClient client = new DefaultHttpClient();
+        client.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+
+
+        Map<String, String> map = new HashMap<String, String>();
+        HttpPut put = new HttpPut(url);
+        put.addHeader("Accept", "application/json");
+
+        //MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        FileEntity req=new FileEntity(picture, "binary/octet-stream");
+        //builder.setCharset(MIME.UTF8_CHARSET);
+
+
+        /*
+        if (picture!= null)
+            builder.addBinaryBody("Filedata", picture, ContentType.MULTIPART_FORM_DATA, picture.getName());
+
+        */
+        put.setEntity(req);
+
+        try {
+            responseBody = EntityUtils.toString(client.execute(put).getEntity(), "UTF-8");
+
+
+            JSONObject object = new JSONObject(responseBody);
+            Boolean success = object.optBoolean("success");
+            String message = object.optString("error");
+
+            if (!success) {
+                responseBody = message;
+            } else {
+                responseBody = "success";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            client.getConnectionManager().shutdown();
+        }
+
+        return"hola";
+
+    }
 
 
 }
