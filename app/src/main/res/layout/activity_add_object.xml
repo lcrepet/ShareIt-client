@@ -39,14 +39,15 @@
         android:layout_below="@id/NameObject"
         android:inputType="textMultiLine"
         android:hint="@string/desc_object"
-        android:lines="5"/>
+        android:lines="5"
+        android:gravity="top"/>
 
     <EditText
         android:id="@+id/PicObject"
         style="@style/text_style"
         android:layout_below="@id/DescObject"
         android:hint="@string/pic_object"
-        android:inputType="text" />
+        android:inputType="text"/>
 
     <Button
         android:id="@+id/FindPic"
