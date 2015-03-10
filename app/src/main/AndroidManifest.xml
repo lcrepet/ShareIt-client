@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -71,10 +71,6 @@
         <activity
             android:name=".MessageActivity"
             android:label="@string/title_activity_message" >
-        </activity>
-        <activity
-            android:name=".RequestViewActivity"
-            android:label="@string/title_activity_request_view" >
         </activity>
         <activity
             android:name=".ExchangeNotation"
