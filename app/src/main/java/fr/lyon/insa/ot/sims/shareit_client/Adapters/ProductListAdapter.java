@@ -42,11 +42,18 @@ public class ProductListAdapter extends BaseAdapter{
         }
     }
 
-    public void updateProducts(JSONArray products) throws JSONException {
+    public void updateProducts(JSONArray products, boolean filterFinished) throws JSONException {
         this.products = new ArrayList<>();
         for(int i = 0; i < products.length(); i++){
             JSONObject row = products.getJSONObject(i);
-            this.products.add(new SimplifiedProduct(row));
+            if(filterFinished){
+                SimplifiedProduct product = new SimplifiedProduct(row);
+                if(!product.isFinished()){
+                    this.products.add(new SimplifiedProduct(row));
+                }
+            } else {
+                this.products.add(new SimplifiedProduct(row));
+            }
         }
     }
 
@@ -97,6 +104,11 @@ public class ProductListAdapter extends BaseAdapter{
             this.id = item.getInt("id");
             this.status = Utils.getExchangeStatus(item.getString("status"), resources);
             this.hasNote = !item.getString("borrowerRating").equals("-1.0");
+        }
+
+        public boolean isFinished(){
+            return status.equals(resources.getString(R.string.status_refused))
+                    || status.equals(resources.getString(R.string.status_completed));
         }
     }
 }

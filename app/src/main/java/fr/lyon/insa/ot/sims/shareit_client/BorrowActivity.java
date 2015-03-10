@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class BorrowActivity extends Activity {
     private String idUser;
     private ListView listExchangesBorrow = null;
     private ListView listExchangesLend = null;
+    private boolean filter;
 
 
 
@@ -39,7 +41,7 @@ public class BorrowActivity extends Activity {
 		setContentView(R.layout.activity_borrow);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        filter = true;
         listExchangesBorrow = (ListView) findViewById(R.id.listExchanges);
         listExchangesLend = (ListView) findViewById(R.id.listExchangesLend);
 
@@ -103,6 +105,23 @@ public class BorrowActivity extends Activity {
             e.printStackTrace();
         }
 
+        final Button filterButton = (Button) findViewById(R.id.filterButton);
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(filter){
+                    filter = false;
+                    filterButton.setText(R.string.hide_finished_exchange);
+                } else {
+                    filter = true;
+                    filterButton.setText(R.string.view_all_exchanges);
+                }
+
+                new DisplayBorrowedObjects().execute(Constants.uri + "user/"+ idUser+"/borrowed");
+                new DisplayLendedObjects().execute(Constants.uri + "user/"+ idUser+"/lended");
+            }
+        });
+
         new DisplayBorrowedObjects().execute(Constants.uri + "user/"+ idUser+"/borrowed");
         new DisplayLendedObjects().execute(Constants.uri + "user/"+ idUser+"/lended");
 
@@ -156,7 +175,7 @@ public class BorrowActivity extends Activity {
 
             try {
                 ProductListAdapter adapterBorrow = (ProductListAdapter) listExchangesBorrow.getAdapter();
-                adapterBorrow.updateProducts(reader);
+                adapterBorrow.updateProducts(reader, filter);
                 listExchangesBorrow.setAdapter(adapterBorrow);
 
 
@@ -181,7 +200,7 @@ public class BorrowActivity extends Activity {
             try {
 
                 ProductListLendAdapter adapterLend = (ProductListLendAdapter) listExchangesLend.getAdapter();
-                adapterLend.updateProducts(reader);
+                adapterLend.updateProducts(reader, filter);
                 listExchangesLend.setAdapter(adapterLend);
 
             } catch (JSONException e) {

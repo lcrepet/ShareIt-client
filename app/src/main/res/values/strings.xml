@@ -54,5 +54,7 @@
     <string name="title_activity_request_view">RequestViewActivity</string>
     <string name="title_activity_exchange_notation">ExchangeNotation</string>
     <string name="note">Valider la note</string>
+    <string name="view_all_exchanges">Montrer tous les échanges</string>
+    <string name="hide_finished_exchange">Masquer les échanges terminés</string>
 
 </resources>
