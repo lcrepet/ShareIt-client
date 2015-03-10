@@ -36,7 +36,6 @@ public class RequestManagementActivity extends Activity {
     private TextView owner = null;
     private TextView status = null;
     private long exchangeId = 0;
-    private String profileId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +82,10 @@ public class RequestManagementActivity extends Activity {
         returned.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 new Answer().execute(Constants.uri + "/exchange/" + exchangeId + "/complete");
-                Utils.openOtherActivity(RequestManagementActivity.this, BorrowActivity.class);
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, BorrowActivity.class.getCanonicalName());
+                extras.put("id", String.valueOf(exchangeId));
+                Utils.openOtherActivity(RequestManagementActivity.this, ExchangeNotation.class, extras);
             }
         });
     }
@@ -139,25 +141,20 @@ public class RequestManagementActivity extends Activity {
                     }
                 } else {
                     owner.setText(Utils.getUserName(reader.getJSONObject("lender")));
-                    status.setText(currentStatus);
-
-                    Resources res = getResources();
-                    if(currentStatus.equals(statusList.getJSONObject(0).getString("0"))) {
-                        status.setText(res.getString(R.string.status_issued));
-                    } else if(currentStatus.equals(statusList.getJSONObject(1).getString("1"))) {
-                        status.setText(res.getString(R.string.status_accepted));
-                    } else if(currentStatus.equals(statusList.getJSONObject(2).getString("2"))) {
-                        status.setText(res.getString(R.string.status_borrowed));
-                    } else if(currentStatus.equals(statusList.getJSONObject(3).getString("3"))) {
-                        status.setText(res.getString(R.string.status_refused));
-                    } else if(currentStatus.equals(statusList.getJSONObject(4).getString("4"))) {
-                        status.setText(res.getString(R.string.status_completed));
-                    }
-                    //TODO: mettre statut compréhensible pour l'utilisateur
+                }
+                Resources res = getResources();
+                if(currentStatus.equals(statusList.getJSONObject(0).getString("0"))) {
+                    status.setText(res.getString(R.string.status_issued));
+                } else if(currentStatus.equals(statusList.getJSONObject(1).getString("1"))) {
+                    status.setText(res.getString(R.string.status_accepted));
+                } else if(currentStatus.equals(statusList.getJSONObject(2).getString("2"))) {
+                    status.setText(res.getString(R.string.status_borrowed));
+                } else if(currentStatus.equals(statusList.getJSONObject(3).getString("3"))) {
+                    status.setText(res.getString(R.string.status_refused));
+                } else if(currentStatus.equals(statusList.getJSONObject(4).getString("4"))) {
+                    status.setText(res.getString(R.string.status_completed));
                 }
 
-
-                Resources res = getResources();
                 product.setText(res.getString(R.string.product,reader.getJSONObject("product").getString("name"),reader.getJSONObject("product").getJSONObject("category").getString("name")));
 
             } catch (JSONException e) {
