@@ -53,11 +53,39 @@
         android:layout_centerHorizontal="true"
         android:hint="Age" />
 
+    <EditText
+        android:id="@+id/PicUser"
+        style="@style/text_style"
+        android:layout_below="@+id/age"
+        android:hint="Charger une photo"
+        android:inputType="textUri" />
+    <Button
+        android:id="@+id/FindPic"
+        style="@style/button_style"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Charger la photo"
+        android:layout_below="@+id/PicUser"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/custom_button" />
+
+
+    <ImageView
+        android:id="@+id/Pic"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/FindPic"/>
+
+
     <Spinner
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sex"
-        android:layout_below="@+id/age"
+        android:layout_below="@+id/FindPic"
         android:layout_centerHorizontal="true"
         android:entries="@array/sex"
         android:background="@drawable/custom_spinner" />

@@ -124,7 +124,7 @@ public class SignUpActivity extends Activity {
                             //pictureInfos.put("profilePicture",bmp);
                             //File picture = getFile
                             File fichier= new File("dossier");
-                            fichier.createNewFile();
+                           // fichier.createNewFile();
                             try {
                                 URL imageURL = new URL(cheminPhoto.getText().toString().trim());
                                 ReadableByteChannel rdbc = Channels.newChannel(imageURL.openStream());
@@ -143,9 +143,11 @@ public class SignUpActivity extends Activity {
 
                         }
 
-                    } catch (IOException e) {
+                    }
+                    catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 }
             });
 
