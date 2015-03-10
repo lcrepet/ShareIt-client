@@ -36,6 +36,11 @@
     <string name="button_returned">Rendu</string>
     <string name="button_done">Emprunté</string>
     <string name="title_activity_sign_up">Identification</string>
+    <string name="status_issued">Demande en attente</string>
+    <string name="status_accepted">Demande acceptée</string>
+    <string name="status_borrowed">Emprunt en cours</string>
+    <string name="status_refused">Demande refusée</string>
+    <string name="status_completed">Emprunt terminé</string>
 
     <string-array name="sex">
         <item>Sexe</item>

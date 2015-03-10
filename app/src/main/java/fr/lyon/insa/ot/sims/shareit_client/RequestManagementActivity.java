@@ -140,6 +140,19 @@ public class RequestManagementActivity extends Activity {
                 } else {
                     owner.setText(Utils.getUserName(reader.getJSONObject("lender")));
                     status.setText(currentStatus);
+
+                    Resources res = getResources();
+                    if(currentStatus.equals(statusList.getJSONObject(0).getString("0"))) {
+                        status.setText(res.getString(R.string.status_issued));
+                    } else if(currentStatus.equals(statusList.getJSONObject(1).getString("1"))) {
+                        status.setText(res.getString(R.string.status_accepted));
+                    } else if(currentStatus.equals(statusList.getJSONObject(2).getString("2"))) {
+                        status.setText(res.getString(R.string.status_borrowed));
+                    } else if(currentStatus.equals(statusList.getJSONObject(3).getString("3"))) {
+                        status.setText(res.getString(R.string.status_refused));
+                    } else if(currentStatus.equals(statusList.getJSONObject(4).getString("4"))) {
+                        status.setText(res.getString(R.string.status_completed));
+                    }
                     //TODO: mettre statut compréhensible pour l'utilisateur
                 }
 
