@@ -2,6 +2,7 @@ package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;

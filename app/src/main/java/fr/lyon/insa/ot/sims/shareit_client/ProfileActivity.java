@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
 
@@ -125,6 +126,19 @@ public class ProfileActivity extends Activity {
         MenuInflater inflater = getMenuInflater();
 
         inflater.inflate(R.menu.profile, menu);
+        final Menu m = menu;
+
+        final MenuItem borrowItem = menu.findItem(R.id.menu_borrow);
+        TextView count = (TextView) borrowItem.getActionView().findViewById(R.id.countText);
+        count.setText("2");
+
+        borrowItem.getActionView().setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                m.performIdentifierAction(borrowItem.getItemId(), 0);
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 

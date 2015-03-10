@@ -47,6 +47,16 @@ public class EmailActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.email, menu);
+
+        final Menu m = menu;
+        final MenuItem borrowItem = menu.findItem(R.id.menu_borrow);
+        borrowItem.getActionView().setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                m.performIdentifierAction(borrowItem.getItemId(), 0);
+            }
+        });
 		return true;
 	}
 
