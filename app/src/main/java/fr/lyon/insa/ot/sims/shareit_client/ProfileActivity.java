@@ -70,7 +70,7 @@ public class ProfileActivity extends Activity {
 
         SearchListAdapter adapter = null;
         try {
-            adapter = new SearchListAdapter(this, new JSONArray());
+            adapter = new SearchListAdapter(this, new JSONArray(), 0L, false);
             listProducts.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -236,7 +236,7 @@ public class ProfileActivity extends Activity {
         protected void onPostExecute(JSONArray reader) {
             try {
                 SearchListAdapter adapter = (SearchListAdapter) listProducts.getAdapter();
-                adapter.updateProducts(reader);
+                adapter.updateProducts(reader, false, 0L);
                 listProducts.setAdapter(adapter);
             } catch (JSONException e) {
                 e.printStackTrace();

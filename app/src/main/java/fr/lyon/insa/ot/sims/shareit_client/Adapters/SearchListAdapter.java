@@ -15,7 +15,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.lyon.insa.ot.sims.shareit_client.MainActivity;
 import fr.lyon.insa.ot.sims.shareit_client.R;
+import fr.lyon.insa.ot.sims.shareit_client.Utils;
 
 /**
  * Created by Gaetan on 24/02/2015.
@@ -25,21 +27,36 @@ public class SearchListAdapter extends BaseAdapter {
     private List<SimplifiedProduct> products;
     private LayoutInflater inflater;
 
-    public SearchListAdapter(Activity activity, JSONArray products) throws JSONException {
+    public SearchListAdapter(Activity activity, JSONArray products, long userId, boolean filterOwnProducts) throws JSONException {
         this.activity = activity;
         this.products = new ArrayList<>();
 
         for(int i = 0; i < products.length(); i++){
             JSONObject row = products.getJSONObject(i);
-            this.products.add(new SimplifiedProduct(row));
+            SimplifiedProduct product = new SimplifiedProduct(row);
+            if(filterOwnProducts){
+                if(userId != product.userId){
+                    this.products.add(product);
+                }
+            } else {
+                this.products.add(product);
+            }
         }
     }
 
-    public void updateProducts(JSONArray products) throws JSONException {
+    public void updateProducts(JSONArray products, boolean filterOwnProducts, long userId) throws JSONException {
         this.products = new ArrayList<>();
+
         for(int i = 0; i < products.length(); i++){
             JSONObject row = products.getJSONObject(i);
-            this.products.add(new SimplifiedProduct(row));
+            SimplifiedProduct product = new SimplifiedProduct(row);
+            if(filterOwnProducts){
+                if(userId != product.userId){
+                    this.products.add(product);
+                }
+            } else {
+                this.products.add(product);
+            }
         }
     }
 
@@ -78,12 +95,14 @@ public class SearchListAdapter extends BaseAdapter {
     }
 
     private class SimplifiedProduct {
+        public long userId;
         public String name;
         public String disponibility;
         public String category;
         public long id;
 
         public SimplifiedProduct(JSONObject item) throws JSONException {
+            this.userId = item.getJSONObject("sharer").getLong("id");
             this.name = item.getString("name");
             this.disponibility = item.getString("status");
             this.id = item.getInt("id");

@@ -60,7 +60,8 @@ public class MainActivity extends Activity {
         });
         SearchListAdapter adapter = null;
         try {
-            adapter = new SearchListAdapter(this, new JSONArray());
+            adapter = new SearchListAdapter(this, new JSONArray(),
+                    Utils.getUserId(getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)), true);
             listView.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -140,7 +141,7 @@ public class MainActivity extends Activity {
             ListView listView = (ListView) findViewById(R.id.listView);
             try {
                 SearchListAdapter adapter = (SearchListAdapter) listView.getAdapter();
-                adapter.updateProducts(reader);
+                adapter.updateProducts(reader, true, Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)));
                 listView.setAdapter(adapter);
             } catch (JSONException e) {
                 e.printStackTrace();
