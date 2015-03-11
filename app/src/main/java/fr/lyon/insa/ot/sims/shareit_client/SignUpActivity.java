@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,9 +49,14 @@ public class SignUpActivity extends Activity {
     private static Bitmap bmp;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        StrictMode.ThreadPolicy policy= new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         setContentView(R.layout.activity_sign_up);
 
         firstName = (EditText) findViewById(R.id.firstNameText);
@@ -73,6 +79,46 @@ public class SignUpActivity extends Activity {
             lastName.setHint("Nom");
             postCode.setHint("Code postal");
             cheminPhoto.setHint("Photo de profil");
+
+            downloadPicture.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    try {
+                        JSONObject pictureInfos = new JSONObject();
+                        Log.i("verification champ rempli ", cheminPhoto.getText().toString());
+                        if (cheminPhoto.getText().toString().trim().length() > 0) {
+                            //bmp = getBitmapFromURL(cheminPhoto.getText().toString().trim());
+                            //photo.setImageBitmap(bmp);
+                            //pictureInfos.put("profilePicture",bmp);
+                            //File picture = getFile
+                            //String filePath = super.getCacheDir().getPath().toString()+ "/chat.png";
+                            File fichier= new File("dossier");
+                            fichier.createNewFile();
+                            try {
+                                URL imageURL = new URL(cheminPhoto.getText().toString().trim());
+                                ReadableByteChannel rdbc = Channels.newChannel(imageURL.openStream());
+                                FileOutputStream fos = new FileOutputStream(fichier);
+                                fos.getChannel().transferFrom(rdbc,0, Long.MAX_VALUE);
+                                new UpdatePicture(fichier).execute(Constants.uri + "user/" +
+                                        Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
+                                        , pictureInfos.toString());
+                            }
+                            catch ( MalformedURLException e ){
+                                e.printStackTrace();
+                            }
+                            catch ( IOException e){
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
 
 
             button.setOnClickListener(new View.OnClickListener() {
@@ -112,44 +158,7 @@ public class SignUpActivity extends Activity {
                     }
                 }
             });
-            downloadPicture.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    try {
-                        JSONObject pictureInfos = new JSONObject();
-                        Log.i("verification champ rempli ", cheminPhoto.getText().toString());
-                        if (cheminPhoto.getText().toString().trim().length() > 0) {
-                            //bmp = getBitmapFromURL(cheminPhoto.getText().toString().trim());
-                            //photo.setImageBitmap(bmp);
-                            //pictureInfos.put("profilePicture",bmp);
-                            //File picture = getFile
-                            File fichier= new File("dossier");
-                           // fichier.createNewFile();
-                            try {
-                                URL imageURL = new URL(cheminPhoto.getText().toString().trim());
-                                ReadableByteChannel rdbc = Channels.newChannel(imageURL.openStream());
-                                FileOutputStream fos = new FileOutputStream(fichier);
-                                fos.getChannel().transferFrom(rdbc,0, Long.MAX_VALUE);
-                                new UpdatePicture(fichier).execute(Constants.uri + "user/" +
-                                        Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
-                                       , pictureInfos.toString());
-                             }
-                            catch ( MalformedURLException e ){
-                                e.printStackTrace();
-                            }
-                            catch ( IOException e){
-                                e.printStackTrace();
-                            }
 
-                        }
-
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            });
 
         }else {
             button.setOnClickListener(new View.OnClickListener() {
