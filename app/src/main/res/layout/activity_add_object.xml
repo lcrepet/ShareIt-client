@@ -69,4 +69,15 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/custom_button" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajout Multiple"
+        android:id="@+id/multipleAdd"
+        android:layout_alignBottom="@+id/SaveObject"
+        android:layout_alignRight="@+id/PicObject"
+        android:layout_alignEnd="@+id/PicObject"
+        style="@style/button_style"
+        android:background="@drawable/custom_button" />
+
 </RelativeLayout>
