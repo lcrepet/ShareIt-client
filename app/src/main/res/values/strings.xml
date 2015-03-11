@@ -56,6 +56,6 @@
     <string name="note">Valider la note</string>
     <string name="view_all_exchanges">Montrer tous les échanges</string>
     <string name="hide_finished_exchange">Masquer les échanges terminés</string>
-    <string name="title_activity_multiple_object_create">MultipleObjectCreateActivity</string>
+    <string name="title_activity_multiple_object_create">Ajout multiple</string>
 
 </resources>

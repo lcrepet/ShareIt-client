@@ -83,6 +83,8 @@ public class ObjectsListAdapter extends BaseAdapter {
             }
         });
 
+        checkBox.setChecked(listCheck.get(position));
+
         return convertView;
     }
 }
