@@ -17,6 +17,7 @@
     <string name="save_object">Enregistrer</string>
     <string name="change_date">Modifier</string>
     <string name="product">%1$s (%2$s)</string>
+    <string name="dates">Du %1$s au %2$s</string>
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_borrow">Borrow</string>
@@ -48,11 +49,10 @@
         <item>Femme</item>
     </string-array>
 
-    <string name="title_activity_request_management">RequestManagementActivity</string>
+    <string name="title_activity_request_management">Demande d\'emprunt</string>
     <string name="title_activity_message">MessageActivity</string>
     <string name="sendMessage">Envoyer</string>
-    <string name="title_activity_request_view">RequestViewActivity</string>
-    <string name="title_activity_exchange_notation">ExchangeNotation</string>
+    <string name="title_activity_exchange_notation">Notation</string>
     <string name="note">Valider la note</string>
     <string name="view_all_exchanges">Montrer tous les échanges</string>
     <string name="hide_finished_exchange">Masquer les échanges terminés</string>
