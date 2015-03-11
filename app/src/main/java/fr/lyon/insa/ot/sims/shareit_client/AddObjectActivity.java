@@ -43,6 +43,14 @@ public class AddObjectActivity extends Activity {
         description = (EditText) findViewById(R.id.DescObject);
         save = (Button) findViewById(R.id.SaveObject);
         categories = (Spinner) findViewById(R.id.TypeObject);
+        Button multipleAdd = (Button) findViewById(R.id.multipleAdd);
+
+        multipleAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.openOtherActivity(AddObjectActivity.this, MultipleObjectCreateActivity.class);
+            }
+        });
 
         new GetCategories().execute(Constants.uri + "/product/category");
 

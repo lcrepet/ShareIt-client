@@ -76,6 +76,11 @@
             android:name=".ExchangeNotation"
             android:label="@string/title_activity_exchange_notation" >
         </activity>
+        <activity
+            android:name=".MultipleObjectCreateActivity"
+            android:label="@string/title_activity_multiple_object_create"
+            android:parentActivityName=".AddObjectActivity">
+        </activity>
     </application>
 
 </manifest>

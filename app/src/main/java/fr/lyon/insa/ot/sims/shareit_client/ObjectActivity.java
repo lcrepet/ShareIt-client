@@ -37,6 +37,7 @@ public class ObjectActivity extends Activity {
     private TextView status = null;
     private TextView desc = null;
     private TextView prop = null;
+    private TextView note = null;
     private Button objectButton = null;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -58,6 +59,7 @@ public class ObjectActivity extends Activity {
         status = (TextView)findViewById(R.id.StatusObjet);
         desc = (TextView)findViewById(R.id.DescriptionObjet);
         prop = (TextView) findViewById(R.id.Proprietaire);
+        note = (TextView) findViewById(R.id.Note);
         objectButton = (Button) findViewById(R.id.bouton1);
 
         new DisplayObject().execute();
@@ -130,10 +132,22 @@ public class ObjectActivity extends Activity {
                 status.setText(statusToSet);
 
                 String descToSet = reader.getString(TAG_DESCRIPTION);
-                desc.setText(descToSet);
+                if(descToSet != null && !descToSet.isEmpty()){
+                    desc.setText(descToSet);
+                } else {
+                    desc.setVisibility(View.GONE);
+                }
 
                 String propToSet = Utils.getUserName(reader.getJSONObject(TAG_SHARER));
                 prop.setText(propToSet);
+
+                String noteToSet = reader.getJSONObject(TAG_SHARER).getJSONObject("userStats").getString("averageNote");
+                if(!noteToSet.equals("-1.0")){
+                    note.setText("Note : " + noteToSet);
+                } else {
+                    desc.setVisibility(View.GONE);
+                }
+
 
                 if(!(Long.toString(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(idJSON))
                         && status.getText().equals("disponible")){

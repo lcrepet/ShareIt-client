@@ -35,6 +35,7 @@ public class RequestManagementActivity extends Activity {
     private TextView product = null;
     private TextView owner = null;
     private TextView status = null;
+    private TextView dates = null;
     private long exchangeId = 0;
 
     @Override
@@ -47,6 +48,7 @@ public class RequestManagementActivity extends Activity {
         product = (TextView) findViewById(R.id.Product);
         owner = (TextView) findViewById(R.id.Owner);
         status = (TextView) findViewById(R.id.Status);
+        dates = (TextView) findViewById(R.id.Dates);
 
         new GetExchange().execute(Constants.uri + "/exchange/status", Constants.uri + "/exchange/" + exchangeId);
 
@@ -129,14 +131,9 @@ public class RequestManagementActivity extends Activity {
                     if(currentStatus.equals(statusList.getJSONObject(0).getString("0"))) {
                         ok.setVisibility(View.VISIBLE);
                         nok.setVisibility(View.VISIBLE);
-                        //returned.setVisibility(View.INVISIBLE);
                     } else if(currentStatus.equals(statusList.getJSONObject(1).getString("1"))) {
-                        /*ok.setVisibility(View.INVISIBLE);
-                        nok.setVisibility(View.INVISIBLE);*/
                         done.setVisibility(View.VISIBLE);
                     } else if(currentStatus.equals(statusList.getJSONObject(2).getString("2"))) {
-                        /*ok.setVisibility(View.INVISIBLE);
-                        nok.setVisibility(View.INVISIBLE);*/
                         returned.setVisibility(View.VISIBLE);
                     }
                 } else {
@@ -156,6 +153,7 @@ public class RequestManagementActivity extends Activity {
                 }
 
                 product.setText(res.getString(R.string.product,reader.getJSONObject("product").getString("name"),reader.getJSONObject("product").getJSONObject("category").getString("name")));
+                dates.setText(res.getString(R.string.dates, reader.getString("startDate"), reader.getString("startDate")));
 
             } catch (JSONException e) {
                 e.printStackTrace();
