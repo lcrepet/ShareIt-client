@@ -1,9 +1,9 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +24,7 @@ import java.util.List;
 import fr.lyon.insa.ot.sims.shareit_client.Adapters.ObjectsListAdapter;
 
 
-public class MultipleObjectCreateActivity extends ActionBarActivity {
+public class MultipleObjectCreateActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,12 @@ public class MultipleObjectCreateActivity extends ActionBarActivity {
                     }
                     new SaveObject().execute(Constants.uri + "/user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)) + "/product", args.toString());
                 }
+
+                Toast.makeText(MultipleObjectCreateActivity.this, "Objets créé !", Toast.LENGTH_LONG).show();
+
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
+                Utils.openOtherActivity(MultipleObjectCreateActivity.this, ProfileActivity.class, extras);
             }
         });
     }
@@ -92,15 +98,6 @@ public class MultipleObjectCreateActivity extends ActionBarActivity {
 
 
             return Request.newPostRequest(message[0], pairs);
-        }
-
-        protected void onPostExecute(JSONObject object) {
-            Toast.makeText(MultipleObjectCreateActivity.this, "Objets créé !", Toast.LENGTH_LONG).show();
-
-            HashMap<String, String> extras = new HashMap<>();
-            extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
-            Utils.openOtherActivity(MultipleObjectCreateActivity.this, ProfileActivity.class, extras);
-
         }
     }
 }

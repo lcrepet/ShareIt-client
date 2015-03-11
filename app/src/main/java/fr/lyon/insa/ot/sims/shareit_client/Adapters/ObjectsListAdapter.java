@@ -27,6 +27,7 @@ public class ObjectsListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     public ObjectsListAdapter(Activity activity){
+        listCheck = new ArrayList<>();
         this.activity = activity;
         listObject = new PreDefinedObjects().getList();
         for(int i = 0; i < listObject.size(); i++){
@@ -67,7 +68,7 @@ public class ObjectsListAdapter extends BaseAdapter {
         if (inflater == null)
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.message_list_item_layout, null);
+            convertView = inflater.inflate(R.layout.objects_multiple_add_list_layout, null);
 
         TextView name = (TextView) convertView.findViewById(R.id.objectName);
 
