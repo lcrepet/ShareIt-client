@@ -104,7 +104,7 @@ public class Request {
 
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(url);
-            post.setEntity(new UrlEncodedFormEntity(pairs));
+            post.setEntity(new UrlEncodedFormEntity(pairs, "UTF-8"));
 
             response = client.execute(post);
 
