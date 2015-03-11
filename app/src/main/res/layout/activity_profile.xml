@@ -22,15 +22,6 @@
         android:textSize="30sp"
         style="@style/text_style" />
 
-    <TextView
-        android:id="@+id/LastName"
-        android:layout_toRightOf="@id/FirstName"
-        android:paddingLeft="10sp"
-        android:paddingTop="10sp"
-        android:text=""
-        android:textSize="30sp"
-        style="@style/text_style" />
-
     <ImageButton
         android:id="@+id/SendMail"
         android:layout_width="wrap_content"

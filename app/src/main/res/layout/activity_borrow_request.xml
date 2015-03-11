@@ -27,7 +27,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:layout_below="@id/objectOwner"/>
+        android:layout_below="@id/objectOwner"
+        style="@style/text_style"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="3dp" />
 
     <Button
         android:id="@+id/ChangeStartDate"
@@ -44,7 +47,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:layout_below="@id/StartDate" />
+        android:layout_below="@id/ChangeStartDate"
+        style="@style/text_style"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="3dp" />
 
     <Button
         android:id="@+id/ChangeEndDate"

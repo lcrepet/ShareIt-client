@@ -30,7 +30,7 @@ import fr.lyon.insa.ot.sims.shareit_client.Adapters.SearchListAdapter;
 public class ProfileActivity extends Activity {
 
     private TextView firstName = null;
-    private TextView lastName = null;
+    private TextView postcode = null;
     private TextView phoneNumber = null;
     private TextView age = null;
     private TextView sexe = null;
@@ -47,7 +47,7 @@ public class ProfileActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         firstName = (TextView) findViewById(R.id.FirstName);
-        lastName = (TextView) findViewById(R.id.LastName);
+        postcode = (TextView) findViewById(R.id.PostCode);
         phoneNumber = (TextView) findViewById(R.id.PhoneNumber);
         age = (TextView) findViewById(R.id.Age);
         sexe = (TextView) findViewById(R.id.Sex);
@@ -185,12 +185,41 @@ public class ProfileActivity extends Activity {
         protected void onPostExecute(JSONObject reader) {
 
             try {
-                firstName.setText(reader.getString("firstname"));
-                lastName.setText(reader.getString("lastname"));
-                phoneNumber.setText(reader.getString("telephone"));
-                age.setText(reader.getString("age") + " ans");
-                sexe.setText(reader.getString("sex"));
-                rating.setText("Note : " + reader.getString("rating"));
+                firstName.setText(Utils.getUserName(reader));
+                postcode.setText(reader.getString("postCode"));
+
+                String s = reader.getString("telephone");
+                if(s != null && !s.isEmpty()){
+                    phoneNumber.setText(reader.getString("telephone"));
+                } else {
+                    phoneNumber.setVisibility(View.GONE);
+                }
+
+                s = reader.getString("age");
+                if(s != null && !s.isEmpty()) {
+                    age.setText(s + " ans");
+                } else {
+                    age.setVisibility(View.GONE);
+                }
+
+                s = reader.getString("sex");
+                if(s != null && !s.isEmpty()) {
+                    if(s.equals("M")){
+                        s = "Homme";
+                    } else {
+                        s = "Femme";
+                    }
+                    sexe.setText(s);
+                } else {
+                    sexe.setVisibility(View.GONE);
+                }
+
+                s = reader.getJSONObject("userStats").getString("averageNote");
+                if(!s.equals("-1.0")) {
+                    rating.setText("Note : " + s);
+                } else {
+                    rating.setVisibility(View.GONE);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
