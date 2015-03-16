@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -115,7 +117,10 @@ public class SignUpActivity extends Activity {
             downloadPicture.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    try {
+
+                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, 0);
+                    /*try {
                         JSONObject pictureInfos = new JSONObject();
                         Log.i("verification champ rempli ", cheminPhoto.getText().toString());
                         if (cheminPhoto.getText().toString().trim().length() > 0) {
@@ -146,10 +151,12 @@ public class SignUpActivity extends Activity {
                     }
                     catch (Exception e) {
                         e.printStackTrace();
-                    }
+                    }*/
 
                 }
             });
+
+
 
         }else {
             button.setOnClickListener(new View.OnClickListener() {
@@ -216,6 +223,24 @@ public class SignUpActivity extends Activity {
         }
     }
     */
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK){
+            Uri targetUri = data.getData();
+            cheminPhoto.setText(targetUri.toString());
+            Bitmap bitmap;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                photo.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
