@@ -168,7 +168,7 @@ public class Request {
     }
 
 
-    public static String putPicture(String url, List<NameValuePair> nameValuePairs, File picture) {
+    public static String putPicture(String url, File picture) {
         String responseBody = "failure";
         HttpClient client = new DefaultHttpClient();
         client.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
@@ -178,16 +178,8 @@ public class Request {
         HttpPut put = new HttpPut(url);
         put.addHeader("Accept", "application/json");
 
-        //MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+
         FileEntity req=new FileEntity(picture, "binary/octet-stream");
-        //builder.setCharset(MIME.UTF8_CHARSET);
-
-
-        /*
-        if (picture!= null)
-            builder.addBinaryBody("Filedata", picture, ContentType.MULTIPART_FORM_DATA, picture.getName());
-
-        */
         put.setEntity(req);
 
         try {

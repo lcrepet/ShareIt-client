@@ -35,6 +35,15 @@ public class ObjectsListAdapter extends BaseAdapter {
         }
     }
 
+    public ObjectsListAdapter(Activity activity, int category){
+        listCheck = new ArrayList<>();
+        this.activity = activity;
+        listObject = new PreDefinedObjects().getList(category);
+        for(int i = 0; i < listObject.size(); i++){
+            listCheck.add(false);
+        }
+    }
+
     @Override
     public int getCount() {
         return listObject.size();

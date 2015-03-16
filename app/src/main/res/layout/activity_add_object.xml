@@ -26,10 +26,24 @@
         android:layout_height="wrap_content"
         android:background="@drawable/custom_spinner" />
 
+    <Spinner
+        android:id="@+id/Preselection"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        style="@style/text_style"
+        android:spinnerMode="dropdown"
+        android:focusable="false"
+        android:prompt="@string/category_prompt"
+        android:background="@drawable/custom_spinner"
+        android:layout_below="@+id/TypeObject"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <EditText
         android:id="@+id/NameObject"
         style="@style/text_style"
-        android:layout_below="@id/TypeObject"
+        android:layout_below="@id/Preselection"
         android:hint="@string/name_object"
         android:inputType="text"/>
 

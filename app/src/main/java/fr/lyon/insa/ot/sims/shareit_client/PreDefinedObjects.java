@@ -93,6 +93,16 @@ public class PreDefinedObjects {
         return list;
     }
 
+    public ArrayList<PredefinedObject> getList(int category) {
+        ArrayList<PredefinedObject> tempList = new ArrayList<>();
+
+        for(PreDefinedObjects.PredefinedObject product: list) {
+            if (product.getCategory() == category) { tempList.add(product); }
+        }
+
+        return tempList;
+    }
+
     public class PredefinedObject {
         private String name;
         private int category;
