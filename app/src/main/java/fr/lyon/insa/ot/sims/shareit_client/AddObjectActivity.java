@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import fr.lyon.insa.ot.sims.shareit_client.Adapters.ObjectsListAdapter;
+
 
 public class AddObjectActivity extends Activity {
 
@@ -32,7 +34,10 @@ public class AddObjectActivity extends Activity {
     private EditText description = null;
     private Button save = null;
     private Spinner categories = null;
+    private Spinner preselection = null;
     private ListView list = null;
+    private List<PreDefinedObjects.PredefinedObject> listObject = null;
+    private List<String> objectsList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,7 @@ public class AddObjectActivity extends Activity {
         description = (EditText) findViewById(R.id.DescObject);
         save = (Button) findViewById(R.id.SaveObject);
         categories = (Spinner) findViewById(R.id.TypeObject);
+        preselection = (Spinner) findViewById(R.id.Preselection);
         Button multipleAdd = (Button) findViewById(R.id.multipleAdd);
 
         multipleAdd.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +59,38 @@ public class AddObjectActivity extends Activity {
         });
 
         new GetCategories().execute(Constants.uri + "/product/category");
+
+        categories.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                objectsList.clear();
+                objectsList.add("");
+                listObject = new PreDefinedObjects().getList(pos+1);
+
+                for(PreDefinedObjects.PredefinedObject product: listObject){
+                    objectsList.add(product.getName());
+                }
+
+                ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(AddObjectActivity.this,android.R.layout.simple_spinner_item, objectsList);
+                nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                preselection.setAdapter(nameAdapter);
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
+            }
+
+        });
+
+        preselection.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                name.setText(preselection.getItemAtPosition(pos).toString());
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+                name.setText("");
+            }
+
+        });
 
         save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
