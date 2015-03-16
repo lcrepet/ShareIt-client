@@ -73,8 +73,12 @@ public class MainActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText postCode = (EditText) findViewById(R.id.textView);
+                EditText objectName = (EditText) findViewById(R.id.nameEdit);
                 Spinner spinner = (Spinner) findViewById((R.id.spinner));
                 String arguments = "category=" + (spinner.getSelectedItemPosition() + 1);
+                if(!objectName.getText().equals("")){
+                    arguments = arguments + "&name=" + objectName.getText();
+                }
                 if(!postCode.getText().equals("")){
                     arguments = arguments + "&postcode=" + postCode.getText();
                 }

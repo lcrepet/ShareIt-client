@@ -17,11 +17,21 @@
     <EditText
         style="@style/text_style"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/nameEdit"
+        android:textIsSelectable="false"
+        android:hint="Nom de l'objet"
+        android:inputType="text"
+        android:layout_below="@+id/MainTV"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        style="@style/text_style"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textView"
         android:textIsSelectable="false"
         android:hint="Code Postal"
         android:inputType="number"
-        android:layout_below="@+id/MainTV"
+        android:layout_below="@+id/nameEdit"
         android:layout_centerHorizontal="true" />
 
     <Button
