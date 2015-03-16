@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/background_style">
 
@@ -19,7 +19,8 @@
         android:paddingLeft="16sp"
         android:paddingTop="10sp"
         android:text=""
-        android:textSize="30sp"
+        android:textSize="30dp"
+        android:textStyle="bold"
         style="@style/text_style" />
 
     <ImageButton
@@ -44,7 +45,7 @@
         style="@style/text_style" />
 
     <TextView
-        android:id="@+id/Age"
+        android:id="@+id/SexAge"
         android:layout_toRightOf="@id/ProfilePic"
         android:layout_below="@id/PhoneNumber"
         android:paddingLeft="10sp"
@@ -52,17 +53,9 @@
         style="@style/text_style" />
 
     <TextView
-        android:id="@+id/Sex"
-        android:layout_toRightOf="@id/ProfilePic"
-        android:layout_below="@id/Age"
-        android:paddingLeft="10sp"
-        android:text=""
-        style="@style/text_style" />
-
-    <TextView
         android:id="@+id/PostCode"
         android:layout_toRightOf="@id/ProfilePic"
-        android:layout_below="@id/Sex"
+        android:layout_below="@id/SexAge"
         android:paddingLeft="10sp"
         android:text=""
         style="@style/text_style" />
@@ -75,34 +68,55 @@
         android:text=""
         style="@style/text_style" />
 
+    <TextView
+        android:id="@+id/Objects"
+        android:layout_below="@id/Rating"
+        android:paddingLeft="15dp"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Objets :"
+        android:textSize="22dp"
+        android:textStyle="bold"/>
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ListProducts"
-        android:layout_below="@+id/Rating"
+        android:layout_below="@+id/Objects"
+        android:layout_above="@+id/Buttons"
         android:smoothScrollbar="false"
         android:scrollingCache="false"
         android:visibility="visible"
-        android:paddingTop="20sp"
-        android:layout_above="@+id/AddObject" />
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:paddingBottom="20dp"
+        android:divider="@null"/>
+
+    <RelativeLayout
+        android:id="@+id/Buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        style="@style/menu_profile">
 
     <Button
         android:id="@+id/AddObject"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_alignParentBottom="true"
         android:text="@string/button_add_object"
-        android:background="@drawable/custom_button"
-        android:layout_margin="3dp" />
+        android:background="@drawable/profile_button"
+        style="@style/button_text" />
 
     <Button
         android:id="@+id/EditProfile"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="@string/button_edit_profile"
-        android:background="@drawable/custom_button"
-        android:layout_margin="3dp" />
+        android:background="@drawable/profile_button"
+        style="@style/button_text" />
+    </RelativeLayout>
 
 </RelativeLayout>

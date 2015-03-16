@@ -1,8 +1,11 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -32,8 +35,7 @@ public class ProfileActivity extends Activity {
     private TextView firstName = null;
     private TextView postcode = null;
     private TextView phoneNumber = null;
-    private TextView age = null;
-    private TextView sexe = null;
+    private TextView sexeAge = null;
     private TextView rating = null;
     private ListView listProducts = null;
     private Button addObject = null;
@@ -49,8 +51,7 @@ public class ProfileActivity extends Activity {
         firstName = (TextView) findViewById(R.id.FirstName);
         postcode = (TextView) findViewById(R.id.PostCode);
         phoneNumber = (TextView) findViewById(R.id.PhoneNumber);
-        age = (TextView) findViewById(R.id.Age);
-        sexe = (TextView) findViewById(R.id.Sex);
+        sexeAge = (TextView) findViewById(R.id.SexAge);
         rating = (TextView) findViewById(R.id.Rating);
         listProducts = (ListView) findViewById(R.id.ListProducts);
         addObject = (Button) findViewById(R.id.AddObject);
@@ -128,6 +129,9 @@ public class ProfileActivity extends Activity {
         inflater.inflate(R.menu.profile, menu);
         final Menu m = menu;
 
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#CC0000")));
+
         Utils.CheckExchanges badge = new Utils.CheckExchanges(menu);
         badge.execute(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))));
 
@@ -188,18 +192,13 @@ public class ProfileActivity extends Activity {
                 firstName.setText(Utils.getUserName(reader));
                 postcode.setText(reader.getString("postCode"));
 
+                Boolean isEmpty = true;
+
                 String s = reader.getString("telephone");
                 if(s != null && !s.isEmpty()){
                     phoneNumber.setText(reader.getString("telephone"));
                 } else {
                     phoneNumber.setVisibility(View.GONE);
-                }
-
-                s = reader.getString("age");
-                if(s != null && !s.isEmpty()) {
-                    age.setText(s + " ans");
-                } else {
-                    age.setVisibility(View.GONE);
                 }
 
                 s = reader.getString("sex");
@@ -209,9 +208,23 @@ public class ProfileActivity extends Activity {
                     } else {
                         s = "Femme";
                     }
-                    sexe.setText(s);
-                } else {
-                    sexe.setVisibility(View.GONE);
+                    isEmpty = false;
+                    sexeAge.setText(s);
+                }
+
+                s = reader.getString("age");
+                if(s != null && !s.isEmpty()) {
+                    if (isEmpty) {
+                        s += " ans";
+                        isEmpty = false;
+                    } else {
+                        s = " (" + s + " ans)";
+                    }
+                    sexeAge.setText(sexeAge.getText() + s);
+                }
+
+                if (isEmpty) {
+                    sexeAge.setVisibility(View.GONE);
                 }
 
                 s = reader.getJSONObject("userStats").getString("averageNote");

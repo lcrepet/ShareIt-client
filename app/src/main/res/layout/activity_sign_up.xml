@@ -7,6 +7,11 @@
     tools:context="fr.lyon.insa.ot.sims.shareit_client.SignUpActivity"
     style="@style/background_style">
 
+    <RelativeLayout
+        android:id="@+id/Info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/background_group">
     <EditText
         android:inputType="textPersonName"
         android:ems="10"
@@ -34,16 +39,6 @@
         android:layout_centerHorizontal="true"
         android:hint="Code Postal (requis)" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Connexion"
-        android:id="@+id/signUpButton"
-        android:layout_below="@+id/phone"
-        android:layout_centerHorizontal="true"
-        style="@style/button_style"
-        android:background="@drawable/custom_button" />
-
     <EditText
         style="@style/text_style"
         android:inputType="number"
@@ -53,39 +48,12 @@
         android:layout_centerHorizontal="true"
         android:hint="Age" />
 
-    <EditText
-        android:id="@+id/PicUser"
-        style="@style/text_style"
-        android:layout_below="@+id/age"
-        android:hint="Charger une photo"
-        android:inputType="textUri" />
-    <Button
-        android:id="@+id/FindPic"
-        style="@style/button_style"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="Charger la photo"
-        android:layout_below="@+id/PicUser"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/custom_button" />
-
-
-    <ImageView
-        android:id="@+id/Pic"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/FindPic"/>
-
 
     <Spinner
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sex"
-        android:layout_below="@+id/FindPic"
+        android:layout_below="@+id/age"
         android:layout_centerHorizontal="true"
         android:entries="@array/sex"
         android:background="@drawable/custom_spinner" />
@@ -99,4 +67,55 @@
         android:layout_alignLeft="@+id/age"
         android:layout_alignStart="@+id/age"
         android:hint="Telephone" />
+    </RelativeLayout>
+
+
+
+    <EditText
+        android:id="@+id/PicUser"
+        style="@style/text_style"
+        android:layout_below="@+id/Info"
+        android:hint="Charger une photo"
+        android:inputType="textUri"
+        android:visibility="invisible"/>
+    <Button
+        android:id="@+id/FindPic"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Charger la photo"
+        android:layout_below="@+id/PicUser"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/profile_button"
+        style="@style/button_text"/>
+
+
+    <ImageView
+        android:id="@+id/Pic"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/FindPic"
+        android:layout_above="@+id/ButtonsSU"/>
+
+    <RelativeLayout
+        android:id="@+id/ButtonsSU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        style="@style/menu_profile">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connexion"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/signUpButton"
+        android:background="@drawable/profile_button"
+        style="@style/button_text" />
+    </RelativeLayout>
 </RelativeLayout>

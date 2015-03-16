@@ -2,6 +2,7 @@ package fr.lyon.insa.ot.sims.shareit_client.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,14 +83,12 @@ public class SearchListAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.search_list_item_layout, null);
 
-        TextView name = (TextView) convertView.findViewById(R.id.ObjectName);
+        TextView name = (TextView) convertView.findViewById(R.id.ObjectNameCategory);
         TextView status = (TextView) convertView.findViewById(R.id.ObjectStatus);
-        TextView category = (TextView) convertView.findViewById(R.id.ObjectCategory);
 
         SimplifiedProduct product = this.products.get(position);
-        name.setText(product.name);
+        name.setText(product.name + " (" + product.category +")");
         status.setText(product.disponibility);
-        category.setText(product.category);
 
         return convertView;
     }

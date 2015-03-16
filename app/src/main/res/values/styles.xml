@@ -3,20 +3,50 @@
 	    <style name="AppTheme" parent="android:Theme.Light" />
 
         <style name="background_style">
-            <item name="android:background">#CCCCCC</item>
+            <item name="android:background">#FFFFFF</item>
         </style>
+
+        <style name="background_profile">
+            <item name="android:background">#c5b8cc</item>
+        </style>
+
+        <style name="menu_profile">
+            <item name="android:background">#CC0000</item>
+        </style>
+
+        <style name="menu_email">
+            <item name="android:background">#669900</item>
+        </style>
+
+        <style name="menu_share">
+            <item name="android:background">#0099CC</item>
+        </style>
+
+        <style name="background_group">
+            <item name="android:background">#FFFFFF</item>
+        </style>
+
 
         <style name="text_style">
             <item name="android:layout_width">match_parent</item>
             <item name="android:layout_height">wrap_content</item>
-            <item name="android:background">#FFFFFF</item>
             <item name="android:padding">6dp</item>
             <item name="android:layout_marginBottom">1dp</item>
+            <item name="android:background">#FFFFFF</item>
         </style>
 
         <style name="button_style">
             <item name="android:layout_marginBottom">3dp</item>
             <item name="android:layout_marginTop">3dp</item>
+        </style>
+
+        <style name="button_text" >
+            <item name="android:layout_width" >fill_parent</item>
+            <item name="android:layout_height" >wrap_content</item>
+            <item name="android:textColor" >#ffffff</item>
+            <item name="android:gravity" >center</item>
+            <item name="android:layout_margin" >3dp</item>
+            <item name="android:textStyle" >bold</item>
         </style>
 
     </resources>
