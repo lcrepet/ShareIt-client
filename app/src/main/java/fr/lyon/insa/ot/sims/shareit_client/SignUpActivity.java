@@ -23,8 +23,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -176,16 +179,43 @@ public class SignUpActivity extends Activity {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
                 photo.setImageBitmap(bitmap);
 
+                /*
                 JSONObject pictureInfos = new JSONObject();
                 pictureInfos.put("profilePicture",bitmap);
                 File fichier= new File(targetUri.getPath());
+                FileOutputStream fos = new FileOutputStream(fichier);
+                fichier.createNewFile();
                 new UpdatePicture(fichier).execute(Constants.uri + "user/" +
+                        Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
+                        , pictureInfos.toString());
+                fos.flush();
+                fos.close();
+                */
+
+                //create a file to write bitmap data
+                File file = new File(targetUri.getPath());
+                //file.createNewFile();
+
+                //Convert bitmap to byte array
+
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+                byte[] bitmapdata = bos.toByteArray();
+
+
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+
+                JSONObject pictureInfos = new JSONObject();
+                new UpdatePicture(file).execute(Constants.uri + "user/" +
                         Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
                         , pictureInfos.toString());
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -307,7 +337,7 @@ public class SignUpActivity extends Activity {
     private class UpdatePicture extends AsyncTask<String, Void, String> {
 
         private File picture;
-        public UpdatePicture ( File file){
+        public UpdatePicture (File file){
             super();
             this.picture = file;
         }
