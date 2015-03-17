@@ -12,7 +12,6 @@
                         android:top="5dp"
                         android:right="10dp"
                         android:bottom="5dp" />
-
                 </shape>
             </item>
             <item

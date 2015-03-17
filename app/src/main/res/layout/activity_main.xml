@@ -5,20 +5,14 @@
     android:orientation="vertical"
     style="@style/background_style">
 
-    <TextView
-        android:id="@+id/MainTV"
-        style="@style/text_style"
-        android:text="@string/search"
-        android:layout_centerHorizontal="true" />
-
     <EditText
         style="@style/text_style"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/nameEdit"
         android:textIsSelectable="false"
         android:hint="Nom de l'objet"
+        android:layout_marginTop="20dp"
         android:inputType="text"
-        android:layout_below="@+id/MainTV"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -56,14 +50,14 @@
         android:background="@drawable/custom_spinner"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:gravity="center" />
 
     <RelativeLayout
         android:id="@+id/ButtonMain"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         style="@style/menu_share">
 
