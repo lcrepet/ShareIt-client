@@ -151,7 +151,7 @@ public class ObjectActivity extends Activity {
                 type.setText(typeToSet);
 
                 String statusToSet = reader.getString(TAG_STATUS);
-                status.setText(statusToSet);
+                status.setText("(" + statusToSet + ")");
 
                 String descToSet = reader.getString(TAG_DESCRIPTION);
                 if(descToSet != null && !descToSet.isEmpty()){
@@ -167,13 +167,15 @@ public class ObjectActivity extends Activity {
                 if(!noteToSet.equals("-1.0")){
                     note.setText("Note : " + noteToSet);
                 } else {
-                    desc.setVisibility(View.GONE);
+                    note.setVisibility(View.GONE);
                 }
 
 
                 if(!(Long.toString(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(idJSON))){
                     if(status.getText().equals("disponible")){
                         objectButton.setVisibility(View.VISIBLE);
+                        editButton.setVisibility(View.INVISIBLE);
+                        deleteButton.setVisibility(View.INVISIBLE);
                         objectButton.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                                 HashMap<String, String> extras = new HashMap<>();
@@ -185,7 +187,9 @@ public class ObjectActivity extends Activity {
                 } else {
                     editButton.setVisibility(View.VISIBLE);
                     deleteButton.setVisibility(View.VISIBLE);
-
+                    objectButton.setVisibility(View.INVISIBLE);
+                    prop.setVisibility(View.GONE);
+                    note.setVisibility(View.GONE);
                     deleteButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

@@ -3,9 +3,6 @@
 
     <string name="app_name">Share It!</string>
     <string name="hello_world">Hello world!</string>
-    <string name="hello_world_profile">Ceci est le profil</string>
-    <string name="hello_world_borrow">Ceci est la liste des emprunts</string>
-    <string name="hello_world_email">Ceci est la messagerie</string>
     <string name="button_add_object">Ajouter un objet</string>
     <string name="button_edit_profile">Modifier le profil</string>
     <string name="title_activity_main"></string>

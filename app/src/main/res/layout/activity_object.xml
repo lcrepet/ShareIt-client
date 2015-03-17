@@ -7,58 +7,74 @@
 
     <RelativeLayout
         android:id="@+id/InfoObj"
-        android:padding="15sp"
+        android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/container_dropshadow">
 
         <TextView
             android:id="@+id/NomObjet"
-            android:text="Nom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="25dp"
+            android:textStyle="bold"
             style="@style/text_style" />
 
         <TextView
             android:id="@+id/TypeObjet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/NomObjet"
             style="@style/text_style"
-            android:text="Type d'objet"      />
+            android:textSize="15dp"
+            android:text="Catégorie"      />
 
         <TextView
             android:id="@+id/StatusObjet"
             android:layout_below="@+id/TypeObjet"
             style="@style/text_style"
-            android:text="Status"               />
+            android:textSize="15dp"
+            android:textStyle="italic"
+            android:text="Statut"               />
 
         <TextView
             android:id="@+id/DescriptionObjet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Description"
             android:layout_below="@+id/StatusObjet"
-            style="@style/text_style"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            style="@style/text_style" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/Proprietaire"
-        android:text="Proprietaire"
-        android:layout_above="@+id/Note"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        style="@style/text_style"
-        android:clickable="true"
-        android:elegantTextHeight="false"
-        android:linksClickable="false"
-        android:longClickable="false"
-        android:textIsSelectable="false" />
+    <RelativeLayout
+        android:id="@+id/InfoProprio"
+        android:layout_margin="20dp"
+        android:layout_above="@+id/ButtonsObj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/container_dropshadow">
+
+        <TextView
+            android:id="@+id/Proprietaire"
+            android:text="Proprietaire"
+            style="@style/text_style"
+            android:clickable="true"
+            android:elegantTextHeight="false"
+            android:linksClickable="false"
+            android:longClickable="false"
+            android:textIsSelectable="false"
+            android:textSize="20dp" />
 
 
-    <TextView
-        android:id="@+id/Note"
-        android:text="Note"
-        android:layout_alignParentBottom="true"
-        style="@style/text_style"
-        android:layout_marginBottom="107dp"
-        android:singleLine="false" />
+        <TextView
+            android:id="@+id/Note"
+            android:text="Note"
+            android:textSize="15dp"
+            android:layout_below="@id/Proprietaire"
+            style="@style/text_style"
+            android:singleLine="false" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/ButtonsObj"
@@ -75,7 +91,6 @@
             android:id="@+id/deleteButton"
             android:layout_alignParentRight="true"
             style="@style/button_text"
-            android:visibility="invisible"
             android:background="@drawable/share_button"
             android:drawableLeft="@drawable/ic_action_discard" />
 
@@ -85,7 +100,6 @@
             android:text="Modifier"
             android:id="@+id/editButton"
             style="@style/button_text"
-            android:visibility="invisible"
             android:background="@drawable/share_button"
             android:drawableLeft="@drawable/ic_action_edit" />
 
@@ -96,7 +110,6 @@
             android:paddingLeft="16sp"
             android:paddingTop="10sp"
             android:text="Emprunter cet objet "
-            android:visibility="invisible"
             android:background="@drawable/share_button"
             style="@style/button_text"
             android:gravity="center"
