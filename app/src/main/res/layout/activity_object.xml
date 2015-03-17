@@ -2,96 +2,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
     tools:context="fr.lyon.insa.ot.sims.shareit_client.ObjectActivity"
     style="@style/background_style">
 
-    <Button
-        android:id="@+id/bouton1"
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:id="@+id/InfoObj"
+        android:padding="15sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_weight="40"
-        android:text="Emprunter cet objet "
-        android:visibility="invisible"
-        android:background="@drawable/custom_button"
-        style="@style/button_style" />
+        android:background="@drawable/container_dropshadow">
+
+        <TextView
+            android:id="@+id/NomObjet"
+            android:text="Nom"
+            style="@style/text_style" />
+
+        <TextView
+            android:id="@+id/TypeObjet"
+            android:layout_below="@+id/NomObjet"
+            style="@style/text_style"
+            android:text="Type d'objet"      />
+
+        <TextView
+            android:id="@+id/StatusObjet"
+            android:layout_below="@+id/TypeObjet"
+            style="@style/text_style"
+            android:text="Status"               />
+
+        <TextView
+            android:id="@+id/DescriptionObjet"
+            android:text="Description"
+            android:layout_below="@+id/StatusObjet"
+            style="@style/text_style"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/NomObjet"
-        android:layout_below="@id/bouton1"
-        android:text="Nom"
-        style="@style/text_style" />
-
-    <TextView
-     android:id="@+id/TypeObjet"
-     android:layout_below="@+id/NomObjet"
-     style="@style/text_style"
-     android:text="Type d'objet"      />
-
-     <TextView
-     android:id="@+id/StatusObjet"
-     android:layout_below="@+id/TypeObjet"
-         style="@style/text_style"
-     android:text="Status"               />
-
-     <TextView
-     android:id="@+id/DescriptionObjet"
-         android:text="Description"
-         android:layout_below="@+id/StatusObjet"
-         style="@style/text_style"
-         android:layout_alignParentLeft="true"
-         android:layout_alignParentStart="true" />
-
-      <TextView
-      android:id="@+id/Proprietaire"
-          android:text="Proprietaire"
-          android:layout_above="@+id/Note"
-          android:layout_alignParentLeft="true"
-          android:layout_alignParentStart="true"
-          style="@style/text_style"
-          android:clickable="true"
-          android:elegantTextHeight="false"
-          android:linksClickable="false"
-          android:longClickable="false"
-          android:textIsSelectable="false" />
+        android:id="@+id/Proprietaire"
+        android:text="Proprietaire"
+        android:layout_above="@+id/Note"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        style="@style/text_style"
+        android:clickable="true"
+        android:elegantTextHeight="false"
+        android:linksClickable="false"
+        android:longClickable="false"
+        android:textIsSelectable="false" />
 
 
     <TextView
-     android:id="@+id/Note"
+        android:id="@+id/Note"
         android:text="Note"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/StatusObjet"
-        android:layout_alignEnd="@+id/StatusObjet"
         style="@style/text_style"
         android:layout_marginBottom="107dp"
         android:singleLine="false" />
 
-    <Button
+    <RelativeLayout
+        android:id="@+id/ButtonsObj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Supprimer "
-        android:id="@+id/deleteButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        style="@style/button_style"
-        android:visibility="invisible"
-        android:background="@drawable/custom_button" />
+        android:orientation="horizontal"
+        style="@style/menu_share">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Modifier"
-        android:id="@+id/editButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        style="@style/button_style"
-        android:visibility="invisible"
-        android:background="@drawable/custom_button" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Supprimer "
+            android:id="@+id/deleteButton"
+            android:layout_alignParentRight="true"
+            style="@style/button_text"
+            android:visibility="invisible"
+            android:background="@drawable/share_button"
+            android:drawableLeft="@drawable/ic_action_discard" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modifier"
+            android:id="@+id/editButton"
+            style="@style/button_text"
+            android:visibility="invisible"
+            android:background="@drawable/share_button"
+            android:drawableLeft="@drawable/ic_action_edit" />
+
+        <Button
+            android:id="@+id/bouton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16sp"
+            android:paddingTop="10sp"
+            android:text="Emprunter cet objet "
+            android:visibility="invisible"
+            android:background="@drawable/share_button"
+            style="@style/button_text"
+            android:gravity="center"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
