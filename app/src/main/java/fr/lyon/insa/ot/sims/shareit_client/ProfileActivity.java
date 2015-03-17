@@ -102,7 +102,7 @@ public class ProfileActivity extends Activity {
             }
         });
 
-        ImageButton messageButton = (ImageButton) findViewById(R.id.SendMail);
+        Button messageButton = (Button) findViewById(R.id.SendMail);
         if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(profileId)){
             messageButton.setVisibility(View.INVISIBLE);
         } else {

@@ -28,7 +28,7 @@
     <string name="title_activity_email">Messagerie</string>
     <string name="title_activity_add_object">Ajouter un objet</string>
     <string name="title_activity_object">Object</string>
-    <string name="search">Recherche d\'objet</string>
+    <string name="search">Rechercher</string>
     <string name="title_activity_borrow_request">Emprunter un objet</string>
     <string name="category_prompt">Catégorie</string>
     <string name="borrow_request">Envoyer la demande d\'emprunt</string>

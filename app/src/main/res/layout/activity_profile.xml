@@ -23,19 +23,6 @@
         android:textStyle="bold"
         style="@style/text_style" />
 
-    <ImageButton
-        android:id="@+id/SendMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16sp"
-        android:paddingTop="10sp"
-        android:src="@drawable/ic_action_send_email"
-        android:background="@drawable/custom_button"
-        android:layout_below="@+id/ProfilePic"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="3dp" />
-
     <TextView
         android:id="@+id/PhoneNumber"
         android:layout_toRightOf="@id/ProfilePic"
@@ -73,6 +60,7 @@
         android:layout_below="@id/Rating"
         android:paddingLeft="15dp"
         android:paddingTop="20dp"
+        android:paddingBottom="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Objets :"
@@ -117,6 +105,19 @@
         android:text="@string/button_edit_profile"
         android:background="@drawable/profile_button"
         style="@style/button_text" />
+
+        <Button
+            android:id="@+id/SendMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16sp"
+            android:paddingTop="10sp"
+            android:drawableLeft="@drawable/ic_action_chat"
+            android:text="Envoyer un message"
+            android:background="@drawable/profile_button"
+            style="@style/button_text"
+            android:gravity="center"
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 
 </RelativeLayout>
