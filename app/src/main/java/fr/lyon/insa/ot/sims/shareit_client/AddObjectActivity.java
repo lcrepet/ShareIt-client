@@ -38,6 +38,8 @@ public class AddObjectActivity extends Activity {
     private ListView list = null;
     private List<PreDefinedObjects.PredefinedObject> listObject = null;
     private List<String> objectsList = new ArrayList<String>();
+    private boolean modify = false;
+    private Integer id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,17 @@ public class AddObjectActivity extends Activity {
         categories = (Spinner) findViewById(R.id.TypeObject);
         preselection = (Spinner) findViewById(R.id.Preselection);
         Button multipleAdd = (Button) findViewById(R.id.multipleAdd);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            id = Integer.parseInt(extras.getString("id"));
+            if(id != null) {
+                modify = true;
+                ((TextView) findViewById(R.id.AddObjectTitle)).setText(R.string.modify_object_title);
+                preselection.setVisibility(View.GONE);
+                multipleAdd.setVisibility(View.GONE);
+            }
+        }
 
         multipleAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +107,11 @@ public class AddObjectActivity extends Activity {
 
         save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new SaveObject().execute(Constants.uri + "/user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)) + "/product");
+                if(modify){
+                    new UpdateObject().execute("PUT URL HERE, not working code");
+                } else {
+                    new SaveObject().execute(Constants.uri + "/user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)) + "/product");
+                }
             }
         });
     }
@@ -149,6 +166,28 @@ public class AddObjectActivity extends Activity {
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             categories.setAdapter(dataAdapter);
 
+        }
+    }
+
+    private class UpdateObject extends AsyncTask<String, Void, JSONObject> {
+        @Override
+        protected JSONObject doInBackground(String... message) {
+
+            List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+            pairs.add(new BasicNameValuePair("name", name.getText().toString()));
+            pairs.add(new BasicNameValuePair("category", Integer.toString(categories.getSelectedItemPosition() + 1)));
+            pairs.add(new BasicNameValuePair("description", description.getText().toString()));
+
+            return Request.newPostRequest(message[0], pairs);
+        }
+
+        protected void onPostExecute(JSONObject object) {
+            Toast.makeText(AddObjectActivity.this,"Objet modifié !", Toast.LENGTH_LONG).show();
+
+            HashMap<String, String> extras = new HashMap<>();
+            extras.put(Intent.EXTRA_INTENT, ProfileActivity.class.getCanonicalName());
+            extras.put("id", id.toString());
+            Utils.openOtherActivity(AddObjectActivity.this, ObjectActivity.class, extras);
         }
     }
 

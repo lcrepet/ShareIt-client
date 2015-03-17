@@ -151,7 +151,7 @@ public class MainActivity extends Activity implements LocationListener {
 
         lm = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         String provider = lm.getBestProvider(criteria, true);
-        
+
         lm.requestLocationUpdates(provider, 10000, 100, this);
     }
 
