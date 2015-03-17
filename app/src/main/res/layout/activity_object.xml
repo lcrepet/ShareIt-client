@@ -92,7 +92,8 @@
             android:layout_alignParentRight="true"
             style="@style/button_text"
             android:background="@drawable/share_button"
-            android:drawableLeft="@drawable/ic_action_discard" />
+            android:drawableLeft="@drawable/ic_action_discard"
+            android:visibility="invisible"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -101,7 +102,8 @@
             android:id="@+id/editButton"
             style="@style/button_text"
             android:background="@drawable/share_button"
-            android:drawableLeft="@drawable/ic_action_edit" />
+            android:drawableLeft="@drawable/ic_action_edit"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/bouton1"
@@ -113,7 +115,8 @@
             android:background="@drawable/share_button"
             style="@style/button_text"
             android:gravity="center"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
