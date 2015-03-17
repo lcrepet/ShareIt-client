@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,16 +26,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,12 +46,12 @@ public class SignUpActivity extends Activity {
     private EditText phone;
     private EditText cheminPhoto;
     private ImageView photo;
-    private static Bitmap bmp;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_sign_up);
 
         firstName = (EditText) findViewById(R.id.firstNameText);
@@ -79,6 +75,14 @@ public class SignUpActivity extends Activity {
             postCode.setHint("Code postal");
             cheminPhoto.setHint("Photo de profil");
 
+            downloadPicture.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, 0);
+                }
+            });
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,48 +121,6 @@ public class SignUpActivity extends Activity {
                     }
                 }
             });
-            downloadPicture.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-
-                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, 0);
-                    /*try {
-                        JSONObject pictureInfos = new JSONObject();
-                        Log.i("verification champ rempli ", cheminPhoto.getText().toString());
-                        if (cheminPhoto.getText().toString().trim().length() > 0) {
-                            //bmp = getBitmapFromURL(cheminPhoto.getText().toString().trim());
-                            //photo.setImageBitmap(bmp);
-                            //pictureInfos.put("profilePicture",bmp);
-                            //File picture = getFile
-                            File fichier= new File("dossier");
-                           // fichier.createNewFile();
-                            try {
-                                URL imageURL = new URL(cheminPhoto.getText().toString().trim());
-                                ReadableByteChannel rdbc = Channels.newChannel(imageURL.openStream());
-                                FileOutputStream fos = new FileOutputStream(fichier);
-                                fos.getChannel().transferFrom(rdbc,0, Long.MAX_VALUE);
-                                new UpdatePicture(fichier).execute(Constants.uri + "user/" +
-                                        Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
-                                       , pictureInfos.toString());
-                             }
-                            catch ( MalformedURLException e ){
-                                e.printStackTrace();
-                            }
-                            catch ( IOException e){
-                                e.printStackTrace();
-                            }
-
-                        }
-
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }*/
-
-                }
-            });
-
 
 
         }else {
@@ -206,26 +168,6 @@ public class SignUpActivity extends Activity {
             });
         }
     }
-    /*
-    public static Bitmap getBitmapFromURL(String link) {
-        try {
-            link= "http://www.online-image-editor.com//styles/2014/images/example_image.png";
-            URL url = new URL(link);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-
-            return myBitmap;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("getBmpFromUrl error: ", e.getMessage().toString());
-            return null;
-        }
-    }
-    */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -239,7 +181,44 @@ public class SignUpActivity extends Activity {
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
                 photo.setImageBitmap(bitmap);
+
+                /*
+                JSONObject pictureInfos = new JSONObject();
+                pictureInfos.put("profilePicture",bitmap);
+                File fichier= new File(targetUri.getPath());
+                FileOutputStream fos = new FileOutputStream(fichier);
+                fichier.createNewFile();
+                new UpdatePicture(fichier).execute(Constants.uri + "user/" +
+                        Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
+                        , pictureInfos.toString());
+                fos.flush();
+                fos.close();
+                */
+
+                //create a file to write bitmap data
+                File file = new File(targetUri.getPath());
+                //file.createNewFile();
+
+                //Convert bitmap to byte array
+
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+                byte[] bitmapdata = bos.toByteArray();
+
+
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+
+                JSONObject pictureInfos = new JSONObject();
+                new UpdatePicture(file).execute(Constants.uri + "user/" +
+                        Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
+                        , pictureInfos.toString());
+
             } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -364,18 +343,18 @@ public class SignUpActivity extends Activity {
     private class UpdatePicture extends AsyncTask<String, Void, String> {
 
         private File picture;
-        public UpdatePicture ( File file){
+        public UpdatePicture (File file){
             super();
             this.picture = file;
         }
 
         @Override
         protected String doInBackground(String... message) {
-            List <NameValuePair> pairs = new ArrayList<>();
+            //List <NameValuePair> pairs = new ArrayList<>();
 
-                    pairs.add(new BasicNameValuePair("profilePicture",message[1]));
+                    //pairs.add(new BasicNameValuePair("profilePicture",message[1]));
 
-            return Request.putPicture(message[0], pairs, picture);
+            return Request.putPicture(message[0], picture);
         }
 
         protected void onPostExecute(String reader) {

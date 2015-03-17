@@ -6,6 +6,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -168,7 +170,7 @@ public class Request {
     }
 
 
-    public static String putPicture(String url, List<NameValuePair> nameValuePairs, File picture) {
+    public static String putPicture(String url, File picture) {
         String responseBody = "failure";
         HttpClient client = new DefaultHttpClient();
         client.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
@@ -178,16 +180,9 @@ public class Request {
         HttpPut put = new HttpPut(url);
         put.addHeader("Accept", "application/json");
 
-        //MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        FileEntity req=new FileEntity(picture, "binary/octet-stream");
-        //builder.setCharset(MIME.UTF8_CHARSET);
 
-
-        /*
-        if (picture!= null)
-            builder.addBinaryBody("Filedata", picture, ContentType.MULTIPART_FORM_DATA, picture.getName());
-
-        */
+        FileEntity req;
+        req = new FileEntity(picture, "binary/octet-stream");
         put.setEntity(req);
 
         try {
@@ -210,9 +205,15 @@ public class Request {
             client.getConnectionManager().shutdown();
         }
 
-        return"hola";
+        return responseBody.toString();
 
     }
 
 
+    public static String deleteRequest(String url) throws IOException {
+        HttpClient client = new DefaultHttpClient();
+        HttpDelete delete = new HttpDelete(url);
+        HttpResponse response = client.execute(delete);
+        return response.getStatusLine().toString();
+    }
 }

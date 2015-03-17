@@ -32,6 +32,17 @@
         android:layout_below="@+id/listExchanges"
         android:text="Objets prêtés" />
 
+    <Button
+        android:id="@+id/filterButton"
+        style="@style/button_style"
+        android:background="@drawable/custom_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_all_exchanges"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,16 +50,10 @@
         android:layout_below="@+id/ObjetPrete"
         android:smoothScrollbar="false"
         android:scrollingCache="false"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_above="@id/filterButton"/>
 
-    <Button
-        android:id="@+id/filterButton"
-        android:layout_below="@id/listExchangesLend"
-        style="@style/button_style"
-        android:background="@drawable/custom_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/view_all_exchanges" />
+
 
 
 
