@@ -1,9 +1,12 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,7 +55,9 @@ public class ObjectActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_object);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0099CC")));
+        bar.setDisplayHomeAsUpEnabled(true);
 
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
@@ -72,7 +77,15 @@ public class ObjectActivity extends Activity {
         deleteButton = (Button) findViewById(R.id.deleteButton);
         new DisplayObject().execute();
 
-
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HashMap<String, String> extras = new HashMap<>();
+                extras.put("id", id);
+                extras.put(Intent.EXTRA_INTENT, ObjectActivity.class.getCanonicalName());
+                Utils.openOtherActivity(ObjectActivity.this, AddObjectActivity.class, extras);
+            }
+        });
 
     }
 
@@ -216,7 +229,7 @@ public class ObjectActivity extends Activity {
         }
 
         protected void onPostExecute(String reader) {
-           Toast.makeText(ObjectActivity.this, "Objet supprimé !", Toast.LENGTH_LONG).show();
+            Toast.makeText(ObjectActivity.this, "Objet supprimé !", Toast.LENGTH_LONG).show();
             HashMap<String, String> extras = new HashMap<>();
             extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
             Utils.openOtherActivity(ObjectActivity.this, ProfileActivity.class, extras);

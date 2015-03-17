@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -151,10 +152,13 @@ public class MainActivity extends Activity implements LocationListener {
     @Override
     protected void onResume() {
         super.onResume();
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+
         lm = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER))
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 100, this);
-        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, this);
+        String provider = lm.getBestProvider(criteria, true);
+
+        lm.requestLocationUpdates(provider, 10000, 100, this);
     }
 
     @Override

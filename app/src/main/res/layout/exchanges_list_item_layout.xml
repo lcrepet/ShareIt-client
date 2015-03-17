@@ -4,14 +4,22 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/NomObjetEmprunte"
         android:text="nom objet"
-        style="@style/text_style"/>
+        android:layout_alignParentTop="true"
+        android:paddingLeft="20dp"/>
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/NomPreteur"
         android:layout_below="@id/NomObjetEmprunte"
-        style="@style/text_style"/>
+        android:textSize="13dp"
+        android:paddingLeft="20dp"/>
 
 
 </LinearLayout>

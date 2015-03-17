@@ -46,6 +46,8 @@ public class SignUpActivity extends Activity {
     private EditText phone;
     private EditText cheminPhoto;
     private ImageView photo;
+    Bitmap bitmap;
+    Uri targetUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +118,35 @@ public class SignUpActivity extends Activity {
                         new UpdateProfile().execute(Constants.uri + "user/" +
                                 Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
                                 , userInfos.toString());
+                        if(!cheminPhoto.getText().toString().trim().equals("")){
+                            userInfos.put("profilePicture",bitmap);
+                        }
+                        //create a file to write bitmap data
+                        File file = new File(targetUri.getPath());
+                        file.createNewFile();
+
+                        //Convert bitmap to byte array
+
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+                        byte[] bitmapdata = bos.toByteArray();
+
+
+                        FileOutputStream fos = new FileOutputStream(file);
+                        fos.write(bitmapdata);
+                        fos.flush();
+                        fos.close();
+
+                        new UpdatePicture(file).execute(Constants.uri + "user/" +
+                                Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
+                                , file.toString());
+
                     } catch(JSONException e ){
 
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             });
@@ -175,46 +204,11 @@ public class SignUpActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK){
-            Uri targetUri = data.getData();
+            targetUri = data.getData();
             cheminPhoto.setText(targetUri.toString());
-            Bitmap bitmap;
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                photo.setImageBitmap(bitmap);
-
-                /*
-                JSONObject pictureInfos = new JSONObject();
-                pictureInfos.put("profilePicture",bitmap);
-                File fichier= new File(targetUri.getPath());
-                FileOutputStream fos = new FileOutputStream(fichier);
-                fichier.createNewFile();
-                new UpdatePicture(fichier).execute(Constants.uri + "user/" +
-                        Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
-                        , pictureInfos.toString());
-                fos.flush();
-                fos.close();
-                */
-
-                //create a file to write bitmap data
-                File file = new File(targetUri.getPath());
-                //file.createNewFile();
-
-                //Convert bitmap to byte array
-
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
-                byte[] bitmapdata = bos.toByteArray();
-
-
-                FileOutputStream fos = new FileOutputStream(file);
-                fos.write(bitmapdata);
-                fos.flush();
-                fos.close();
-
-                JSONObject pictureInfos = new JSONObject();
-                new UpdatePicture(file).execute(Constants.uri + "user/" +
-                        Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
-                        , pictureInfos.toString());
+                //photo.setImageBitmap(bitmap);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
