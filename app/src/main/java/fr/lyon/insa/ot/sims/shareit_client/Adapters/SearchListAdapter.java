@@ -49,13 +49,16 @@ public class SearchListAdapter extends BaseAdapter {
 
         for(int i = 0; i < products.length(); i++){
             JSONObject row = products.getJSONObject(i);
-            SimplifiedProduct product = new SimplifiedProduct(row);
-            if(filterOwnProducts){
-                if(userId != product.userId){
+            SimplifiedProduct product = null;
+            if(!row.getString("status").equals("retire")){
+                product = new SimplifiedProduct(row);
+                if(filterOwnProducts){
+                    if(userId != product.userId){
+                        this.products.add(product);
+                    }
+                } else {
                     this.products.add(product);
                 }
-            } else {
-                this.products.add(product);
             }
         }
     }

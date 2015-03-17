@@ -10,14 +10,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class ObjectActivity extends Activity {
@@ -39,6 +44,8 @@ public class ObjectActivity extends Activity {
     private TextView prop = null;
     private TextView note = null;
     private Button objectButton = null;
+    private Button editButton = null;
+    private Button deleteButton = null;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -61,8 +68,10 @@ public class ObjectActivity extends Activity {
         prop = (TextView) findViewById(R.id.Proprietaire);
         note = (TextView) findViewById(R.id.Note);
         objectButton = (Button) findViewById(R.id.bouton1);
-
+        editButton = (Button) findViewById(R.id.editButton);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
         new DisplayObject().execute();
+
 
 
     }
@@ -149,16 +158,28 @@ public class ObjectActivity extends Activity {
                 }
 
 
-                if(!(Long.toString(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(idJSON))
-                        && status.getText().equals("disponible")){
-                    objectButton.setVisibility(View.VISIBLE);
-                    objectButton.setOnClickListener(new View.OnClickListener() {
+                if(!(Long.toString(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(idJSON))){
+                    if(status.getText().equals("disponible")){
+                        objectButton.setVisibility(View.VISIBLE);
+                        objectButton.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                HashMap<String, String> extras = new HashMap<>();
+                                extras.put(TAG_ID, id);
+                                Utils.openOtherActivity(ObjectActivity.this, BorrowRequestActivity.class, extras);
+                            }
+                        });
+                    }
+                } else {
+                    editButton.setVisibility(View.VISIBLE);
+                    deleteButton.setVisibility(View.VISIBLE);
+
+                    deleteButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
                         public void onClick(View v) {
-                            HashMap<String, String> extras = new HashMap<>();
-                            extras.put(TAG_ID, id);
-                            Utils.openOtherActivity(ObjectActivity.this, BorrowRequestActivity.class, extras);
+                            new DeleteObject().execute();
                         }
                     });
+
                 }
 
             } catch (JSONException e) {
@@ -179,6 +200,26 @@ public class ObjectActivity extends Activity {
                 }
             });
 
+        }
+    }
+
+    private class DeleteObject extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... message) {
+            try {
+                return Request.deleteRequest(Constants.uri + "product/" + id);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(String reader) {
+           Toast.makeText(ObjectActivity.this, "Objet supprimé !", Toast.LENGTH_LONG).show();
+            HashMap<String, String> extras = new HashMap<>();
+            extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
+            Utils.openOtherActivity(ObjectActivity.this, ProfileActivity.class, extras);
         }
     }
 

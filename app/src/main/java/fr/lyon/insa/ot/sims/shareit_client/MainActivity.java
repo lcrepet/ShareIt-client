@@ -4,6 +4,9 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,7 +20,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +34,9 @@ import java.util.List;
 
 import fr.lyon.insa.ot.sims.shareit_client.Adapters.SearchListAdapter;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements LocationListener {
+
+    LocationManager lm;
 
 	private TextView tv;
     private ListView listView;
@@ -134,6 +142,46 @@ public class MainActivity extends Activity {
 		}
 	}
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lm = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 100, this);
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        lm.removeUpdates(this);
+    }
+    @Override
+    public void onLocationChanged(Location location) {
+        JSONObject position = new JSONObject();
+        try {
+            position.put("latitude", location.getLatitude());
+            position.put("longitude", location.getLongitude());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new UpdateLocation().execute(Constants.uri + "user/" +
+                Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
+                + "/location/", position.toString());
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+    }
+
     private class SearchProducts extends AsyncTask<String, Void, JSONArray>{
 
         @Override
@@ -177,5 +225,22 @@ public class MainActivity extends Activity {
             spinner.setAdapter(dataAdapter);
         }
 
+    }
+
+    private class UpdateLocation extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... message) {
+            List<NameValuePair> pairs = new ArrayList<>();
+            try {
+                JSONObject position = new JSONObject(message[1]);
+                pairs.add(new BasicNameValuePair("x", position.getString("latitude")));
+                pairs.add(new BasicNameValuePair("y", position.getString("longitude")));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return Request.setRequest(message[0], pairs);
+        }
     }
 }
