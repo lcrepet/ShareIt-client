@@ -1,8 +1,11 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +48,8 @@ public class AddObjectActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_object);
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0099CC")));
 
         name = (EditText) findViewById(R.id.NameObject);
         description = (EditText) findViewById(R.id.DescObject);
@@ -58,7 +63,6 @@ public class AddObjectActivity extends Activity {
             id = Integer.parseInt(extras.getString("id"));
             if(id != null) {
                 modify = true;
-                ((TextView) findViewById(R.id.AddObjectTitle)).setText(R.string.modify_object_title);
                 preselection.setVisibility(View.GONE);
                 multipleAdd.setVisibility(View.GONE);
             }

@@ -1,30 +1,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     style="@style/background_style">
 
     <TextView
-        android:id="@+id/AddObjectTitle"
-        android:text="@string/title_add_object"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        style="@style/text_style" />
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/TV"
+        android:text="Catégorie :"
+        android:textSize="18dp"/>
 
     <Spinner
         android:id="@+id/TypeObject"
         android:spinnerMode="dropdown"
         style="@style/text_style"
-        android:layout_below="@+id/AddObjectTitle"
         android:focusable="false"
         android:prompt="@string/category_prompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_spinner" />
+        android:background="@drawable/custom_spinner"
+        android:layout_below="@+id/TV"/>
 
     <Spinner
         android:id="@+id/Preselection"
@@ -56,42 +53,44 @@
         android:lines="5"
         android:gravity="top"/>
 
-    <EditText
-        android:id="@+id/PicObject"
-        style="@style/text_style"
-        android:layout_below="@id/DescObject"
-        android:hint="@string/pic_object"
-        android:inputType="text"/>
-
     <Button
         android:id="@+id/FindPic"
-        style="@style/button_style"
+        style="@style/button_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="..."
-        android:layout_below="@+id/PicObject"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/custom_button" />
+        android:text="Charger la photo"
+        android:layout_below="@+id/DescObject"
+        android:layout_centerInParent="true"
+        android:background="@drawable/share_button"
+        android:drawableLeft="@drawable/ic_action_camera" />
 
-    <Button
-        android:id="@+id/SaveObject"
+    <RelativeLayout
+        android:id="@+id/ButtonsAddObj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/button_style"
-        android:text="@string/save_object"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/custom_button" />
+        android:orientation="horizontal"
+        style="@style/menu_share">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ajout Multiple"
-        android:id="@+id/multipleAdd"
-        android:layout_alignBottom="@+id/SaveObject"
-        android:layout_alignRight="@+id/PicObject"
-        android:layout_alignEnd="@+id/PicObject"
-        style="@style/button_style"
-        android:background="@drawable/custom_button" />
+        <Button
+            android:id="@+id/SaveObject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_object"
+            style="@style/button_text"
+            android:background="@drawable/share_button"
+            android:drawableLeft="@drawable/ic_action_done" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ajout multiple"
+            android:id="@+id/multipleAdd"
+            android:layout_alignParentRight="true"
+            style="@style/button_text"
+            android:background="@drawable/share_button"
+            android:drawableLeft="@drawable/ic_action_add_to_queue" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
