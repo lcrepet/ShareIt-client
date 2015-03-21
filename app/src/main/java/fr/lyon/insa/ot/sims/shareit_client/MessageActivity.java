@@ -1,8 +1,11 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,8 +38,9 @@ public class MessageActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-
+        ActionBar bar = getActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#669900")));
         this.handler = new Handler();
 
         this.handler.postDelayed(this.runnable, 5000);
