@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -12,6 +13,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +34,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -115,38 +119,28 @@ public class SignUpActivity extends Activity {
                         if (!age.getText().toString().trim().equals("")) {
                             userInfos.put("age", age.getText().toString().trim());
                         }
-                        new UpdateProfile().execute(Constants.uri + "user/" +
-                                Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
-                                , userInfos.toString());
+                        if(userInfos.length() != 0){
+                            new UpdateProfile().execute(Constants.uri + "user/" +
+                                    Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
+                                    , userInfos.toString());
+                        }
+
                         if(!cheminPhoto.getText().toString().trim().equals("")){
                             userInfos.put("profilePicture",bitmap);
                         }
                         //create a file to write bitmap data
-                        File file = new File(targetUri.getPath());
-                        file.createNewFile();
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
+                        byte[] b = baos.toByteArray();
 
-                        //Convert bitmap to byte array
+                        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
 
-                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
-                        byte[] bitmapdata = bos.toByteArray();
-
-
-                        FileOutputStream fos = new FileOutputStream(file);
-                        fos.write(bitmapdata);
-                        fos.flush();
-                        fos.close();
-
-                        new UpdatePicture(file).execute(Constants.uri + "user/" +
+                        new UpdatePicture().execute(Constants.uri + "user/" +
                                 Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
-                                , file.toString());
+                                , encodedImage);
 
                     } catch(JSONException e ){
 
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
                 }
             });
@@ -205,18 +199,27 @@ public class SignUpActivity extends Activity {
 
         if (resultCode == RESULT_OK){
             targetUri = data.getData();
-            cheminPhoto.setText(targetUri.toString());
-            try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                //photo.setImageBitmap(bitmap);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            bitmap = BitmapFactory.decodeFile(getPath(targetUri), options);
         }
     }
+
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if (cursor != null) {
+            // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
+            // THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } else
+            return null;
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -336,19 +339,15 @@ public class SignUpActivity extends Activity {
 
     private class UpdatePicture extends AsyncTask<String, Void, String> {
 
-        private File picture;
-        public UpdatePicture (File file){
-            super();
-            this.picture = file;
-        }
-
         @Override
         protected String doInBackground(String... message) {
             //List <NameValuePair> pairs = new ArrayList<>();
 
                     //pairs.add(new BasicNameValuePair("profilePicture",message[1]));
 
-            return Request.putPicture(message[0], picture);
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("picture", message[1]));
+            return Request.setRequest(message[0], pairs);
         }
 
         protected void onPostExecute(String reader) {
