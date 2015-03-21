@@ -23,6 +23,7 @@
         android:layout_below="@+id/contactName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        style="@style/button_text" />
+        android:textColor="#FFFFFF"
+        android:layout_gravity="start"/>
 
 </RelativeLayout>

@@ -1,9 +1,12 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -37,11 +40,15 @@ public class RequestManagementActivity extends Activity {
     private TextView status = null;
     private TextView dates = null;
     private long exchangeId = 0;
+    private Resources res = getResources();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_management);
+
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0099CC")));
 
         exchangeId = Long.valueOf(getIntent().getExtras().getString("id"));
 
@@ -63,6 +70,7 @@ public class RequestManagementActivity extends Activity {
                 ok.setVisibility(View.INVISIBLE);
                 nok.setVisibility(View.INVISIBLE);
                 done.setVisibility(View.VISIBLE);
+                status.setText(res.getString(R.string.status_accepted));
             }
         });
 
@@ -71,6 +79,7 @@ public class RequestManagementActivity extends Activity {
                 new Answer().execute(Constants.uri + "/exchange/" + exchangeId + "/confirm");
                 done.setVisibility(View.INVISIBLE);
                 returned.setVisibility(View.VISIBLE);
+                status.setText(res.getString(R.string.status_borrowed));
             }
         });
 
@@ -136,10 +145,11 @@ public class RequestManagementActivity extends Activity {
                     } else if(currentStatus.equals(statusList.getJSONObject(2).getString("2"))) {
                         returned.setVisibility(View.VISIBLE);
                     }
+                    owner.setText("Emprunteur : " + Utils.getUserName(reader.getJSONObject("borrower")));
                 } else {
-                    owner.setText(Utils.getUserName(reader.getJSONObject("lender")));
+                    owner.setText("Propriétaire : " + Utils.getUserName(reader.getJSONObject("lender")));
                 }
-                Resources res = getResources();
+
                 if(currentStatus.equals(statusList.getJSONObject(0).getString("0"))) {
                     status.setText(res.getString(R.string.status_issued));
                 } else if(currentStatus.equals(statusList.getJSONObject(1).getString("1"))) {

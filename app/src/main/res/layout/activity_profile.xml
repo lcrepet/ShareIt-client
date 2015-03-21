@@ -89,22 +89,22 @@
         android:orientation="horizontal"
         style="@style/menu_profile">
 
-    <Button
-        android:id="@+id/AddObject"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/button_add_object"
-        android:background="@drawable/profile_button"
-        style="@style/button_text" />
+        <Button
+            android:id="@+id/AddObject"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/button_add_object"
+            android:background="@drawable/profile_button"
+            style="@style/button_text" />
 
-    <Button
-        android:id="@+id/EditProfile"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="@string/button_edit_profile"
-        android:background="@drawable/profile_button"
-        style="@style/button_text" />
+        <Button
+            android:id="@+id/EditProfile"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/button_edit_profile"
+            android:background="@drawable/profile_button"
+            style="@style/button_text" />
 
         <Button
             android:id="@+id/SendMail"
