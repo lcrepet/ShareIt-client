@@ -40,7 +40,7 @@ public class RequestManagementActivity extends Activity {
     private TextView status = null;
     private TextView dates = null;
     private long exchangeId = 0;
-    private Resources res = getResources();
+    private Resources res = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,8 @@ public class RequestManagementActivity extends Activity {
 
         ActionBar bar = getActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0099CC")));
+
+        res = getResources();
 
         exchangeId = Long.valueOf(getIntent().getExtras().getString("id"));
 

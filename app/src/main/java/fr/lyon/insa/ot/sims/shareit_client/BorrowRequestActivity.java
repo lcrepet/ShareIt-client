@@ -67,7 +67,7 @@ public class BorrowRequestActivity extends Activity {
                                 sDay = dayOfMonth;
                                 sMonth = monthOfYear+1;
                                 sYear = year;
-                                startDate.setText(sDay + "-"+ sMonth + "-" + sYear);
+                                startDate.setText("Du : " + sDay + "-"+ sMonth + "-" + sYear);
 
                             }
                         }, sYear, sMonth, sDay);
@@ -86,7 +86,7 @@ public class BorrowRequestActivity extends Activity {
                                 eDay = dayOfMonth;
                                 eMonth = monthOfYear+1;
                                 eYear = year;
-                                endDate.setText(eDay + "-"+ eMonth + "-" + eYear);
+                                endDate.setText("Au : " + eDay + "-"+ eMonth + "-" + eYear);
 
                             }
                         }, eYear, eMonth, eDay);
@@ -129,10 +129,10 @@ public class BorrowRequestActivity extends Activity {
         eMonth = c.get(Calendar.MONTH);
         eDay = c.get(Calendar.DAY_OF_MONTH);
 
-        startDate.setText(new StringBuilder()
+        startDate.setText(new StringBuilder().append("Du : ")
                 .append(sDay).append("-").append(sMonth + 1).append("-")
                 .append(sYear));
-        endDate.setText(new StringBuilder()
+        endDate.setText(new StringBuilder().append("Au : ")
                 .append(eDay).append("-").append(eMonth + 1).append("-")
                 .append(eYear));
     }
@@ -152,7 +152,7 @@ public class BorrowRequestActivity extends Activity {
                 String ownerToSet = object.getJSONObject("sharer").getString("firstname") + " " + object.getJSONObject("sharer").getString("lastname");
 
                 name.setText(nameToSet);
-                owner.setText(ownerToSet);
+                owner.setText("Propriétaire : " + ownerToSet);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

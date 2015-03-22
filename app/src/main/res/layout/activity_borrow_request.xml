@@ -1,9 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="fr.lyon.insa.ot.sims.shareit_client.BorrowRequestActivity"
     style="@style/background_style">
 
@@ -12,6 +10,8 @@
         style="@style/text_style"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
+        android:textSize="25dp"
+        android:textStyle="bold"
         android:layout_alignParentTop="true" />
 
     <TextView
@@ -19,57 +19,77 @@
         style="@style/text_style"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
+        android:textSize="13dp"
         android:layout_below="@id/objectName"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/StartDate"
+    <RelativeLayout
+        android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:layout_below="@id/objectOwner"
-        style="@style/text_style"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="3dp" />
+        android:layout_centerInParent="true">
 
-    <Button
-        android:id="@+id/ChangeStartDate"
-        style="@style/button_style"
-        android:background="@drawable/custom_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/change_date"
-        android:layout_toRightOf="@id/StartDate"
-        android:layout_below="@id/objectOwner"/>
+        <TextView
+            android:id="@+id/StartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:textSize="20dp"
+            style="@style/text_style" />
 
-    <TextView
-        android:id="@+id/EndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_below="@id/ChangeStartDate"
-        style="@style/text_style"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="3dp" />
+        <Button
+            android:id="@+id/ChangeStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/StartDate"
+            android:layout_alignBottom="@id/StartDate"
+            android:layout_alignTop="@id/StartDate"
+            android:drawableLeft="@drawable/ic_action_go_to_today"
+            style="@style/background_style"/>
 
-    <Button
-        android:id="@+id/ChangeEndDate"
-        style="@style/button_style"
-        android:background="@drawable/custom_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/change_date"
-        android:layout_toRightOf="@id/EndDate"
-        android:layout_below="@id/ChangeStartDate"/>
+        <TextView
+            android:id="@+id/EndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End"
+            android:textSize="20dp"
+            android:layout_below="@id/ChangeStartDate"
+            android:layout_marginTop="20dp"
+            style="@style/text_style" />
 
-    <Button
-        android:id="@+id/buttonBorrow"
-        style="@style/button_style"
-        android:background="@drawable/custom_button"
-        android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/ChangeEndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/EndDate"
+            android:layout_alignBottom="@id/EndDate"
+            android:layout_alignTop="@id/EndDate"
+            android:drawableLeft="@drawable/ic_action_go_to_today"
+            style="@style/background_style"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ButtonMain"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/borrow_request"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        style="@style/menu_share">
+
+        <Button
+            android:id="@+id/buttonBorrow"
+            android:background="@drawable/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/borrow_request"
+            android:drawableLeft="@drawable/ic_action_done"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            style="@style/button_text" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
