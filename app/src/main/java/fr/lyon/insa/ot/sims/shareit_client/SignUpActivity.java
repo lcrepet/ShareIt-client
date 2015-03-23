@@ -128,12 +128,10 @@ public class SignUpActivity extends Activity {
                         if(!cheminPhoto.getText().toString().trim().equals("")){
                             userInfos.put("profilePicture",bitmap);
                         }
-                        //create a file to write bitmap data
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
-                        byte[] b = baos.toByteArray();
 
-                        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                        String encodedImage = Utils.encodeTobase64(bitmap);
+
+                        Bitmap test = Utils.decodeBase64(encodedImage);
 
                         new UpdatePicture().execute(Constants.uri + "user/" +
                                 Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
@@ -337,20 +335,20 @@ public class SignUpActivity extends Activity {
         }
     }
 
-    private class UpdatePicture extends AsyncTask<String, Void, String> {
+    private class UpdatePicture extends AsyncTask<String, Void, JSONObject> {
 
         @Override
-        protected String doInBackground(String... message) {
-            //List <NameValuePair> pairs = new ArrayList<>();
+        protected JSONObject doInBackground(String... message) {
+            try {
+                return Request.putPicture(message[0], message[1]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-                    //pairs.add(new BasicNameValuePair("profilePicture",message[1]));
-
-            List<NameValuePair> pairs = new ArrayList<>();
-            pairs.add(new BasicNameValuePair("picture", message[1]));
-            return Request.setRequest(message[0], pairs);
+            return null;
         }
 
-        protected void onPostExecute(String reader) {
+        protected void onPostExecute(JSONObject reader) {
             HashMap<String, String> extras = new HashMap<>();
             extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
             Utils.openOtherActivity(SignUpActivity.this, ProfileActivity.class, extras);

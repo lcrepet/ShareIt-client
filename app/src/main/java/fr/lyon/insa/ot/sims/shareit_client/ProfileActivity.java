@@ -4,17 +4,21 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +46,7 @@ public class ProfileActivity extends Activity {
     private Button addObject = null;
     private Button changeProfile = null;
     private String profileId;
+    private ImageView profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,7 @@ public class ProfileActivity extends Activity {
         listProducts = (ListView) findViewById(R.id.ListProducts);
         addObject = (Button) findViewById(R.id.AddObject);
         changeProfile = (Button) findViewById(R.id.EditProfile);
+        profilePic = (ImageView) findViewById(R.id.ProfilePic);
 
         try{
             profileId = getIntent().getExtras().getString("userId");
@@ -225,6 +232,11 @@ public class ProfileActivity extends Activity {
 
                 if (isEmpty) {
                     sexeAge.setVisibility(View.GONE);
+                }
+
+                s = reader.getString("profilePicture");
+                if(s != null && !s.isEmpty()) {
+                    profilePic.setImageBitmap(Utils.decodeBase64(s));
                 }
 
                 s = reader.getJSONObject("userStats").getString("averageNote");

@@ -2,6 +2,7 @@ package fr.lyon.insa.ot.sims.shareit_client;
 
 import android.os.Message;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
@@ -12,7 +13,9 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.FileEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.protocol.BasicHttpContext;
@@ -177,75 +180,31 @@ public class Request {
     }
 
 
-    public static JSONObject putPicture(String url, String picturePath) throws JSONException {
-        HttpURLConnection connection = null;
-        DataOutputStream outputStream = null;
-        DataInputStream inputStream = null;
-        String lineEnd = "\r\n";
-        String twoHyphens = "--";
-        String boundary =  "*****";
-        JSONObject response = new JSONObject("{\"error\": \"failed\"}");
+    public static JSONObject putPicture(String url, String picture) throws IOException {
+        HttpClient client = new DefaultHttpClient();
 
-        int bytesRead, bytesAvailable, bufferSize;
-        byte[] buffer;
-        int maxBufferSize = 1*1024*1024;
+        HttpPut put = new HttpPut(url);
+        HttpEntity pictureEntity = new ByteArrayEntity(picture.getBytes());
+        put.setEntity(pictureEntity);
+
+        HttpResponse response = client.execute(put);
+        String result = "";
+
+        JSONObject reader = new JSONObject();
 
         try {
-            FileInputStream fileInputStream = new FileInputStream(new File(picturePath));
-
-            URL urlServer = new URL(url);
-            connection = (HttpURLConnection) urlServer.openConnection();
-
-            // Allow Inputs &amp; Outputs.
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setUseCaches(false);
-
-            // Set HTTP method to POST.
-            connection.setRequestMethod("PUT");
-
-            connection.setRequestProperty("Connection", "Keep-Alive");
-            connection.setRequestProperty("Content-Type", "multipart/form-data;boundary="+boundary);
-
-            outputStream = new DataOutputStream( connection.getOutputStream() );
-            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + picturePath +"\"" + lineEnd);
-            outputStream.writeBytes(lineEnd);
-
-            bytesAvailable = fileInputStream.available();
-            bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            buffer = new byte[bufferSize];
-
-            // Read file
-            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
-            while (bytesRead > 0)
-            {
-                outputStream.write(buffer, 0, bufferSize);
-                bytesAvailable = fileInputStream.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+            BufferedReader rd = new BufferedReader(new InputStreamReader(
+                    response.getEntity().getContent()));
+            String line = "";
+            while ((line = rd.readLine()) != null) {
+                result = result + line;
             }
-
-            outputStream.writeBytes(lineEnd);
-            outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-            // Responses from the server (code and message)
-            int serverResponseCode = connection.getResponseCode();
-            String serverResponseMessage = connection.getResponseMessage();
-
-            fileInputStream.close();
-            outputStream.flush();
-            outputStream.close();
-
-
-            response = new JSONObject(serverResponseMessage);
-
+            reader = new JSONObject(result);
         } catch (Exception e) {
-            e.printStackTrace();
+            result += e.getMessage();
         }
 
-        return response;
+        return reader;
 
     }
 
