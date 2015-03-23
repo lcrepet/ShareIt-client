@@ -87,6 +87,7 @@
             android:text="Ajout multiple"
             android:id="@+id/multipleAdd"
             style="@style/button_text"
+            android:layout_alignParentRight="true"
             android:background="@drawable/share_button"
             android:drawableLeft="@drawable/ic_action_add_to_queue" />
 
