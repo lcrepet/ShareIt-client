@@ -42,10 +42,6 @@ public class MainActivity extends Activity implements LocationListener {
 
     LocationManager lm;
 
-	private TextView tv;
-    private ListView listView;
-    private SearchListAdapter adapter;
-
     public static final String SETTINGS = "SettingsFile";
 
 	@Override
