@@ -1,8 +1,11 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,6 +33,8 @@ public class MultipleObjectCreateActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multiple_object_create);
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0099CC")));
 
         final ListView objectList = (ListView) findViewById(R.id.objectList);
         final ObjectsListAdapter adapter = new ObjectsListAdapter(this);
@@ -50,7 +55,7 @@ public class MultipleObjectCreateActivity extends Activity {
                     new SaveObject().execute(Constants.uri + "/user/" + Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE)) + "/product", args.toString());
                 }
 
-                Toast.makeText(MultipleObjectCreateActivity.this, "Objets créé !", Toast.LENGTH_LONG).show();
+                Toast.makeText(MultipleObjectCreateActivity.this, "Objets créés !", Toast.LENGTH_LONG).show();
 
                 HashMap<String, String> extras = new HashMap<>();
                 extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());

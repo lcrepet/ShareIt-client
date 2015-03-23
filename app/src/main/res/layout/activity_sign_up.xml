@@ -10,61 +10,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/background_group">
-    <EditText
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/firstNameText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:hint="Prénom (requis)"
-        style="@style/text_style" />
+        <EditText
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/firstNameText"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:hint="Prénom (requis)"
+            style="@style/text_style" />
 
-    <EditText
-        style="@style/text_style"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/lastNameText"
-        android:layout_below="@+id/firstNameText"
-        android:layout_centerHorizontal="true"
-        android:hint="Nom (requis)" />
+        <EditText
+            style="@style/text_style"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/lastNameText"
+            android:layout_below="@+id/firstNameText"
+            android:layout_centerHorizontal="true"
+            android:hint="Nom (requis)" />
 
-    <EditText
-        style="@style/text_style"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/postCode"
-        android:layout_below="@+id/lastNameText"
-        android:layout_centerHorizontal="true"
-        android:hint="Code Postal (requis)" />
+        <EditText
+            style="@style/text_style"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/postCode"
+            android:layout_below="@+id/lastNameText"
+            android:layout_centerHorizontal="true"
+            android:hint="Code Postal (requis)" />
 
-    <EditText
-        style="@style/text_style"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/age"
-        android:layout_below="@+id/postCode"
-        android:layout_centerHorizontal="true"
-        android:hint="Age" />
+        <EditText
+            style="@style/text_style"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/age"
+            android:layout_below="@+id/postCode"
+            android:layout_centerHorizontal="true"
+            android:hint="Age" />
 
 
-    <Spinner
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/sex"
-        android:layout_below="@+id/age"
-        android:layout_centerHorizontal="true"
-        android:entries="@array/sex"
-        android:background="@drawable/custom_spinner" />
+        <Spinner
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sex"
+            android:layout_below="@+id/age"
+            android:layout_centerHorizontal="true"
+            android:entries="@array/sex"
+            android:background="@drawable/custom_spinner" />
 
-    <EditText
-        style="@style/text_style"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/phone"
-        android:layout_below="@+id/sex"
-        android:layout_alignLeft="@+id/age"
-        android:layout_alignStart="@+id/age"
-        android:hint="Telephone" />
+        <EditText
+            style="@style/text_style"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/phone"
+            android:layout_below="@+id/sex"
+            android:layout_alignLeft="@+id/age"
+            android:layout_alignStart="@+id/age"
+            android:hint="Telephone" />
     </RelativeLayout>
 
 
@@ -107,14 +107,14 @@
         android:orientation="horizontal"
         style="@style/menu_profile">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Connexion"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/signUpButton"
-        android:background="@drawable/profile_button"
-        style="@style/button_text" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connexion"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/signUpButton"
+            android:background="@drawable/profile_button"
+            style="@style/button_text" />
     </RelativeLayout>
 </RelativeLayout>
