@@ -87,7 +87,7 @@ public class MainActivity extends Activity implements LocationListener {
                 EditText postCode = (EditText) findViewById(R.id.textView);
                 EditText objectName = (EditText) findViewById(R.id.nameEdit);
                 Spinner spinner = (Spinner) findViewById((R.id.spinner));
-                String arguments = "category=" + (spinner.getSelectedItemPosition() + 1);
+                String arguments = "user=" + String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))) + "&category=" + (spinner.getSelectedItemPosition() + 1);
                 if(!objectName.getText().equals("")){
                     arguments = arguments + "&name=" + objectName.getText();
                 }
@@ -196,6 +196,7 @@ public class MainActivity extends Activity implements LocationListener {
 
         @Override
         protected JSONArray doInBackground(String... message) {
+
             return Request.getListRequest(message[0]);
         }
 

@@ -42,7 +42,6 @@
         android:textSize="22dp"
         android:textStyle="bold" />
 
-
     <RelativeLayout
         android:id="@+id/ButtonBorrow"
         android:layout_width="match_parent"

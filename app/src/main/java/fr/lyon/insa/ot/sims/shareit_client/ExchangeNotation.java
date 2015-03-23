@@ -1,8 +1,11 @@
 package fr.lyon.insa.ot.sims.shareit_client;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -32,7 +35,9 @@ public class ExchangeNotation extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange_notation);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#CC0000")));
+        bar.setDisplayHomeAsUpEnabled(true);
 
         this.product = (TextView) findViewById(R.id.objectInfo);
         this.lender = (TextView) findViewById(R.id.lenderInfo);
@@ -88,8 +93,14 @@ public class ExchangeNotation extends Activity {
         protected void onPostExecute(JSONObject reader) {
             try {
                 product.setText(reader.getJSONObject("product").getString("name"));
-                lender.setText("Propriétaire: " + Utils.getUserName(reader.getJSONObject("lender")));
-                borrower.setText("Emprunteur: " + Utils.getUserName(reader.getJSONObject("borrower")));
+                if(String.valueOf(Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))).equals(reader.getJSONObject("lender").getString("id"))) {
+                    borrower.setText("Emprunteur: " + Utils.getUserName(reader.getJSONObject("borrower")));
+                    lender.setVisibility(View.GONE);
+                } else {
+                    lender.setText("Propriétaire: " + Utils.getUserName(reader.getJSONObject("lender")));
+                    borrower.setVisibility(View.GONE);
+                }
+
 
                 Button rateButton = (Button) findViewById(R.id.validateButton);
                 final RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
