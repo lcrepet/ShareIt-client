@@ -46,7 +46,6 @@ public class ProfileActivity extends Activity {
     private Button addObject = null;
     private Button changeProfile = null;
     private String profileId;
-    private ImageView profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,6 @@ public class ProfileActivity extends Activity {
         listProducts = (ListView) findViewById(R.id.ListProducts);
         addObject = (Button) findViewById(R.id.AddObject);
         changeProfile = (Button) findViewById(R.id.EditProfile);
-        profilePic = (ImageView) findViewById(R.id.ProfilePic);
 
         try{
             profileId = getIntent().getExtras().getString("userId");
@@ -232,11 +230,6 @@ public class ProfileActivity extends Activity {
 
                 if (isEmpty) {
                     sexeAge.setVisibility(View.GONE);
-                }
-
-                s = reader.getString("profilePicture");
-                if(s != null && !s.isEmpty()) {
-                    profilePic.setImageBitmap(Utils.decodeBase64(s));
                 }
 
                 s = reader.getJSONObject("userStats").getString("averageNote");

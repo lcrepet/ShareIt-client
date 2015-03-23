@@ -5,17 +5,8 @@
     android:orientation="vertical"
     style="@style/background_style">
 
-    <ImageView
-        android:id="@+id/ProfilePic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10sp"
-        android:paddingTop="10sp"
-        android:src="@drawable/ic_launcher"/>
-
     <TextView
         android:id="@+id/FirstName"
-        android:layout_toRightOf="@id/ProfilePic"
         android:paddingLeft="16sp"
         android:paddingTop="10sp"
         android:text=""
@@ -25,7 +16,6 @@
 
     <TextView
         android:id="@+id/PhoneNumber"
-        android:layout_toRightOf="@id/ProfilePic"
         android:layout_below="@id/FirstName"
         android:paddingLeft="10sp"
         android:text=""
@@ -33,7 +23,6 @@
 
     <TextView
         android:id="@+id/SexAge"
-        android:layout_toRightOf="@id/ProfilePic"
         android:layout_below="@id/PhoneNumber"
         android:paddingLeft="10sp"
         android:text=""
@@ -41,7 +30,6 @@
 
     <TextView
         android:id="@+id/PostCode"
-        android:layout_toRightOf="@id/ProfilePic"
         android:layout_below="@id/SexAge"
         android:paddingLeft="10sp"
         android:text=""

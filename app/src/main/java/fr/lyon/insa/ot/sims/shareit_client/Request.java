@@ -3,6 +3,7 @@ package fr.lyon.insa.ot.sims.shareit_client;
 import android.os.Message;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
@@ -16,6 +17,9 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.protocol.BasicHttpContext;
@@ -177,35 +181,6 @@ public class Request {
         }
 
         return response.getStatusLine().toString();
-    }
-
-
-    public static JSONObject putPicture(String url, String picture) throws IOException {
-        HttpClient client = new DefaultHttpClient();
-
-        HttpPut put = new HttpPut(url);
-        HttpEntity pictureEntity = new ByteArrayEntity(picture.getBytes());
-        put.setEntity(pictureEntity);
-
-        HttpResponse response = client.execute(put);
-        String result = "";
-
-        JSONObject reader = new JSONObject();
-
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(
-                    response.getEntity().getContent()));
-            String line = "";
-            while ((line = rd.readLine()) != null) {
-                result = result + line;
-            }
-            reader = new JSONObject(result);
-        } catch (Exception e) {
-            result += e.getMessage();
-        }
-
-        return reader;
-
     }
 
 

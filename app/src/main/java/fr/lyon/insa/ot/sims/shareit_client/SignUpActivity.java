@@ -48,10 +48,6 @@ public class SignUpActivity extends Activity {
     private EditText age;
     private Spinner sex;
     private EditText phone;
-    private EditText cheminPhoto;
-    private ImageView photo;
-    Bitmap bitmap;
-    Uri targetUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +62,7 @@ public class SignUpActivity extends Activity {
         age = (EditText) findViewById(R.id.age);
         sex = (Spinner) findViewById(R.id.sex);
         phone = (EditText) findViewById(R.id.phone);
-        cheminPhoto= (EditText) findViewById(R.id.PicUser);
-        photo = (ImageView)findViewById(R.id.Pic);
         final Button button = (Button) findViewById(R.id.signUpButton);
-        final Button downloadPicture = (Button) findViewById(R.id.FindPic);
 
 
         if(getIntent().getExtras() != null && getIntent().getExtras().getString("modification").equals("true")){
@@ -79,17 +72,6 @@ public class SignUpActivity extends Activity {
             firstName.setHint("Prénom");
             lastName.setHint("Nom");
             postCode.setHint("Code postal");
-            cheminPhoto.setHint("Photo de profil");
-
-            downloadPicture.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-
-                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, 0);
-                }
-            });
-
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -124,18 +106,6 @@ public class SignUpActivity extends Activity {
                                     Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
                                     , userInfos.toString());
                         }
-
-                        if(!cheminPhoto.getText().toString().trim().equals("")){
-                            userInfos.put("profilePicture",bitmap);
-                        }
-
-                        String encodedImage = Utils.encodeTobase64(bitmap);
-
-                        Bitmap test = Utils.decodeBase64(encodedImage);
-
-                        new UpdatePicture().execute(Constants.uri + "user/" +
-                                Utils.getUserId(getSharedPreferences(MainActivity.SETTINGS, Context.MODE_PRIVATE))
-                                , encodedImage);
 
                     } catch(JSONException e ){
 
@@ -189,35 +159,6 @@ public class SignUpActivity extends Activity {
             });
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK){
-            targetUri = data.getData();
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            bitmap = BitmapFactory.decodeFile(getPath(targetUri), options);
-        }
-    }
-
-    public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        if (cursor != null) {
-            // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
-            // THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
-            int column_index = cursor
-                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } else
-            return null;
-    }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -329,26 +270,6 @@ public class SignUpActivity extends Activity {
         }
 
         protected void onPostExecute(String reader) {
-            HashMap<String, String> extras = new HashMap<>();
-            extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
-            Utils.openOtherActivity(SignUpActivity.this, ProfileActivity.class, extras);
-        }
-    }
-
-    private class UpdatePicture extends AsyncTask<String, Void, JSONObject> {
-
-        @Override
-        protected JSONObject doInBackground(String... message) {
-            try {
-                return Request.putPicture(message[0], message[1]);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        protected void onPostExecute(JSONObject reader) {
             HashMap<String, String> extras = new HashMap<>();
             extras.put(Intent.EXTRA_INTENT, MainActivity.class.getCanonicalName());
             Utils.openOtherActivity(SignUpActivity.this, ProfileActivity.class, extras);
