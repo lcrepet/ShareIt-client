@@ -210,15 +210,18 @@ public class ProfileActivity extends Activity {
                 if(s != null && !s.isEmpty()) {
                     if(s.equals("M")){
                         s = "Homme";
-                    } else {
+                        isEmpty = false;
+                    } else if (s.equals("F")){
                         s = "Femme";
+                        isEmpty = false;
+                    } else {
+                        isEmpty = true;
                     }
-                    isEmpty = false;
                     sexeAge.setText(s);
                 }
 
                 s = reader.getString("age");
-                if(s != null && !s.isEmpty()) {
+                if(!s.equals("0")) {
                     if (isEmpty) {
                         s += " ans";
                         isEmpty = false;

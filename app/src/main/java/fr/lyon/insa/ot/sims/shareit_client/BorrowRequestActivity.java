@@ -161,7 +161,7 @@ public class BorrowRequestActivity extends Activity {
             objectButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     try {
-                        new BorrowRequest().execute(Constants.uri + "/product/" + object.getString("id") + "/borrow/", object.toString());
+                        new BorrowRequest().execute(Constants.uri + "product/" + object.getString("id") + "/borrow/", object.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
