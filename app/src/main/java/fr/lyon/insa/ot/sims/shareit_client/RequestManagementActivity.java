@@ -70,7 +70,6 @@ public class RequestManagementActivity extends Activity {
             public void onClick(View v) {
                 new Answer().execute(Constants.uri + "/exchange/" + exchangeId + "/accept");
                 ok.setVisibility(View.INVISIBLE);
-                nok.setVisibility(View.INVISIBLE);
                 done.setVisibility(View.VISIBLE);
                 status.setText(res.getString(R.string.status_accepted));
             }
@@ -80,6 +79,7 @@ public class RequestManagementActivity extends Activity {
             public void onClick(View v) {
                 new Answer().execute(Constants.uri + "/exchange/" + exchangeId + "/confirm");
                 done.setVisibility(View.INVISIBLE);
+                nok.setVisibility(View.INVISIBLE);
                 returned.setVisibility(View.VISIBLE);
                 status.setText(res.getString(R.string.status_borrowed));
             }
